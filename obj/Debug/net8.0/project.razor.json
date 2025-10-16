@@ -19329,11 +19329,6 @@
   "RootNamespace": "Info360",
   "Documents": [
     {
-      "FilePath": "z:\\info360\\Info360\\Views\\Home\\Landing.cshtml",
-      "TargetPath": "Views\\Home\\Landing.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "z:\\info360\\Info360\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"

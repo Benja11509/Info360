@@ -1,8 +1,24 @@
 {
   "Files": [
     {
+      "Id": "Z:\\info360\\Info360\\wwwroot\\Imagenes\\IMG_3055.PNG",
+      "PackagePath": "staticwebassets\\Imagenes\\IMG_3055.PNG"
+    },
+    {
+      "Id": "Z:\\info360\\Info360\\wwwroot\\Imagenes\\IMG_3056.jpg",
+      "PackagePath": "staticwebassets\\Imagenes\\IMG_3056.jpg"
+    },
+    {
+      "Id": "Z:\\info360\\Info360\\wwwroot\\Imagenes\\IMG_3057.jpg",
+      "PackagePath": "staticwebassets\\Imagenes\\IMG_3057.jpg"
+    },
+    {
       "Id": "Z:\\info360\\Info360\\wwwroot\\Imagenes\\LOGO 2.png",
       "PackagePath": "staticwebassets\\Imagenes\\LOGO 2.png"
+    },
+    {
+      "Id": "Z:\\info360\\Info360\\wwwroot\\Imagenes\\Thumbs.db",
+      "PackagePath": "staticwebassets\\Imagenes\\Thumbs.db"
     },
     {
       "Id": "Z:\\info360\\Info360\\wwwroot\\css\\site.css",

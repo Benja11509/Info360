@@ -11,9 +11,232 @@ html {
 
 body {
   margin: 10px;
-  padding: 10px;
 }
 
+.main{
+  margin-top:56px;
+}
+
+/* ----------- Reset básico ----------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #fff;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ----------- Hero Section ----------- */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 3rem;
+  background-color: #f5f9ff;
+}
+
+.hero-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+}
+
+.hero-image .img-placeholder {
+  width: 400px;
+  height: 250px;
+  background-color: #dfe9f6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+.hero-text h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.hero-text h3 {
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: #546e7a;
+}
+
+.hero-text p {
+  margin-bottom: 1.5rem;
+}
+
+.btn-solid {
+  border: none;
+  background-color: #4b8bdb;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-solid:hover {
+  background-color: #3b77c7;
+}
+
+/* ----------- Quiénes somos ----------- */
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4rem 2rem;
+  background-color: #fffbe6;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1100px;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-text h2 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.about-illustration .illustration-placeholder {
+  width: 200px;
+  height: 200px;
+  background-color: #ffe082;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+}
+
+/* ----------- Valores ----------- */
+.values {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.values-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 700px;
+  margin: 2rem auto 0;
+}
+
+.value-card {
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  border: 1px solid #e0e0e0;
+}
+
+.value-info {
+  text-align: left;
+}
+
+.value-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #4b8bdb;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ----------- Equipo ----------- */
+.team {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: #f5f9ff;
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.team-member {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+.photo-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #dfe9f6;
+  border-radius: 50%;
+  margin: 0 auto 1rem auto;
+}
+
+/* ----------- CTA final ----------- */
+.cta {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.cta h3 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+/* ----------- Responsive ----------- */
+@media (max-width: 768px) {
+  .hero-content {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .about-content {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .values-list {
+      width: 100%;
+  }
+
+  .team-members {
+      flex-direction: column;
+  }
+}
 
 
 
@@ -41,6 +264,7 @@ body {
 footer{
   background-color: black;
   color: white;
+  padding:0px;
 }
 
 .footerDiv{
@@ -83,3 +307,4 @@ footer img{
   height: 10%;
   margin-right: 80%;
 }
+.main {}
