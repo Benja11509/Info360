@@ -15,9 +15,71 @@ body {
 }
 
 
-footer {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-top: 1px solid #e9ecef;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer{
+  background-color: black;
+  color: white;
+}
+
+.footerDiv{
+
+  width: 25%;
+  height: 25%;
+  float: left;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 1%;
+  margin-left: 5%;
+  
+
+}
+.footerDiv ul {
+  list-style: none;
+  padding: 0%;
+  margin: 0%;
+}
+.footerDiv img{
+  width: 10%;
+  height: 10%;
+  margin-right: 2%;
+}
+
+.footerDerechos{
+
+  clear: left;
+}
+.footerDerechos a{
+  text-decoration: none;
+  color: black;
+}
+.footerDerechos a:hover{
+  text-decoration: underline;
+  color: blue;
+}
+footer img{
+  width: 10%;
+  height: 10%;
+  margin-right: 80%;
 }
