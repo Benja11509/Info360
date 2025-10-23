@@ -59,7 +59,12 @@ body {
   justify-content: center;
   color: #555;
 }
+.img-placeholder , img{
 
+
+  width: 100%;
+   border-radius:3% ;
+}
 .hero-text {
   max-width: 500px;
 }
@@ -240,26 +245,21 @@ body {
 
 
 
+/* ----------- header y footer ----------- */
+.navbar-brand
+{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+.LinksNuestros
+{
+background-color: rgb(226, 225, 225);
+border-radius: 25% ;
+text-decoration: none;
+color: black;
+font-size: 150%;
+}
 
 footer{
   background-color: black;
@@ -307,4 +307,121 @@ footer img{
   height: 10%;
   margin-right: 80%;
 }
-.main {}
+
+
+
+
+/* ----------- actividades ----------- */
+
+
+.seccion-actividades {
+  padding: 40px 20px;
+  position: relative;
+}
+
+/* Fondo amarillo ondulado */
+.fondo-amarillo {
+  background-color: #F9E28C;
+  border-radius: 50% / 20%;
+  width: 70%;
+  height: 100px;
+  margin: 0 auto;
+  margin-bottom: -30px;
+  position: relative;
+  z-index: 1;
+}
+
+.titulo {
+  position: relative;
+  z-index: 2;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+  margin-top: -60px;
+  margin-bottom: 60px;
+}
+
+.contenedor-botones {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.tarjeta {
+  width: 160px;
+  height: 120px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+}
+
+.pictogramas {
+  background-color: #C9A4F5;
+}
+
+.juegos {
+  background-color: #9BD9EB;
+}
+
+.boton-play {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.boton-play i {
+  border-style: solid;
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent #8C5BEF; /* triángulo violeta */
+  margin-left: 3px;
+}
+
+/* Variante para botón celeste */
+.juegos .boton-play i {
+  border-color: transparent transparent transparent #2BBBE2;
+}
+
+/* Circulitos decorativos */
+.decorativos {
+  position: absolute;
+  top: 40px;
+  right: 80px;
+  display: flex;
+  gap: 10px;
+}
+
+.circulo {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.circulo.violeta {
+  background-color: #C9A4F5;
+}
+
+.circulo.celeste {
+  background-color: #9BD9EB;
+  
+}
+
+
+/* ----------- fin de actividades ----------- */
