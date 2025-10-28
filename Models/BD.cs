@@ -54,20 +54,25 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
              string query = "SELECT * FROM Integrantes where nombreUsuario = @pNombreusuarios AND contraseña = @pContraseña ";
              user = connection.QueryFirstOrDefault<Usuario>(query, new {pNombreusuarios = NombreUSU, pContraseña = Contraseña});
         }
-       if (user == null){
-
-       }
+       bool esta = false;
+       if(user != null) esta = true;
+       return esta;
      }
 
     public static bool CrearUsuario (string NombreUSU, string Contraseña){
-        Usuario user = null;
         bool sePudo = false;
-        public void Agregar Jugador (Jugador jug){
-             string query "INSERT INTO Jugadores (IdEquipo, Nombre, Fechalacimiento) VALUES (@pIdEquipe, OpNonbre, OpFechaNacimiento)";
+        bool esta = VerificarUsuario(NombreUSU, Contraseña);
+        if(esta == false){
+            Usuario user = null;
+            bool sePudo = false;
+                //aca tengo que hacer el insert con el usuario, ver que hago con los que permiten nulos
+             string query = "INSERT INTO Usuarios (Nombre, Fechalacimiento) VALUES ( OpNonbre, OpFechaNacimiento)";
              using(SqlConnection connection new SqlConnection(_connectionString)){
                 connection.Execute(query, new pIdEquipo jug. IdEquipo, Nombre jug. Nombre, pFechaNacimiento jug. FechaNacimiento 1);
              }
         }
+        
+        return sePudo;
     }
 
 
