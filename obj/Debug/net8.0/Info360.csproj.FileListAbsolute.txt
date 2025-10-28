@@ -68,3 +68,15 @@ C:\Users\49432878\Desktop\Info360\obj\Debug\net8.0\Info360.sourcelink.json
 C:\Users\49432878\Desktop\Info360\obj\Debug\net8.0\Info360.dll
 C:\Users\49432878\Desktop\Info360\obj\Debug\net8.0\refint\Info360.dll
 C:\Users\49432878\Desktop\Info360\obj\Debug\net8.0\Info360.pdb
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.csproj.AssemblyReference.cache
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.AssemblyInfoInputs.cache
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.AssemblyInfo.cs
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.csproj.CoreCompileInputs.cache
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.RazorAssemblyInfo.cache
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.RazorAssemblyInfo.cs
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.sourcelink.json
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.dll
+C:\Users\48857364\Info360\obj\Debug\net8.0\refint\Info360.dll
+C:\Users\48857364\Info360\obj\Debug\net8.0\Info360.pdb

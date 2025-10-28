@@ -59,19 +59,22 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
        return esta;
      }
 
-    public static bool CrearUsuario (string NombreUSU, string Contraseña){
-        bool sePudo = false;
-        bool esta = VerificarUsuario(NombreUSU, Contraseña);
+    public static bool CrearUsuario (Usuario Usu){
+           bool sePudo = false;
+        bool esta = VerificarUsuario(Usu.nombre, Usu.Contraseña);
         if(esta == false){
             Usuario user = null;
             bool sePudo = false;
                 //aca tengo que hacer el insert con el usuario, ver que hago con los que permiten nulos
-             string query = "INSERT INTO Usuarios (Nombre, Fechalacimiento) VALUES ( OpNonbre, OpFechaNacimiento)";
-             using(SqlConnection connection new SqlConnection(_connectionString)){
-                connection.Execute(query, new pIdEquipo jug. IdEquipo, Nombre jug. Nombre, pFechaNacimiento jug. FechaNacimiento 1);
+             string query = "INSERT INTO Usuarios (NombreUSU, Contraseña, nombre, apellido, fechaNacimiento, tipoUsuario, telefono, nivelApoyo, fechaIngreso, puntos, mail, fotoPerfil) VALUES ( @pNombreUSU, @pContraseña, @pnombre, @papellido, @pfechaNacimiento, @ptipoUsuario, @ptelefono, @pnivelApoyo, @pfechaIngreso, @ppuntos, @pmail, @pfotoPerfil)";
+             using(SqlConnection connection = new SqlConnection(_connectionString))
+             {
+                connection.Execute(query, new {@pNombreUSU = Usu.nombreUsuario, @pContraseña = Usu.contraseña, @pnombre = Usu.nombre, @papellido = Usu.apellido, @pfechaNacimiento = Usu.fechaNacimiento, @ptipoUsuario = Usu.tipoUsuario, @ptelefono = Usu.telefono, @pnivelApoyo = Usu.nivelApoyo, @pfechaIngreso = Usu.fechaIngreso, @ppuntos = Usu.puntos, @pmail = Usu.mail, @pfotoPerfil = Usu.fotoperfil});
              }
+            esta = VerificarUsuario(Usu.nombre, Usu.contraseña);
+            if (esta) sePudo = true;
         }
-        
+        //aca tira muchos errores porque no me deja declarar objetos de tipo usuario :(
         return sePudo;
     }
 
