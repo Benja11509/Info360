@@ -46,18 +46,29 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     }
 
 
-  public static bool CrearUnUsuario (string NombreUSU, string Contraseña)
+  public static void VerificarUsuario (string NombreUSU, string Contraseña)
      {
-   bool sePudo = false;
+       Usuario user = null;
          using (SqlConnection connection = new SqlConnection(_connectionString))
          {
              string query = "SELECT * FROM Integrantes where nombreUsuario = @pNombreusuarios AND contraseña = @pContraseña ";
-            sePudo = connection.QueryFirstOrDefault<Usuario>(query, new {pNombreusuarios = NombreUSU, pContraseña = Contraseña});
+             user = connection.QueryFirstOrDefault<Usuario>(query, new {pNombreusuarios = NombreUSU, pContraseña = Contraseña});
         }
-       
-        return sePudo;
+       if (user == null){
+
+       }
      }
 
+    public static bool CrearUsuario (string NombreUSU, string Contraseña){
+        Usuario user = null;
+        bool sePudo = false;
+        public void Agregar Jugador (Jugador jug){
+             string query "INSERT INTO Jugadores (IdEquipo, Nombre, Fechalacimiento) VALUES (@pIdEquipe, OpNonbre, OpFechaNacimiento)";
+             using(SqlConnection connection new SqlConnection(_connectionString)){
+                connection.Execute(query, new pIdEquipo jug. IdEquipo, Nombre jug. Nombre, pFechaNacimiento jug. FechaNacimiento 1);
+             }
+        }
+    }
 
 
 
