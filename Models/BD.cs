@@ -44,4 +44,26 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         }
         return ListAct;
     }
+
+
+  public static bool CrearUnUsuario (string NombreUSU, string Contraseña)
+     {
+   bool sePudo = false;
+         using (SqlConnection connection = new SqlConnection(_connectionString))
+         {
+             string query = "SELECT * FROM Integrantes where nombreUsuario = @pNombreusuarios AND contraseña = @pContraseña ";
+            sePudo = connection.QueryFirstOrDefault<Usuario>(query, new {pNombreusuarios = NombreUSU, pContraseña = Contraseña});
+        }
+       
+        return sePudo;
+     }
+
+
+
+
+
+
+
+
+
 }

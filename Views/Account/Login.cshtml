@@ -1,0 +1,33 @@
+
+@{
+        ViewData["Title"] = "Index";
+}
+    <section class="login-box">
+        <h1>Tándem</h1>
+        //hacer todo el diseño como esta en el figma
+        <form method="post" action='@Url.Action("LogIn2", "Account")'>
+            <p>
+                <div class="mb-3">
+        <input type="text" class="form-control" id="formGroupExampleInput" name="UserName"  placeholder="Nombre de usuario">
+        </div>
+        <div class="mb-3">
+        <input type="text" class="form-control" id="formGroupExampleInput" name="Contraseña" placeholder="Email">
+        </div>
+         <div class="mb-3">
+        <input type="text" class="form-control" id="formGroupExampleInput" name="Contraseña" placeholder="Contraseña">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </div>
+            </p>
+        </form>
+
+        <h2>@ViewBag.MensajeLogin</h2>
+
+        <p>No tienes cuenta, 
+            <a href='@Url.Action("Registrarse1", "Account")'>Registrate</a>
+        </p>
+
+        </p>
+    </section>
+    //preg a iara si esta view y registrarse tiene que ir en una carpeta de account dentro de las views

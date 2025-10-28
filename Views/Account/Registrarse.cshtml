@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Registrar";
+}
+<section class="">
+    <h1>Registrarse</h1>
+    
+    <form method="post" action='@Url.Action("Registrarse2", "Account")'>
+        <ul>
+            <li>Usuario: 
+                <input type="text" name="UserName" id="IdUserName">
+            </li>
+
+            <li>Contraseña: 
+                <input type="password" name="Contraseña" id="IdContraseña">
+            </li>
+
+            <li>Nombre: 
+                <input type="text" name="Nombre" id="IdNombre">
+            </li>
+
+            <li>Apellido: 
+                <input type="text" name="Apellido" id="IdApellido">
+            </li>
+
+            <li>Foto: 
+                <input type="text" name="Foto" id="IdFoto">
+            </li>
+        </ul>
+ 
+        <input type="submit" value="Enviar">
+    </form>
+
+    <p>Ya tenés cuenta, 
+        <a href='@Url.Action("LogIn1", "Account")'>Inicia sesión</a>
+    </p> 
+</section>
