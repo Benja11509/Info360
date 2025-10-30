@@ -57,15 +57,15 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     public static bool CrearUsuario(Usuario Usu)
     {
         bool sePudo = false;
-        bool esta = VerificarUsuario(Usu.nombre, Usu.Contraseña);
+        bool esta = VerificarUsuario(Usu.nombre, Usu.contraseña);
         if (esta == false)
         {
             Usuario user = null;
-            bool sePudo = false;
+            sePudo = false;
             string query = "INSERT INTO Usuarios (NombreUSU, Contraseña, nombre, apellido, fechaNacimiento, tipoUsuario, telefono, nivelApoyo, fechaIngreso, puntos, mail, fotoPerfil) VALUES ( @pNombreUSU, @pContraseña, @pnombre, @papellido, @pfechaNacimiento, @ptipoUsuario, @ptelefono, @pnivelApoyo, @pfechaIngreso, @ppuntos, @pmail, @pfotoPerfil)";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Execute(query, new { @pNombreUSU = Usu.nombreUsuario, @pContraseña = Usu.contraseña, @pnombre = Usu.nombre, @papellido = Usu.apellido, @pfechaNacimiento = Usu.fechaNacimiento, @ptipoUsuario = Usu.tipoUsuario, @ptelefono = Usu.telefono, @pnivelApoyo = Usu.nivelApoyo, @pfechaIngreso = Usu.fechaIngreso, @ppuntos = Usu.puntos, @pmail = Usu.mail, @pfotoPerfil = Usu.fotoperfil });
+                connection.Execute(query, new { @pNombreUSU = Usu.nombreUsuario, @pContraseña = Usu.contraseña, @pnombre = Usu.nombre, @papellido = Usu.apellido, @pfechaNacimiento = Usu.fechaNacimiento, @ptipoUsuario = Usu.tipoUsuario, @ptelefono = Usu.telefono, @pnivelApoyo = Usu.nivelApoyo, @pfechaIngreso = Usu.fechaIngreso, @ppuntos = Usu.puntos, @pmail = Usu.mail, @pfotoPerfil = Usu.fotoPerfil });
             }
             esta = VerificarUsuario(Usu.nombre, Usu.contraseña);
             if (esta) sePudo = true;

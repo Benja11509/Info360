@@ -4,7 +4,7 @@ public class Usuario
 {
 
     [JsonProperty]
-    public int Id { get; private set; }
+    public int id { get; private set; }
     
     [JsonProperty]
     public string nombreUsuario { get; private set; }
@@ -21,9 +21,9 @@ public class Usuario
     [JsonProperty]
     public string telefono { get; private set; }
     [JsonProperty]
-    public int NivelApoyo { get; private set; }
+    public int nivelApoyo { get; private set; }
     [JsonProperty]
-    public DateTime FechaIngreso { get; private set; }
+    public DateTime fechaIngreso { get; private set; }
     [JsonProperty]
     public int puntos { get; private set; }
     [JsonProperty]

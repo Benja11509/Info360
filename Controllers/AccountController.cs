@@ -19,9 +19,9 @@ public class AccountController : Controller
         return View("Index");
     }
     [HttpPost]
-    public IActionResult LogIn2(string UserName, string Contraseña)
+    public IActionResult LogIn2(string userName, string contraseña)
     {
-        Usuario UsuarioLogin = BD.TraerUNUsuario(UserName, Contraseña);
+        Usuario UsuarioLogin = BD.TraerUNUsuario(userName, contraseña);
 
         string view = "Index";
         ViewBag.Usuario = UsuarioLogin;
@@ -33,7 +33,7 @@ public class AccountController : Controller
         else
         {
 
-            HttpContext.Session.SetString("ID", UsuarioLogin.Id.ToString());
+            HttpContext.Session.SetString("ID", UsuarioLogin.id.ToString());
         }
 
         return View(view);
@@ -43,13 +43,13 @@ public class AccountController : Controller
 
 
     [HttpPost]
-    public IActionResult Registrarse2(string UserName, string Contraseña, string contraseña1, string Email, string tipoUser)
+    public IActionResult Registrarse2(string userName, string contraseña, string contraseña1, string email, string tipoUser)
     {
 string HaciaDondeVa = "Index";
         //no se porque no me toma la clase usuario cuando declaro un objeto de ese tipo
 
         DateTime UltimoInicio = DateTime.Now;
-if(Contraseña == contraseña1)
+if(contraseña == contraseña1)
 {
  ViewBag.MensajeContraseña = "Las contraseñas no coinciden";
  HaciaDondeVa = "Registrarse"; 
@@ -57,13 +57,13 @@ if(Contraseña == contraseña1)
 }
 else
 {
- Usuario user = new Usuario (UserName, Contraseña, Email, tipoUser);
+ Usuario user = new Usuario (userName, contraseña, email, tipoUser);
 
         ViewBag.SePudo = BD.CrearUsuario(User); //recibe el objeto usuario desde el formulario y lo desgloza dentro de crear usuario.
 
         if (ViewBag.SePudo)
         {
-            HttpContext.Session.SetString("ID", UsuarioRegistrar.Id.ToString());
+            HttpContext.Session.SetString("ID", UsuarioRegistrar.id.ToString());
         }
         else
         {
