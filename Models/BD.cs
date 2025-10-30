@@ -57,15 +57,16 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     public static bool CrearUsuario(Usuario Usu)
     {
         bool sePudo = false;
-        bool esta = VerificarUsuario(Usu.nombre, Usu.contraseña);
+        bool esta = VerificarUsuario(Usu.nombreUsuario, Usu.contraseña);
+        
         if (esta == false)
         {
             Usuario user = null;
             sePudo = false;
-            string query = "INSERT INTO Usuarios (NombreUSU, Contraseña, nombre, apellido, fechaNacimiento, tipoUsuario, telefono, nivelApoyo, fechaIngreso, puntos, mail, fotoPerfil) VALUES ( @pNombreUSU, @pContraseña, @pnombre, @papellido, @pfechaNacimiento, @ptipoUsuario, @ptelefono, @pnivelApoyo, @pfechaIngreso, @ppuntos, @pmail, @pfotoPerfil)";
+            string query = "INSERT INTO Usuarios (nombreUsuario, contraseña, tipoUsuario, mail) VALUES ( @pNombreUSU, @pContraseña, @ptipoUsuario, @pmail)";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Execute(query, new { @pNombreUSU = Usu.nombreUsuario, @pContraseña = Usu.contraseña, @pnombre = Usu.nombre, @papellido = Usu.apellido, @pfechaNacimiento = Usu.fechaNacimiento, @ptipoUsuario = Usu.tipoUsuario, @ptelefono = Usu.telefono, @pnivelApoyo = Usu.nivelApoyo, @pfechaIngreso = Usu.fechaIngreso, @ppuntos = Usu.puntos, @pmail = Usu.mail, @pfotoPerfil = Usu.fotoPerfil });
+                connection.Execute(query, new { @pNombreUSU = Usu.nombreUsuario, @pContraseña = Usu.contraseña, @ptipoUsuario = Usu.tipoUsuario, @pmail = Usu.mail});
             }
             esta = VerificarUsuario(Usu.nombre, Usu.contraseña);
             if (esta) sePudo = true;
@@ -88,18 +89,43 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         return sePudo;
     }
 
-    public static List<Usuario> MostrarVinculos(Usuario user)
+    public static List<Usuario> ListaVinculos(Usuario user)
     {
         bool sePudo = false;
+        int idUser = user.id;
 
         List<Usuario> ListVinculos = new List<Usuario>();
+
+        if(user.tipoUsuario == "tutor"){
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT FROM Tutorias WHERE";
-            ListAct = connection.Query<Actividades>(query).ToList();
+            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idUser)";
+            ListVinculos = connection.Query<Usuario>(query).ToList();
         }
-        return ListAct;
-            return null;
+        }
+        else
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT * FROM Usuarios WHERE id IN (SELECT idTutor FROM Tutoria WHERE idPerteneciente = @idUser)";
+            ListVinculos = connection.Query<Usuario>(query).ToList();
+        }
+        }
+        return ListVinculos;
     }
+
+    public static List<Usuario> ListaUsuariosDisponibles(int idTutor)
+{
+    List<Usuario> lista = new List<Usuario>();
+
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (idPerteneciente FROM Tutoria WHERE idTutor = @idTutor)";
+
+        lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
+    }
+
+    return lista;
+}
 
 }
