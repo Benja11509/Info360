@@ -17,8 +17,8 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="Localhost:5088">Tándem</a>
      
-        <a class="LinksNuestros" href="~/Actividades.cshtml">Actividades</a>
-        <a class = "LinksNuestros" href="Actividades.cshtml">Nosotros</a>
+         <a href='@Url.Action("LogIn1", "Account")'>Actividades</a>
+         <a href='@Url.Action("LogIn1", "Account")'>Nosotros</a>
         <img src="/Imagenes/CampanitaNotifi.webp" alt="CampanitaDeNoti">
         <img src="" alt="">
         <button
@@ -52,22 +52,30 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+             
+                 <a href='@Url.Action("LogIn1", "Account")' class="nav-link active" aria-current="page">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Favoritos</a>
+               
+                 <a href='@Url.Action("LogIn1", "Account")' class="nav-link" >Favoritos</a>
+
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Mis Pertenecientes</a>
+              <a href='@Url.Action("LogIn1", "Account")' class="nav-link" >Mis pertenecientes</a>
+
+
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Ayuda</a>
+              <a href='@Url.Action("LogIn1", "Account")' class="nav-link" >Ayuda</a>
+
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Mi Perfil</a>
+              <a href='@Url.Action("LogIn1", "Account")' class="nav-link" >Mi perfil</a>
+
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar Sesion </a>
+                              <a href='@Url.Action("LogIn1", "Account")' class="nav-link" >Cerrar session </a>
+
               </li>
             </ul>
           </div>

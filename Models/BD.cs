@@ -16,7 +16,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         Usuario user = null;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM Integrantes where nombreUsuario = @pNombreusuarios AND contraseña = @pContraseña ";
+            string query = "SELECT * FROM Usuarios where nombreUsuario = @pNombreusuarios AND contraseña = @pContraseña ";
             user = connection.QueryFirstOrDefault<Usuario>(query, new { pNombreusuarios = NombreUSU, pContraseña = Contraseña });
         }
 

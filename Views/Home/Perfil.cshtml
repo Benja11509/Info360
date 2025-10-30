@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Perfil";
+    //FALTA CREAR LOS VIEWBAGS EN EL CONTROLER
+}
+
+<section class="Perfil_Basicos">
+
+    <div class="Perfil_Basicos_Foto">
+        <img src="@Model.fotoPerfil" alt="Foto de perfil" />
+    </div>
+
+    <div class="Perfil_Basicos_Datos">
+        <h2>@ViewBag.usuario.nombreUsuario</h2>
+        <p><strong>Nombre:</strong> @ViewBag.usuario.nombre @ViewBag.usuario.apellido</p>
+        <p><strong>Email:</strong> @ViewBag.usuario.mail</p>
+        <p><strong>Tipo de usuario:</strong> @ViewBag.usuario.tipoUsuario</p>
+    </div>
+
+</section>
+
+<hr />
+
+<section class="Perfil_Relaciones">
+    @if (ViewBag.usuario.tipoUsuario == "Perteneciente")
+    {
+        <h3>Tutores vinculados</h3>
+        //VER COMO ESTAN VINCULADOS Y MOSTRAR
+    }
+    else if (Model.tipoUsuario == "Tutor")
+    {
+        <h3>Pertenecientes vinculados</h3>
+        //VER COMO ESTAN VINCULADOS Y MOSTRAR
+
+        //VER INFORMACIÓN, POSIBILIDAD DE AGREGAR Y ELIMINAR PERTENECIENTES
+    }
+</section>

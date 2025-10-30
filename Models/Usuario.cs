@@ -41,10 +41,14 @@ mail = this.mail;
 tipoUser = this.tipoUsuario;
 
 }
-
 public Usuario()
 {
     
+}
+
+public void ListaPertenecientes()
+{
+    //
 }
 
 

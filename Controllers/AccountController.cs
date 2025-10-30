@@ -16,62 +16,68 @@ public class AccountController : Controller
 
     public IActionResult Index()
     {
-        return View("Index");
+        string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        Usuario user; 
+
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            user = new Usuario(); 
+        }
+        else
+        {
+            user = Objeto.StringToObject<Usuario>(usuarioJson);
+        }
+
+        return View("Login");
     }
+
     [HttpPost]
     public IActionResult LogIn2(string userName, string contraseña)
     {
-        Usuario UsuarioLogin = BD.TraerUNUsuario(userName, contraseña);
-
-        string view = "Index";
-        ViewBag.Usuario = UsuarioLogin;
-        if (ViewBag.Usuario == null)
+        Usuario? UsuarioLogin = BD.TraerUNUsuario(userName, contraseña);
+        string view = "Login"; 
+        
+        if (UsuarioLogin == null)
         {
-            view = "Login";
             ViewBag.MensajeLogin = "Usuario o contraseña incorrectos";
         }
         else
         {
-
-            HttpContext.Session.SetString("ID", UsuarioLogin.id.ToString());
+            string usuarioJson = Objeto.ObjectToString(UsuarioLogin);
+            HttpContext.Session.SetString("Usuario", usuarioJson);
+            return RedirectToAction("Index", "Home"); 
         }
 
         return View(view);
     }
 
-
-
-
     [HttpPost]
     public IActionResult Registrarse2(string userName, string contraseña, string contraseña1, string email, string tipoUser)
     {
-string HaciaDondeVa = "Index";
-        //no se porque no me toma la clase usuario cuando declaro un objeto de ese tipo
-
-        DateTime UltimoInicio = DateTime.Now;
-if(contraseña == contraseña1)
-{
- ViewBag.MensajeContraseña = "Las contraseñas no coinciden";
- HaciaDondeVa = "Registrarse"; 
-
-}
-else
-{
- Usuario user = new Usuario (userName, contraseña, email, tipoUser);
-
-        ViewBag.SePudo = BD.CrearUsuario(User); //recibe el objeto usuario desde el formulario y lo desgloza dentro de crear usuario.
-
-        if (ViewBag.SePudo)
+        string HaciaDondeVa = "Home"; 
+        
+        if(contraseña != contraseña1)
         {
-            HttpContext.Session.SetString("ID", UsuarioRegistrar.id.ToString());
+            ViewBag.MensajeContraseña = "Las contraseñas no coinciden";
+            HaciaDondeVa = "Registrarse"; 
         }
         else
         {
-            ViewBag.Mensaje = "Ya tienes un usuario existente en esta plataforma";
+            Usuario user = new Usuario(userName, contraseña, email, tipoUser);
+            ViewBag.SePudo = BD.CrearUsuario(user); 
 
-        }   
-}
-       
+            if (ViewBag.SePudo)
+            {
+                string usuarioJson = Objeto.ObjectToString(user);
+                HttpContext.Session.SetString("Usuario", usuarioJson);
+                return RedirectToAction("Index", "Home"); 
+            }
+            else
+            {
+                ViewBag.Mensaje = "Ya tienes un usuario existente en esta plataforma";
+                HaciaDondeVa = "Registrarse"; 
+            }   
+        }
         
         return View(HaciaDondeVa);
     }
@@ -79,19 +85,16 @@ else
     public IActionResult CerrarSesion()
     {
         HttpContext.Session.Clear();
-        return View("Index");
+        return View("Login");
     }
-
 
     public IActionResult Registrarse1()
     {
-
-        return View("Registrar");
+        return View("Registrarse");
     }
+
     public IActionResult LogIn1()
     {
-
-        return View("Index");
+        return View("Login");
     }
-
 }
