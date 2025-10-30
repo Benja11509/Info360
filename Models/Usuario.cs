@@ -15,7 +15,7 @@ public class Usuario
     [JsonProperty]
     public string apellido { get; private set; }
     [JsonProperty]
-    public DateTime fechaNacimiento { get; private set; }
+    public DateTime? fechaNacimiento { get; private set; }
     [JsonProperty]
     public string tipoUsuario { get; private set; }
     [JsonProperty]
@@ -23,7 +23,7 @@ public class Usuario
     [JsonProperty]
     public int nivelApoyo { get; private set; }
     [JsonProperty]
-    public DateTime fechaIngreso { get; private set; }
+    public DateTime? fechaIngreso { get; private set; }
     [JsonProperty]
     public int puntos { get; private set; }
     [JsonProperty]

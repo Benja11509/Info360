@@ -88,4 +88,18 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         return sePudo;
     }
 
+    public static List<Usuario> MostrarVinculos(Usuario user)
+    {
+        bool sePudo = false;
+
+        List<Usuario> ListVinculos = new List<Usuario>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT FROM Tutorias WHERE";
+            ListAct = connection.Query<Actividades>(query).ToList();
+        }
+        return ListAct;
+            return null;
+    }
+
 }
