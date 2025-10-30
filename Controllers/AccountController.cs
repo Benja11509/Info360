@@ -43,7 +43,7 @@ public class AccountController : Controller
 
 
     [HttpPost]
-    public IActionResult Registrarse2(Usuario user)
+    public IActionResult Registrarse2(string UserName, string Contraseña, string contraseña1, string Email, string tipoUser)
     {
 
         //no se porque no me toma la clase usuario cuando declaro un objeto de ese tipo

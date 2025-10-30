@@ -1,36 +1,52 @@
 @{
-    ViewData["Title"] = "Registrar";
+        ViewData["Title"] = "Registrar";
 }
 <section class="">
-    <h1>Registrarse</h1>
-    
-    <form method="post" action='@Url.Action("Registrarse2", "Account")'>
-        <ul>
-            <li>Usuario: 
-                <input type="text" name="UserName" id="IdUserName">
-            </li>
+        <h1>Registrarse</h1>
+        
+        <form method="post" action='@Url.Action("Registrarse2", "Account")'>
+            <ul>
+            <div class="mb-3">
+            <img src="" alt="img usuario">
+                <li>Nombre de usuario: 
+                    <input type="text" name="userName" class="form-control" id="formGroupExampleInput" placeholder = "Nombre de usuadio">
+                </li>
+    </div> 
+    <div class="mb-3">
+    <img src="" alt="img contraseña">
+                <li>Contraseña: 
+                    <input type="password" name="contraseña" class="form-control" id="formGroupExampleInput">
+                </li>
+    </div>
+    <div class="mb-3">
+    <img src="" alt="img misma foto antes">
+                <li>Repetir Contraseña: 
+                    <input type="password" name="contraseña1" class="form-control" id="formGroupExampleInput">
+                </li>
+    </div>
+    <div class="mb-3">
+    <img src="" alt="img email">
+                <li>Email: 
+                    <input type="text" name="email" class="form-control" id="formGroupExampleInput">
+                </li>
+    </div>
+   
+   <div class = "InputRadio">
+                 <li> 
+                   <input type="radio" id="responsable" name="tipoUser" value="responsable" checked>
+<label for="responsable">Responsable</label>
 
-            <li>Contraseña: 
-                <input type="password" name="Contraseña" id="IdContraseña">
-            </li>
+<input type="radio" id="perteneciente" name="tipoUser" value="perteneciente"> 
+<label for="perteneciente">Perteneciente</label>
+                 </li>
+   </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
 
-            <li>Nombre: 
-                <input type="text" name="Nombre" id="IdNombre">
-            </li>
+        </form>
 
-            <li>Apellido: 
-                <input type="text" name="Apellido" id="IdApellido">
-            </li>
-
-            <li>Foto: 
-                <input type="text" name="Foto" id="IdFoto">
-            </li>
-        </ul>
- 
-        <input type="submit" value="Enviar">
-    </form>
-
-    <p>Ya tenés cuenta, 
-        <a href='@Url.Action("LogIn1", "Account")'>Inicia sesión</a>
-    </p> 
+        <p>Ya tenés cuenta, 
+            <a href='@Url.Action("LogIn1", "Account")'>Inicia sesión</a>
+        </p> 
 </section>
