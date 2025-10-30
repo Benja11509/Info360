@@ -1,82 +1,46 @@
 @{
     ViewData["Title"] = "Perfil";
-    //FALTA CREAR LOS VIEWBAGS EN EL CONTROLER 
-
-    //FALTA INDICAR ACTIONS EN AMBOS FORMS!!!!!!!!!!!!!!!!!
 }
 
-<section class="Perfil_Basicos">
+<link rel="stylesheet" href="~/css/perfil.css" asp-append-version="true" />
 
-    <div class="Perfil_Basicos_Foto">
-        <img src="@Model.fotoPerfil" alt="Foto de perfil" />
+<div class="profile-card">
+    <div class="profile-header">
+        <div class="profile-picture-container">
+            <img src="@ViewBag.usuario.fotoPerfil" alt="Foto de perfil" class="profile-picture" />
+        </div>
+        <a href="#" class="edit-photo-link">Editar foto</a>
     </div>
 
-    <div class="Perfil_Basicos_Datos">
-        <h2>@ViewBag.usuario.nombreUsuario</h2>
-        <p><strong>Nombre:</strong> @ViewBag.usuario.nombre @ViewBag.usuario.apellido</p>
-        <p><strong>Email:</strong> @ViewBag.usuario.mail</p>
-        <p><strong>Tipo de usuario:</strong> @ViewBag.usuario.tipoUsuario</p>
+    <div class="profile-info">
+        <div class="info-group">
+            <label class="info-label">Nombre de usuario:</label>
+            <p class="info-value">@ViewBag.usuario.nombreUsuario</p>
+        </div>
+
+        <div class="info-group description-group">
+            <label class="info-label">Descripción:</label>
+            <p class="info-value">@ViewBag.usuario.descripcion</p>
+        </div>
+
+        @if (ViewBag.usuario.tipoUsuario == "tutor" && ViewBag.Vinculos.Count > 0)
+        {
+            <div class="info-group">
+                <label class="info-label">Perteneciente:</label>
+                <p class="info-value">@ViewBag.Vinculos[0].nombre @ViewBag.Vinculos[0].apellido</p>
+            </div>
+        }
+        else if (ViewBag.usuario.tipoUsuario == "perteneciente" && ViewBag.Vinculos.Count > 0)
+        {
+            <div class="info-group">
+                <label class="info-label">Tutor:</label>
+                <p class="info-value">@ViewBag.Vinculos[0].nombre @ViewBag.Vinculos[0].apellido</p>
+            </div>
+        }
     </div>
 
-</section>
-
-<hr />
-
-<section class="Perfil_Relaciones">
-    @if (ViewBag.usuario.tipousuario == "perteneciente")
-    {
-        <h3>Tutores vinculados</h3>
-
-        @foreach (var tutor in BD.ListaVinculos(ViewBag.usuario))
-        {
-            <div class="vinculo">
-                <p><strong>Nombre:</strong> @tutor.nombre @tutor.apellido</p>
-                <p><strong>Email:</strong> @tutor.mail</p>
-                <p><strong>Teléfono:</strong> @tutor.telefono</p>
-            </div>
-        }
-    }
-    else if (ViewBag.usuario.tipousuario == "tutor")
-    {
-        <h3>Pertenecientes vinculados</h3>
-
-        @foreach (var perteneciente in Model.ListaVinculos())
-        {
-            <div class="vinculo">
-                <p><strong>Nombre:</strong> @perteneciente.nombre @perteneciente.apellido</p>
-                <p><strong>Email:</strong> @perteneciente.mail</p>
-                <p><strong>Teléfono:</strong> @perteneciente.telefono</p>
-                
-                
-                <form method="post" action="" style="display:inline;">
-                    <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
-                    <input type="hidden" name="idPerteneciente" value="@perteneciente.id" />
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar vínculo</button>
-                </form>
-            </div>
-        
-        }
-        <hr />
-        <h4>Agregar nuevo perteneciente</h4>
-        <form method="post" action="">
-            <div>
-                <label for="idPerteneciente">Seleccionar usuario perteneciente:</label>
-                <select name="idPerteneciente" required>
-                    @foreach (var usuario in BD.ListaUsuariosDisponibles()) //CREAR ESTA FUNCION
-                    {
-                        <option value="@usuario.id">@usuario.nombre @usuario.apellido</option>
-                    }
-                </select>
-            </div>
-
-            <div>
-                <label for="parentesco">Parentesco:</label>
-                <input type="text" name="parentesco" required />
-            </div>
-
-            <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
-            <button type="submit" class="btn btn-primary mt-2">Agregar vínculo</button>
-        </form>
-    }
-    
-</section>
+    <div class="bubble bubble-tl"></div>
+    <div class="bubble bubble-tr"></div>
+    <div class="bubble bubble-bl"></div>
+    <div class="bubble bubble-br"></div>
+</div>

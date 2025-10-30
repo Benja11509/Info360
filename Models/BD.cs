@@ -1,15 +1,12 @@
 using Microsoft.Data.SqlClient;
 using Dapper;
-
-
+using System.Collections.Generic;
+using System.Linq;
 
 public static class BD
 {
-
     private static string _connectionString = @"Server=localhost;
 DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
-
-
 
     public static Usuario TraerUNUsuario(string NombreUSU, string Contraseña)
     {
@@ -19,10 +16,8 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
             string query = "SELECT * FROM Usuarios where nombreUsuario = @pNombreusuarios AND contraseña = @pContraseña ";
             user = connection.QueryFirstOrDefault<Usuario>(query, new { pNombreusuarios = NombreUSU, pContraseña = Contraseña });
         }
-
         return user;
     }
-
 
     public static List<Usuario> TraerListaUsuarios()
     {
@@ -34,6 +29,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         }
         return ListUsuarios;
     }
+
     public static List<Actividades> TraerListaActividades()
     {
         List<Actividades> ListAct = new List<Actividades>();
@@ -53,7 +49,6 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         return esta;
     }
 
-
     public static bool CrearUsuario(Usuario Usu)
     {
         bool sePudo = false;
@@ -61,17 +56,15 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         
         if (esta == false)
         {
-            Usuario user = null;
             sePudo = false;
             string query = "INSERT INTO Usuarios (nombreUsuario, contraseña, tipoUsuario, mail) VALUES ( @pNombreUSU, @pContraseña, @ptipoUsuario, @pmail)";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Execute(query, new { @pNombreUSU = Usu.nombreUsuario, @pContraseña = Usu.contraseña, @ptipoUsuario = Usu.tipoUsuario, @pmail = Usu.mail});
             }
-            esta = VerificarUsuario(Usu.nombre, Usu.contraseña);
+            esta = VerificarUsuario(Usu.nombreUsuario, Usu.contraseña);
             if (esta) sePudo = true;
         }
-        //aca tira muchos errores porque no me deja declarar objetos de tipo usuario :(
         return sePudo;
     }
 
@@ -91,41 +84,35 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
 
     public static List<Usuario> ListaVinculos(Usuario user)
     {
-        bool sePudo = false;
-        int idUser = user.id;
-
         List<Usuario> ListVinculos = new List<Usuario>();
 
-        if(user.tipoUsuario == "tutor"){
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+        if(user.tipoUsuario == "tutor")
         {
-            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idUser)";
-            ListVinculos = connection.Query<Usuario>(query).ToList();
-        }
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idUser)";
+                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
+            }
         }
         else
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            string query = "SELECT * FROM Usuarios WHERE id IN (SELECT idTutor FROM Tutoria WHERE idPerteneciente = @idUser)";
-            ListVinculos = connection.Query<Usuario>(query).ToList();
-        }
+            {
+                string query = "SELECT * FROM Usuarios WHERE id IN (SELECT idTutor FROM Tutorias WHERE idPerteneciente = @idUser)";
+                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
+            }
         }
         return ListVinculos;
     }
 
     public static List<Usuario> ListaUsuariosDisponibles(int idTutor)
-{
-    List<Usuario> lista = new List<Usuario>();
-
-    using (SqlConnection connection = new SqlConnection(_connectionString))
     {
-        string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (idPerteneciente FROM Tutoria WHERE idTutor = @idTutor)";
-
-        lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
+        List<Usuario> lista = new List<Usuario>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idTutor)";
+            lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
+        }
+        return lista;
     }
-
-    return lista;
-}
-
 }

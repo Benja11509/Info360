@@ -45,7 +45,7 @@ public class AccountController : Controller
         {
             string usuarioJson = Objeto.ObjectToString(UsuarioLogin);
             HttpContext.Session.SetString("Usuario", usuarioJson);
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Home", "Home"); 
         }
 
         return View(view);
@@ -54,7 +54,7 @@ public class AccountController : Controller
     [HttpPost]
     public IActionResult Registrarse2(string userName, string contraseña, string contraseña1, string email, string tipoUser)
     {
-        string HaciaDondeVa = "Home"; 
+        string HaciaDondeVa = "Index"; 
         
         if(contraseña != contraseña1)
         {
@@ -70,7 +70,7 @@ public class AccountController : Controller
             {
                 string usuarioJson = Objeto.ObjectToString(user);
                 HttpContext.Session.SetString("Usuario", usuarioJson);
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Home", "Home"); 
             }
             else
             {

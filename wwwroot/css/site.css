@@ -9,8 +9,127 @@ html {
   }
 }
 
+/* Asegúrate de que el body tenga un fondo para que contraste la tarjeta */
 body {
-  margin: 10px;
+  background-color: #f0f2f5; 
+  font-family: 'Roboto', sans-serif; /* O la fuente que estés usando */
+  padding: 20px;
+}
+
+.profile-card {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin: 40px auto; /* Centra la tarjeta */
+}
+
+.profile-header {
+  margin-bottom: 30px;
+}
+
+.profile-picture-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #6699ff;
+  padding: 5px;
+  display: inline-block;
+  margin: 0 auto 15px auto;
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-photo-link {
+  color: #6699ff;
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+}
+
+.edit-photo-link:hover {
+  text-decoration: underline;
+}
+
+.profile-info {
+  text-align: left;
+}
+
+.info-group {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+}
+
+.info-group.description-group {
+  min-height: 100px; 
+}
+
+.info-label {
+  font-size: 0.85em;
+  color: #888;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 1.1em;
+  color: #333;
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word; /* Evita que el texto se desborde */
+}
+
+/* Burbujas decorativas */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  filter: blur(8px);
+  z-index: 0;
+}
+
+.bubble-tl {
+  width: 60px;
+  height: 60px;
+  background-color: #e0b4f0; 
+  top: -20px;
+  left: -20px;
+}
+
+.bubble-tr {
+  width: 40px;
+  height: 40px;
+  background-color: #f7e09e;
+  top: 10px;
+  right: 10px;
+}
+
+.bubble-bl {
+  width: 50px;
+  height: 50px;
+  background-color: #aed9e0; 
+  bottom: -15px;
+  left: -15px;
+}
+
+.bubble-br {
+  width: 30px;
+  height: 30px;
+  background-color: #f0b4b4;
+  bottom: 0px;
+  right: 0px;
 }
 
 .main{
@@ -246,7 +365,7 @@ body {
 
 
 /* ----------- header y footer ----------- */
-.navbar-brand
+.navbar 
 {
 
 

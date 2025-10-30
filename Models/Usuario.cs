@@ -30,7 +30,8 @@ public class Usuario
     public string mail { get; private set; }
     [JsonProperty]
     public string? fotoPerfil { get; private set; }
-
+[JsonProperty]
+    public string? descripcion { get; private set;}
 
 
     public Usuario(string nombreUsuario, string contraseña, string mail, string tipoUsuario)
