@@ -45,13 +45,19 @@ public class AccountController : Controller
     [HttpPost]
     public IActionResult Registrarse2(string UserName, string Contraseña, string contraseña1, string Email, string tipoUser)
     {
-
+string HaciaDondeVa = "Index";
         //no se porque no me toma la clase usuario cuando declaro un objeto de ese tipo
 
         DateTime UltimoInicio = DateTime.Now;
+if(Contraseña == contraseña1)
+{
+ ViewBag.MensajeContraseña = "Las contraseñas no coinciden";
+ HaciaDondeVa = "Registrarse"; 
 
-        Usuario UsuarioRegistrar = new Usuario(UserName, Email); //hay que ver bien el tema de que recibe el contructor, que pone en 0 y todo eso 
-
+}
+else
+{
+ Usuario user = new Usuario (UserName, Contraseña, Email, tipoUser);
 
         ViewBag.SePudo = BD.CrearUsuario(User); //recibe el objeto usuario desde el formulario y lo desgloza dentro de crear usuario.
 
@@ -63,9 +69,11 @@ public class AccountController : Controller
         {
             ViewBag.Mensaje = "Ya tienes un usuario existente en esta plataforma";
 
-        }
+        }   
+}
+       
         
-        return View("Index");
+        return View(HaciaDondeVa);
     }
 
     public IActionResult CerrarSesion()

@@ -11,6 +11,8 @@ public class Usuario
     [JsonProperty]
     public string nombre { get; private set; }
     [JsonProperty]
+    public string contraseña { get; private set; }
+    [JsonProperty]
     public string apellido { get; private set; }
     [JsonProperty]
     public DateTime fechaNacimiento { get; private set; }
@@ -31,13 +33,19 @@ public class Usuario
 
 
 
-public Usuario()
+public Usuario(string nombreUsuario, string contraseña, string mail, string tipoUser  )
 {
-
+nombreUsuario = this.nombreUsuario;
+contraseña = this.contraseña;
+mail = this.mail;
+tipoUser = this.tipoUsuario;
 
 }
 
-
+public Usuario()
+{
+    
+}
 
 
 
