@@ -141,4 +141,13 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
             });
         }
     }
+
+    public static List<PreguntaPictograma> ObtenerPreguntasPictogramas()
+    {
+        string sql = "SELECT * FROM PreguntasPictogramas ORDER BY NEWID()"; // NEWID() las trae en orden aleatorio --> Crear la tabla en la base de datos
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            return db.Query<PreguntaPictograma>(sql).ToList();
+        }
+    }
 }

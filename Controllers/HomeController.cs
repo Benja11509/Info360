@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Info360.Models;
 using Microsoft.AspNetCore.Http; 
 using System; 
+using System.Text.Json;        // Para guardar/leer objetos en la Session
 
 namespace Info360.Controllers;
 
@@ -91,17 +92,122 @@ public class HomeController : Controller
 
         if (usuarioActualizado != null)
         {
-            usuarioActualizado.nombre = nombre;
-            usuarioActualizado.apellido = apellido;
-            usuarioActualizado.fechaNacimiento = fechaNacimiento;
-            usuarioActualizado.telefono = telefono;
-            usuarioActualizado.fotoPerfil = fotoPerfil;
-            usuarioActualizado.nivelApoyo = nivelApoyo;
+            // --- INICIO DE LÓGICA "SMART UPDATE" ---
+            
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                usuarioActualizado.nombre = nombre;
+            }
+            
+            if (!string.IsNullOrEmpty(apellido))
+            {
+                usuarioActualizado.apellido = apellido;
+            }
+
+            if (fechaNacimiento != null)
+            {
+                usuarioActualizado.fechaNacimiento = fechaNacimiento;
+            }
+            
+            if (!string.IsNullOrEmpty(telefono))
+            {
+                usuarioActualizado.telefono = telefono;
+            }
+
+            if (!string.IsNullOrEmpty(fotoPerfil))
+            {
+                usuarioActualizado.fotoPerfil = fotoPerfil;
+            }
+
+            if (nivelApoyo != null)
+            {
+                usuarioActualizado.nivelApoyo = nivelApoyo;
+            }
+            
+            // Permitimos que la descripción se actualice incluso si está vacía (para borrarla)
+            // 'descripcion' SÍ permite nulos en tu script.sql
             usuarioActualizado.descripcion = descripcion;
+
+            // --- FIN DE LÓGICA ---
             
             BD.ActualizarUsuario(usuarioActualizado);
         }
 
         return RedirectToAction("Perfil");
+    }
+
+    [HttpGet]
+    public IActionResult JuegoPictogramas()
+    {
+        // 1. Cargar la lista de preguntas desde la BD
+        List<PreguntaPictograma> preguntas = BD.ObtenerPreguntasPictogramas();
+        
+        // 2. Guardar la lista en la variable estática del Modelo (imitando el patrón de Objeto.cs)
+        PreguntaPictograma.CargarPreguntas(preguntas);
+
+        // 4. Enviar solo la primera pregunta (la actual) a la Vista
+        PreguntaPictograma primeraPregunta = PreguntaPictograma.ObtenerPreguntaActual();
+        
+        return View(primeraPregunta);
+    }
+
+    [HttpPost]
+    public IActionResult VerificarRespuesta(int idPregunta, int opcionSeleccionada)
+    {
+        // 1. Recuperar la pregunta actual (que está guardada en la lista estática)
+        // Usamos el idPregunta solo para asegurarnos de que estamos verificando la correcta
+        PreguntaPictograma pregunta = PreguntaPictograma._ListaPreguntas.FirstOrDefault(p => p.IdPregunta == idPregunta);
+
+        if (pregunta == null)
+        {
+            return Json(new { correcta = false, error = "Pregunta no encontrada" });
+        }
+
+        // 2. Verificar si la respuesta es correcta
+        bool esCorrecta = (pregunta.RespuestaCorrecta == opcionSeleccionada);
+
+        // 3. Si es incorrecta, buscar el texto de la respuesta correcta para mostrarlo
+        string respuestaCorrectaTexto = "";
+        if (!esCorrecta)
+        {
+            switch (pregunta.RespuestaCorrecta)
+            {
+                case 1: respuestaCorrectaTexto = pregunta.Opcion1; break;
+                case 2: respuestaCorrectaTexto = pregunta.Opcion2; break;
+                case 3: respuestaCorrectaTexto = pregunta.Opcion3; break;
+                case 4: respuestaCorrectaTexto = pregunta.Opcion4; break;
+            }
+        }
+
+        // 4. Devolver un JSON al JavaScript con el resultado
+        return Json(new { 
+            correcta = esCorrecta, 
+            respuestaCorrectaTexto = respuestaCorrectaTexto 
+        });
+    }
+
+    [HttpGet]
+    public IActionResult SiguientePregunta()
+    {
+        // 1. Pedirle al modelo que avance el índice y nos dé la siguiente pregunta
+        PreguntaPictograma siguientePregunta = PreguntaPictograma.AvanzarSiguientePregunta();
+
+        // 2. Verificar si se terminó el juego
+        if (siguientePregunta == null)
+        {
+            // Fin del juego
+            return Json(new { finJuego = true });
+        }
+
+        // 3. Si no terminó, devolver la siguiente pregunta como JSON
+        return Json(new { 
+            finJuego = false,
+            idPregunta = siguientePregunta.IdPregunta,
+            imagenPictograma = siguientePregunta.ImagenPictograma,
+            opcion1 = siguientePregunta.Opcion1,
+            opcion2 = siguientePregunta.Opcion2,
+            opcion3 = siguientePregunta.Opcion3,
+            opcion4 = siguientePregunta.Opcion4
+        });
     }
 }
