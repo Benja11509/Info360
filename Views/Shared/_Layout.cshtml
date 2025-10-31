@@ -10,9 +10,15 @@
 </head>
 
 <body>
+@{
+    bool mostrarHeaderLanding = ViewData["mostrarHeaderLanding"] as bool? ?? false;
+}
     <header>
-    <!-- Comienzo navegador header -->
+    @if(!mostrarHeaderLanding)
+    {
 
+   
+    <!-- Comienzo navegador header -->
 <nav class="navbar bg-body-tertiary fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="Localhost:5088">Tándem</a>
@@ -83,7 +89,26 @@
       </div>
     </nav>
 <!-- Fin navegador header -->
-
+    }
+    else
+    {
+ <header>
+        <nav class="navbar bg-body-tertiary">
+              <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand">
+                  <img src="/Imagenes/LOGO 2.png" alt="Logo">
+                </a>
+             <form asp-controller="Account" asp-action="LogIn1" method="get">
+                    <button type="submit" class="nav-btn">Iniciar Sesión</button>
+                </form>
+                <form asp-controller="Account" asp-action="Registrarse1" method="get">
+                    <button type="submit" class="nav-btn">Registrarse</button>
+                </form>
+                  
+            </div>
+        </nav>
+</header>
+    }
     </header>
 
     <main role="main">
