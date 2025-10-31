@@ -1,0 +1,62 @@
+@model Usuario
+@{
+    ViewData["Title"] = "Configuración de Perfil";
+}
+
+<link rel="stylesheet" href="~/css/configuracion.css" asp-append-version="true" />
+
+<div class="config-container">
+    <div class="config-card">
+        <h2>Completar mi Perfil</h2>
+        <p>Completa tus datos para personalizar tu experiencia.</p>
+
+        <form asp-action="GuardarConfiguracion" asp-controller="Home" method="post">
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label asp-for="nombre">Nombre</label>
+                        <input asp-for="nombre" class="form-control" placeholder="Ej: Juan">
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="apellido">Apellido</label>
+                        <input asp-for="apellido" class="form-control" placeholder="Ej: Pérez">
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <input asp-for="fechaNacimiento" class="form-control" type="date">
+                    </div>
+
+                     <div class="form-group">
+                        <label asp-for="descripcion">Descripción</label>
+                        <textarea asp-for="descripcion" class="form-control" rows="4" placeholder="Una breve descripción sobre ti..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-col">
+                    <div class="form-group">
+                        <label asp-for="telefono">Teléfono</label>
+                        <input asp-for="telefono" class="form-control" placeholder="Ej: 1122334455">
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="fotoPerfil">URL de Foto de Perfil</label>
+                        <input asp-for="fotoPerfil" class="form-control" placeholder="https://ejemplo.com/imagen.png">
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="nivelApoyo">Nivel de Apoyo (1-5)</label>
+                        <input asp-for="nivelApoyo" class="form-control" type="number" min="1" max="5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-actions">
+                <a asp-action="Perfil" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -26,18 +26,20 @@
         @if (ViewBag.usuario.tipoUsuario == "tutor" && ViewBag.Vinculos.Count > 0)
         {
             <div class="info-group">
-                <label class="info-label">Perteneciente:</label>
+                <label class="info-label">Perteneciente/s:</label>
                 <p class="info-value">@ViewBag.Vinculos[0].nombre @ViewBag.Vinculos[0].apellido</p>
             </div>
         }
         else if (ViewBag.usuario.tipoUsuario == "perteneciente" && ViewBag.Vinculos.Count > 0)
         {
             <div class="info-group">
-                <label class="info-label">Tutor:</label>
+                <label class="info-label">Tutor/es:</label>
                 <p class="info-value">@ViewBag.Vinculos[0].nombre @ViewBag.Vinculos[0].apellido</p>
             </div>
+            
         }
     </div>
+
 
     <div class="bubble bubble-tl"></div>
     <div class="bubble bubble-tr"></div>

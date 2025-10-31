@@ -115,4 +115,30 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         }
         return lista;
     }
+    public static void ActualizarUsuario(Usuario user)
+    {
+        string query = @"UPDATE Usuarios SET 
+                            nombre = @pNombre, 
+                            apellido = @pApellido, 
+                            fechaNacimiento = @pFechaNacimiento, 
+                            telefono = @pTelefono, 
+                            nivelApoyo = @pNivelApoyo, 
+                            fotoPerfil = @pFotoPerfil,
+                            descripcion = @pDescripcion
+                       WHERE id = @pId";
+        
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            connection.Execute(query, new {
+                @pNombre = user.nombre,
+                @pApellido = user.apellido,
+                @pFechaNacimiento = user.fechaNacimiento,
+                @pTelefono = user.telefono,
+                @pNivelApoyo = user.nivelApoyo,
+                @pFotoPerfil = user.fotoPerfil,
+                @pDescripcion = user.descripcion,
+                @pId = user.id
+            });
+        }
+    }
 }
