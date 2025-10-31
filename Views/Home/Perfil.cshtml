@@ -38,6 +38,50 @@
             </div>
             
         }
+
+        @if(ViewBag.TocoMasPefil)
+        {
+            <div class="info-group">
+                <label class="info-label">Perteneciente/s:</label>
+                <p class="info-value">@ViewBag.usuario.nombre</p>
+            </div>
+
+
+            <div class="info-group">
+                <label class="info-label">Perteneciente/s:</label>
+                <p class="info-value">@ViewBag.usuario.apellido</p>
+            </div>
+
+ <div class="info-group">
+                <label class="info-label">Perteneciente/s:</label>
+                <p class="info-value">@ViewBag.usuario.mail</p>
+            </div>
+
+            <div class="info-group">
+                <label class="info-label">Perteneciente/s:</label>
+                <p class="info-value">@ViewBag.usuario.fechaNacimiento</p>
+            </div>
+
+             <div class="info-group">
+                <label class="info-label">Perteneciente/s:</label>
+                <p class="info-value">@ViewBag.usuario.telefono</p>
+            </div>
+
+             <div class="info-group">
+                <label class="info-label">Perteneciente/s:</label>
+                <p class="info-value">@ViewBag.usuario.nivelApoyo</p>
+            </div>
+
+             <div class="info-group">
+                <label class="info-label">Perteneciente/s:</label>
+                <p class="info-value">@ViewBag.usuario.puntos</p>
+            </div>
+
+            
+
+        }
+        <a href='@Url.Action("VerMasPerfil", "Home")' class="nav-link" >Editar perfil </a>
+
         <a href='@Url.Action("Configuracion", "Home")' class="nav-link" >Editar perfil </a>
 
     </div>

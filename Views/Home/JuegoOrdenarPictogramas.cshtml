@@ -1,8 +1,7 @@
-@model PreguntaPictograma
+
 @{
     ViewData["Title"] = "JuegoOrdenarPictogramas";
 }
-
 <div id="juego-pictograma-container" 
      class="juego-container"
      data-url-verificar="@Url.Action("VerificarRespuesta")" 
@@ -12,19 +11,19 @@
     <h2>¿QUÉ ES?</h2>
 
     <div class="pictograma-imagen-container">
-        <img id="imgPictograma" src="@Model.ImagenPictograma" alt="Pictograma" class="img-pictograma">
+        <img id="imgPictograma" src="@ViewBag.ImagenPictograma" alt="Pictograma" class="img-pictograma">
     </div>
 
-    <input type="hidden" id="hdnIdPregunta" value="@Model.IdPregunta" />
+    <input type="hidden" id="hdnIdPregunta" value="@ViewBag.IdPregunta" />
 
     <br>
 
     <div id="opciones-container">
-        <button class="opcion btn" data-opcion="1">@Model.Opcion1</button>
-        <button class="opcion btn" data-opcion="2">@Model.Opcion2</button>
+        <button class="opcion btn" data-opcion="1">@ViewBag.Opcion1</button>
+        <button class="opcion btn" data-opcion="2">@ViewBag.Opcion2</button>
         <br>
-        <button class="opcion btn" data-opcion="3">@Model.Opcion3</button>
-        <button class="opcion btn" data-opcion="4">@Model.Opcion4</button>
+        <button class="opcion btn" data-opcion="3">@ViewBag.Opcion3</button>
+        <button class="opcion btn" data-opcion="4">@ViewBag.Opcion4</button>
     </div>
 
     <br>
@@ -45,4 +44,3 @@
 @section Scripts {
     <script src="~/js/juegoPictogramas.js"></script>
 }
-

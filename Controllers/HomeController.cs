@@ -35,7 +35,17 @@ public class HomeController : Controller
     {
         return View("Juegos");
     }
+  public IActionResult VerMasPerfil(bool Toco)
+    {
+    
 
+        if(Toco)
+        {
+        ViewBag.TocoMasPefil = true;
+        }
+     
+           return RedirectToAction("Perfil");
+    }
     public IActionResult Perfil()
     {
         string? usuarioJson = HttpContext.Session.GetString("Usuario");
@@ -92,7 +102,7 @@ public class HomeController : Controller
 
         if (usuarioActualizado != null)
         {
-            // --- INICIO DE LÓGICA "SMART UPDATE" ---
+           
             
             if (!string.IsNullOrEmpty(nombre))
             {
@@ -124,11 +134,10 @@ public class HomeController : Controller
                 usuarioActualizado.nivelApoyo = nivelApoyo;
             }
             
-            // Permitimos que la descripción se actualice incluso si está vacía (para borrarla)
-            // 'descripcion' SÍ permite nulos en tu script.sql
+          
             usuarioActualizado.descripcion = descripcion;
 
-            // --- FIN DE LÓGICA ---
+      
             
             BD.ActualizarUsuario(usuarioActualizado);
         }
@@ -142,13 +151,26 @@ public class HomeController : Controller
         // 1. Cargar la lista de preguntas desde la BD
         List<PreguntaPictograma> preguntas = BD.ObtenerPreguntasPictogramas();
         
-        // 2. Guardar la lista en la variable estática del Modelo (imitando el patrón de Objeto.cs)
-        PreguntaPictograma.CargarPreguntas(preguntas);
+        // 2. Guardar la lista completa en la Sesión
+        string jsonPreguntas = JsonSerializer.Serialize(preguntas);
+        HttpContext.Session.SetString("ListaPreguntas", jsonPreguntas);
 
-        // 4. Enviar solo la primera pregunta (la actual) a la Vista
-        PreguntaPictograma primeraPregunta = PreguntaPictograma.ObtenerPreguntaActual();
-        
-        return View(primeraPregunta);
+        // 3. Guardar el índice actual (empezamos en 0)
+        HttpContext.Session.SetInt32("PreguntaActualIndex", 0);
+
+        // 4. Obtener la primera pregunta
+        PreguntaPictograma primeraPregunta = preguntas[0];
+
+        // 5. ***** CAMBIO AQUÍ: Pasamos los datos al ViewBag *****
+        ViewBag.IdPregunta = primeraPregunta.IdPregunta;
+        ViewBag.ImagenPictograma = primeraPregunta.ImagenPictograma;
+        ViewBag.Opcion1 = primeraPregunta.Opcion1;
+        ViewBag.Opcion2 = primeraPregunta.Opcion2;
+        ViewBag.Opcion3 = primeraPregunta.Opcion3;
+        ViewBag.Opcion4 = primeraPregunta.Opcion4;
+
+        // 6. ***** CAMBIO AQUÍ: Devolvemos la Vista sin modelo *****
+        return View();
     }
 
     [HttpPost]

@@ -2,6 +2,24 @@
     ViewData["Title"] = "Index";
 }
 
+ <header>
+        <nav class="navbar bg-body-tertiary">
+              <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand">
+                  <img src="wwwroot/Imagenes/LOGO 2.png" alt="Logo">
+                </a>
+             <form asp-controller="Account" asp-action="LogIn1" method="get">
+                    <button type="submit" class="nav-btn">Iniciar Sesión</button>
+                </form>
+                <form asp-controller="Account" asp-action="Registrarse1" method="get">
+                    <button type="submit" class="nav-btn">Registrarse</button>
+                </form>
+                  
+            </div>
+        </nav>
+</header>
+
+
 <!-- Hero Section -->
 <section class="hero">
     <div class="hero-content">
