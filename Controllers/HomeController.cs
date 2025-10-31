@@ -23,7 +23,7 @@ public class HomeController : Controller
 
     public IActionResult Home()
     {
-        return View("Index");
+        return View("Home");
     }
     
     public IActionResult Actividades()

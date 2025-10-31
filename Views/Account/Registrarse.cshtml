@@ -1,70 +1,41 @@
-@{
-        ViewData["Title"] = "Registrar";
-}
-<section class="">
+<div class="registro-container">
+    <div class="registro-card">
+        <div class="registro-header">
+            <img src="~/Content/Images/logo_tandem.png" alt="Logo Tandem">
+            <h2>Avanzamos Juntos</h2>
+        </div>
+
         <h1>Registrarse</h1>
         
         <form method="post" action='@Url.Action("Registrarse2", "Account")'>
             <ul>
-            <div class="mb-3">
-            <img src="" alt="img usuario">
-                <li>Nombre de usuario: 
-                    <input type="text" name="userName" class="form-control" id="formGroupExampleInput" placeholder = "Nombre de usuario">
+                <li>Nombre de usuario:
+                    <input type="text" name="userName" placeholder="Nombre de usuario">
                 </li>
-
-
-
-    </div> 
-    <div class="mb-3">
-    <img src="" alt="img contraseña">
-                <li>Contraseña: 
-                    <input type="password" name="contraseña" class="form-control" id="formGroupExampleInput" placeholder = "Contraseña">
+                <li>Contraseña:
+                    <input type="password" name="contraseña" placeholder="Contraseña">
                 </li>
-    </div>
-
-
-
-
-    <div class="mb-3">
-    <img src="" alt="img misma foto antes">
-                <li>Repetir Contraseña: 
-                    <input type="password" name="contraseña1" class="form-control" id="formGroupExampleInput" placeholder = "Contraseña">
+                <li>Repetir Contraseña:
+                    <input type="password" name="contraseña1" placeholder="Contraseña">
                 </li>
-    </div>
-
-
-
-    <div class="mb-3">
-    <img src="" alt="img email">
-                <li>Email: 
-                    <input type="text" name="email" class="form-control" id="formGroupExampleInput" placeholder = "Email">
+                <li>Email:
+                    <input type="text" name="email" placeholder="Email">
                 </li>
-    </div>
-   
+            </ul>
 
+            <div class="InputRadio">
+                <input type="radio" id="responsable" name="tipoUser" value="responsable" checked>
+                <label for="responsable">Responsable</label>
 
-   <div class = "InputRadio">
-                 <li> 
-                   <input type="radio" id="tutor" name="tipoUser" value="responsable" checked>
-    <label for="responsable">Responsable</label>
-
-    <input type="radio" id="perteneciente" name="tipoUser" value="perteneciente"> 
-    <label for="perteneciente">Perteneciente</label>
-                 </li>
-   </div>
-
-
-
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <input type="radio" id="perteneciente" name="tipoUser" value="perteneciente">
+                <label for="perteneciente">Perteneciente</label>
             </div>
 
-
-
-
+            <button type="submit" class="btn btn-primary">Registrarte</button>
         </form>
 
-        <p>Ya tenés cuenta, 
-            <a href='@Url.Action("LogIn1", "Account")'>Inicia sesión</a>
-        </p> 
-</section>
+        <p>¿Ya tenés cuenta?
+            <a href='@Url.Action("LogIn1", "Account")'>Iniciá sesión</a>
+        </p>
+    </div>
+</div>

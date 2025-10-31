@@ -88,10 +88,10 @@ body {
   color: #333;
   margin: 0;
   line-height: 1.4;
-  word-break: break-word; /* Evita que el texto se desborde */
+  word-break: break-word; 
 }
 
-/* Burbujas decorativas */
+
 .bubble {
   position: absolute;
   border-radius: 50%;
@@ -544,3 +544,455 @@ footer img{
 
 
 /* ----------- fin de actividades ----------- */
+
+
+.registro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px); /* deja espacio para header y footer */
+    background-color: #f9f9f9;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Círculos decorativos */
+.registro-container::before,
+.registro-container::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.registro-container::before {
+    width: 90px;
+    height: 90px;
+    background-color: #cdb6ff;
+    top: 60px;
+    left: 60px;
+}
+
+.registro-container::after {
+    width: 120px;
+    height: 120px;
+    background-color: #e1cfff;
+    bottom: 60px;
+    right: 70px;
+}
+
+/* Tarjeta del formulario */
+.registro-card {
+    background-color: white;
+    width: 380px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    padding: 0 30px 40px 30px;
+    position: relative;
+    text-align: center;
+}
+
+/* Encabezado superior celeste */
+.registro-card .registro-header {
+    background-color: #d6eef6;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin: 0 -30px 25px -30px;
+    padding: 25px 0 15px 0;
+}
+
+.registro-card .registro-header img {
+    width: 65px;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+.registro-card .registro-header h2 {
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: 600;
+}
+
+/* Título */
+.registro-card h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Campos del formulario */
+.registro-card form ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.registro-card form li {
+    text-align: left;
+    margin-bottom: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.registro-card input[type="text"],
+.registro-card input[type="password"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-top: 6px;
+    transition: border-color 0.2s;
+}
+
+.registro-card input[type="text"]:focus,
+.registro-card input[type="password"]:focus {
+    border-color: #b49aff;
+    outline: none;
+}
+
+/* Radios */
+.registro-card .InputRadio {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.registro-card .InputRadio label {
+    background-color: #c9e7f2;
+    border-radius: 8px;
+    padding: 6px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    color: #333;
+}
+
+.registro-card .InputRadio input[type="radio"] {
+    display: none;
+}
+
+.registro-card .InputRadio input[type="radio"]:checked + label {
+    background-color: #d1c3ff;
+    color: #000;
+}
+
+/* Botón principal */
+.registro-card button.btn-primary {
+    background-color: #c7b0ff;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.registro-card button.btn-primary:hover {
+    background-color: #b89df8;
+}
+
+/* Texto inferior */
+.registro-card p {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.registro-card a {
+    color: #4b6cff;
+    text-decoration: none;
+}
+
+.registro-card a:hover {
+    text-decoration: underline;
+}
+
+/* Forzar footer al fondo */
+footer {
+    margin-top: auto;
+    width: 100%;
+    bottom: 0;
+}
+.login-background {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fdfdfd;
+    position: relative;
+    padding: 40px 0;
+}
+
+/* === CÍRCULOS DECORATIVOS === */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0.7;
+}
+
+.circle-top {
+    width: 120px;
+    height: 120px;
+    background-color: #c9a8ff;
+    top: 60px;
+    left: 60px;
+}
+
+.circle-top::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-color: #a3e3ff;
+    border-radius: 50%;
+    right: -50px;
+    top: 30px;
+}
+
+.circle-bottom {
+    width: 130px;
+    height: 130px;
+    background-color: #a3e3ff;
+    bottom: 70px;
+    right: 100px;
+}
+
+.circle-bottom::after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: #eacb68;
+    border-radius: 50%;
+    left: 60px;
+    top: 60px;
+}
+
+/* === CONTENEDOR DEL LOGIN === */
+.login-container {
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: 360px;
+    z-index: 1;
+}
+
+/* === HEADER CELESTE CON LOGO === */
+.login-header {
+    background-color: #d6f1fc;
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 3px solid #6dc4eb;
+}
+
+.logo-login {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.login-header h2 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+/* === CUERPO DE LOGIN === */
+.login-box {
+    padding: 30px;
+    text-align: center;
+}
+
+.login-box h1 {
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+/* === INPUTS === */
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.input-group i {
+    color: #333;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    background: transparent;
+    flex: 1;
+    font-size: 15px;
+    color: #333;
+}
+
+/* === BOTÓN LOGIN === */
+.btn-login {
+    background-color: #c4a6ff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    width: 100%;
+    margin: 10px 0 20px 0;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #b18df5;
+}
+
+/* === ENLACES Y TEXTO === */
+.forgot {
+    display: block;
+    text-align: left;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 15px;
+    text-decoration: none;
+}
+
+.forgot:hover {
+    text-decoration: underline;
+}
+
+.no-account {
+    font-size: 14px;
+    color: #333;
+}
+
+.no-account a {
+    color: #4169e1;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.no-account a:hover {
+    text-decoration: underline;
+}
+
+/* === BOTONES SOCIALES === */
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+.navbar-custom {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    height: 40px;
+    width: auto;
+}
+
+/* ===== CENTRO: BOTONES ===== */
+.nav-center {
+    display: flex;
+    gap: 10px;
+    background-color: #f3f3f3;
+    padding: 5px 20px;
+    border-radius: 25px;
+}
+
+.nav-btn {
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #e1e1e1;
+}
+
+/* ===== DERECHA: ICONOS ===== */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-icon {
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-icon:hover {
+    transform: scale(1.1);
+    color: #5d3fd3;
+}
+
+.menu-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+.menu-btn:hover {
+    color: #5d3fd3;
+}
+
+/* ===== Ajuste general ===== */
+body {
+    padding-top: 70px;
+}

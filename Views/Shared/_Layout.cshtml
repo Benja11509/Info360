@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NombreProyecto</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
@@ -17,83 +18,47 @@
     @if(!mostrarHeaderLanding)
     {
 
-   
-    <!-- Comienzo navegador header -->
-<nav class="navbar bg-body-tertiary fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="Localhost:5088">Tándem</a>
-     
-         <a href='@Url.Action("Actividades", "Home")'>Actividades</a>
-         <a href='@Url.Action("LogIn1", "Account")'>Nosotros</a>
-        <img src="/Imagenes/CampanitaNotifi.webp" alt="CampanitaDeNoti">
-        <img src="" alt="">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"  
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-          aria-label="Toggle navigation"
-        >
-        
-          <span class="navbar-toggler-icon"></span>
-        </button>
-     
-        <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-            <button
-              type="button"
-              class="bt-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
 
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-contet-end flex-grow-1 pe-3">
-              <li class="nav-item">
-             
-                 <a href='@Url.Action("Home", "Home")' class="nav-lik active" aria-current="page">Home</a>
-              </li>
-              <li class="nav-item">
-               
-                 <a href='@Url.Action("LogIn1", "Home")' class="nav-link" >Favoitos</a>
-
-              </li>
-              <li class="nav-item">
-              <a href='@Url.Action("LogIn1", "Home")' class="nav-link" >Mis pertenecientes</a>
-
-
-              </li>
-              <li class="nav-item">
-              <a href='@Url.Action("LogIn1", "Home")' class="nav-link" >Ayuda</a>
-
-              </li>
-              <li class="nav-item">
-              <a href='@Url.Action("Perfil", "Home")' class="nav-link" >Mi perfil</a>
-
-              </li>
-              <li class="nav-item">
-                              <a href='@Url.Action("LogIn1", "Account")' class="nav-link" >Cerrar session </a>
-
-              </li>
-            </ul>
-          </div>
+    <nav class="navbar-custom">
+        <div class="nav-left">
+            <img src="~/Content/Images/logo_tandem.png" alt="Logo Tandem" class="nav-logo">
         </div>
-      </div>
+
+        <div class="nav-center">
+            <a href='@Url.Action("Actividades", "Home")' class="nav-btn">ACTIVIDADES</a>
+            <a href='@Url.Action("Nosotros", "Home")' class="nav-btn">NOSOTROS</a>
+        </div>
+
+        <div class="nav-right">
+            <i class="fa-solid fa-user nav-icon"></i>
+            <i class="fa-solid fa-bell nav-icon"></i>
+            <button class="menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
     </nav>
-<!-- Fin navegador header -->
+
+    <!-- Menú lateral -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item"><a href='@Url.Action("Home", "Home")' class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href='@Url.Action("Favoritos", "Home")' class="nav-link">Favoritos</a></li>
+                <li class="nav-item"><a href='@Url.Action("MisPertenecientes", "Home")' class="nav-link">Mis pertenecientes</a></li>
+                <li class="nav-item"><a href='@Url.Action("Ayuda", "Home")' class="nav-link">Ayuda</a></li>
+                <li class="nav-item"><a href='@Url.Action("Perfil", "Home")' class="nav-link">Mi perfil</a></li>
+                <li class="nav-item"><a href='@Url.Action("LogIn1", "Account")' class="nav-link">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </div>
     }
     else
     {
- <header>
-        <nav class="navbar bg-body-tertiary">
+<nav class="navbar bg-body-tertiary">
               <div class="container-fluid d-flex justify-content-between align-items-center">
                 <a class="navbar-brand">
                   <img src="/Imagenes/LOGO 2.png" alt="Logo">
@@ -107,9 +72,12 @@
                   
             </div>
         </nav>
-</header>
     }
-    </header>
+</header>
+        
+
+    
+   
 
     <main role="main">
         @RenderBody()
