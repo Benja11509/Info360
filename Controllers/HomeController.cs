@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Info360.Models;
 using Microsoft.AspNetCore.Http; 
 using System; 
-using System.Text.Json;        // Para guardar/leer objetos en la Session
+using System.Text.Json;        
 
 namespace Info360.Controllers;
 
@@ -18,7 +18,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-         return RedirectToAction("Index", "Account");
+         return RedirectToAction("Index");
     }
 
     public IActionResult Home()
@@ -35,18 +35,48 @@ public class HomeController : Controller
     {
         return View("Juegos");
     }
-  public IActionResult VerMasPerfil(bool Toco)
+ 
+    public IActionResult Perfil(bool verMas = false)
     {
-    
-
-        if(Toco)
+        string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        if (string.IsNullOrEmpty(usuarioJson))
         {
-        ViewBag.TocoMasPefil = true;
+            return RedirectToAction("Index", "Account");
         }
-     
-           return RedirectToAction("Perfil");
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+       
+        Usuario? usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+
+        ViewBag.usuario = usuarioCompleto;
+        ViewBag.Vinculos = BD.ListaVinculos(usuarioCompleto);
+        
+      
+        ViewBag.TocoMasPefil = verMas; 
+
+      
+        if(usuarioCompleto.tipoUsuario == "tutor")
+        {
+            ViewBag.UsuariosDisponibles = BD.ListaUsuariosDisponibles(usuarioCompleto.id);
+        }
+
+        return View("Perfil");
     }
-    public IActionResult Perfil()
+
+    
+    public IActionResult VerMasPerfil()
+    {
+       
+        return RedirectToAction("Perfil", new { verMas = true });
+    }
+    
+    public IActionResult Configuracion()
     {
         string? usuarioJson = HttpContext.Session.GetString("Usuario");
         if (string.IsNullOrEmpty(usuarioJson))
@@ -61,12 +91,27 @@ public class HomeController : Controller
             return RedirectToAction("CerrarSesion", "Account");
         }
 
-        ViewBag.usuario = usuarioCompleto;
-        ViewBag.Vinculos = BD.ListaVinculos(usuarioCompleto);
-
-        return View("Perfil");
+        ViewBag.usuario = usuarioCompleto; 
+        return View("Configuracion"); 
     }
 
+    
+    
+    
+    [HttpPost]
+    public IActionResult AgregarVinculo(int idTutor, int idPerteneciente, string parentesco)
+    {
+        BD.AgregarVinculoBD(idTutor, idPerteneciente, parentesco);
+        return RedirectToAction("Perfil");
+    }
+
+    
+    [HttpPost]
+    public IActionResult EliminarVinculo(int idTutor, int idPerteneciente)
+    {
+        BD.EliminarVinculoBD(idTutor, idPerteneciente);
+        return RedirectToAction("Perfil");
+    }
     
     public IActionResult Configuracion()
     {

@@ -19,6 +19,8 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         return user;
     }
 
+   
+
     public static List<Usuario> TraerListaUsuarios()
     {
         List<Usuario> ListUsuarios = new List<Usuario>();
@@ -29,7 +31,6 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         }
         return ListUsuarios;
     }
-
     public static List<Actividades> TraerListaActividades()
     {
         List<Actividades> ListAct = new List<Actividades>();
@@ -68,53 +69,6 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         return sePudo;
     }
 
-    public static bool EliminarUsuario(string nombre)
-    {
-        bool sePudo = false;
-        string query = "DELETE FROM Usuarios WHERE nombreUsuario = @nombre";
-        int registrosAfectados = 0;
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            registrosAfectados = connection.Execute(query, new { nombre });
-        }
-        if (registrosAfectados > 0) sePudo = true;
-
-        return sePudo;
-    }
-
-    public static List<Usuario> ListaVinculos(Usuario user)
-    {
-        List<Usuario> ListVinculos = new List<Usuario>();
-
-        if(user.tipoUsuario == "tutor")
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idUser)";
-                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
-            }
-        }
-        else
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Usuarios WHERE id IN (SELECT idTutor FROM Tutorias WHERE idPerteneciente = @idUser)";
-                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
-            }
-        }
-        return ListVinculos;
-    }
-
-    public static List<Usuario> ListaUsuariosDisponibles(int idTutor)
-    {
-        List<Usuario> lista = new List<Usuario>();
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idTutor)";
-            lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
-        }
-        return lista;
-    }
     public static void ActualizarUsuario(Usuario user)
     {
         string query = @"UPDATE Usuarios SET 
@@ -142,12 +96,70 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         }
     }
 
-    public static List<PreguntaPictograma> ObtenerPreguntasPictogramas()
+    public static bool EliminarUsuario(string nombre)
     {
-        string sql = "SELECT * FROM PreguntasPictogramas ORDER BY NEWID()"; // NEWID() las trae en orden aleatorio --> Crear la tabla en la base de datos
-        using (SqlConnection db = new SqlConnection(_connectionString))
+        bool sePudo = false;
+        string query = "DELETE FROM Usuarios WHERE nombreUsuario = @nombre";
+        int registrosAfectados = 0;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            return db.Query<PreguntaPictograma>(sql).ToList();
+            registrosAfectados = connection.Execute(query, new { nombre });
+        }
+        if (registrosAfectados > 0) sePudo = true;
+        return sePudo;
+    }
+
+    public static List<Usuario> ListaVinculos(Usuario user)
+    {
+        List<Usuario> ListVinculos = new List<Usuario>();
+        if(user.tipoUsuario == "tutor")
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idUser)";
+                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
+            }
+        }
+        else 
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'tutor' AND id IN (SELECT idTutor FROM Tutoria WHERE idPerteneciente = @idUser)";
+                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
+            }
+        }
+        return ListVinculos;
+    }
+
+    public static List<Usuario> ListaUsuariosDisponibles(int idTutor)
+    {
+        List<Usuario> lista = new List<Usuario>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+          
+            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idTutor)";
+            lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
+        }
+        return lista;
+    }
+
+  
+    public static void AgregarVinculoBD(int idTutor, int idPerteneciente, string parentesco)
+    {
+        string query = "INSERT INTO Tutoria(idTutor, idPerteneciente, parentesco) VALUES (@pIdTutor, @pIdPerteneciente, @pParentesco)";
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente, pParentesco = parentesco });
+        }
+    }
+
+  
+    public static void EliminarVinculoBD(int idTutor, int idPerteneciente)
+    {
+        string query = "DELETE FROM Tutoria WHERE idTutor = @pIdTutor AND idPerteneciente = @pIdPerteneciente";
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente });
         }
     }
 }
