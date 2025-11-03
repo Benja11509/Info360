@@ -136,7 +136,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         List<Usuario> lista = new List<Usuario>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            // --- CORRECCIÓN SQL AQUÍ ---
+         
             string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idTutor)";
             lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
         }
@@ -153,7 +153,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         }
     }
 
-    // --- NUEVO MÉTODO AÑADIDO ---
+  
     public static void EliminarVinculoBD(int idTutor, int idPerteneciente)
     {
         string query = "DELETE FROM Tutoria WHERE idTutor = @pIdTutor AND idPerteneciente = @pIdPerteneciente";
@@ -162,4 +162,5 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
             connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente });
         }
     }
+     
 }

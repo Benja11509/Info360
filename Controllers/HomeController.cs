@@ -18,7 +18,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-         return RedirectToAction("Index");
+         return View("Index");
     }
 
     public IActionResult Home()
@@ -173,7 +173,7 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult JuegoPictogramas()
+    public IActionResult JuegoPictogramas() //heiron esta muy uy mal este metodo
     {
         // 1. Cargar la lista de preguntas desde la BD
         List<PreguntaPictograma> preguntas = BD.ObtenerPreguntasPictogramas(); // heiron falta aca crear la funcion en bd de obteer preguntapictogramas 
