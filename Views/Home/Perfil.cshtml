@@ -9,7 +9,8 @@
         <div class="profile-picture-container">
             <img src="@ViewBag.usuario.fotoPerfil" alt="Foto de perfil" class="profile-picture" />
         </div>
-        <a href="#" class="edit-photo-link">Editar foto</a>
+        
+        <a href='@Url.Action("Configuracion", "Home")' class="edit-profile-btn">Editar Perfil</a>
     </div>
 
     <div class="profile-info">
@@ -36,61 +37,92 @@
                 <label class="info-label">Tutor/es:</label>
                 <p class="info-value">@ViewBag.Vinculos[0].nombre @ViewBag.Vinculos[0].apellido</p>
             </div>
-            
         }
 
         @if(ViewBag.TocoMasPefil)
         {
             <div class="info-group">
-                <label class="info-label">Perteneciente/s:</label>
+                <label class="info-label">Nombre:</label>
                 <p class="info-value">@ViewBag.usuario.nombre</p>
             </div>
-
-
             <div class="info-group">
-                <label class="info-label">Perteneciente/s:</label>
+                <label class="info-label">Apellido:</label>
                 <p class="info-value">@ViewBag.usuario.apellido</p>
             </div>
-
- <div class="info-group">
-                <label class="info-label">Perteneciente/s:</label>
+            <div class="info-group">
+                <label class="info-label">Email:</label>
                 <p class="info-value">@ViewBag.usuario.mail</p>
             </div>
-
             <div class="info-group">
-                <label class="info-label">Perteneciente/s:</label>
-                <p class="info-value">@ViewBag.usuario.fechaNacimiento</p>
+                <label class="info-label">Fecha de Nacimiento:</label>
+                <p class="info-value">@ViewBag.usuario.fechaNacimiento?.ToString("dd/MM/yyyy")</p>
             </div>
-
-             <div class="info-group">
-                <label class="info-label">Perteneciente/s:</label>
+            <div class="info-group">
+                <label class="info-label">Teléfono:</label>
                 <p class="info-value">@ViewBag.usuario.telefono</p>
             </div>
-
-             <div class="info-group">
-                <label class="info-label">Perteneciente/s:</label>
+            <div class="info-group">
+                <label class="info-label">Nivel de Apoyo:</label>
                 <p class="info-value">@ViewBag.usuario.nivelApoyo</p>
             </div>
-
-             <div class="info-group">
-                <label class="info-label">Perteneciente/s:</label>
+            <div class="info-group">
+                <label class="info-label">Puntos:</label>
                 <p class="info-value">@ViewBag.usuario.puntos</p>
             </div>
-
-            
-
         }
         
-
-        <a href='@Url.Action("Configuracion", "Home")' class="nav-link" >Editar perfil </a>
-
-
-
+        <a href='@Url.Action(ViewBag.TocoMasPefil ? "Perfil" : "VerMasPerfil", "Home")' class="nav-link" >
+            @(ViewBag.TocoMasPefil ? "Ver menos datos" : "Ver más datos")
+        </a>
     </div>
-
 
     <div class="bubble bubble-tl"></div>
     <div class="bubble bubble-tr"></div>
     <div class="bubble bubble-bl"></div>
     <div class="bubble bubble-br"></div>
 </div>
+
+@if (ViewBag.usuario.tipoUsuario == "tutor")
+{
+    <section class="Perfil_Relaciones">
+        <h3>Mis Pertenecientes Vinculados</h3>
+
+        @foreach (var perteneciente in ViewBag.Vinculos)
+        {
+            <div class="vinculo-card">
+                <p><strong>Nombre:</strong> @perteneciente.nombre @perteneciente.apellido</p>
+                <p><strong>Email:</strong> @perteneciente.mail</p>
+                <p><strong>Teléfono:</strong> @perteneciente.telefono</p>
+                
+                <form method="post" asp-action="EliminarVinculo" style="display:inline;">
+                    <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
+                    <input type="hidden" name="idPerteneciente" value="@perteneciente.id" />
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar vínculo</button>
+                </form>
+            </div>
+        }
+        
+        <hr class="seccion-divisor" />
+        
+        <h4>Agregar Nuevo Perteneciente</h4>
+        <form method="post" asp-action="AgregarVinculo" class="vinculo-form">
+            <div>
+                <label for="idPerteneciente">Seleccionar usuario:</label>
+                <select name="idPerteneciente" required>
+                    @foreach (var usuario in ViewBag.UsuariosDisponibles)
+                    {
+                        <option value="@usuario.id">@usuario.nombre @usuario.apellido (@usuario.nombreUsuario)</option>
+                    }
+                </select>
+            </div>
+
+            <div>
+                <label for="parentesco">Parentesco:</label>
+                <input type="text" name="parentesco" required />
+            </div>
+
+            <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
+            <button type="submit" class="btn btn-primary mt-2">Agregar vínculo</button>
+        </form>
+    </section>
+}

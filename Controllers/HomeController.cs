@@ -113,25 +113,7 @@ public class HomeController : Controller
         return RedirectToAction("Perfil");
     }
     
-    public IActionResult Configuracion()
-    {
-        string? usuarioJson = HttpContext.Session.GetString("Usuario");
-        if (string.IsNullOrEmpty(usuarioJson))
-        {
-            return RedirectToAction("Index", "Account");
-        }
-        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-        Usuario? usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
-        if (usuarioCompleto == null)
-        {
-            return RedirectToAction("CerrarSesion", "Account");
-        }
-
-        ViewBag.usuario = usuarioCompleto; 
-        return View("Configuracion"); 
-    }
-
+   
     
     [HttpPost]
     public IActionResult GuardarConfiguracion(string nombre, string apellido, DateTime? fechaNacimiento, string telefono, string fotoPerfil, int? nivelApoyo, string descripcion)
@@ -194,7 +176,7 @@ public class HomeController : Controller
     public IActionResult JuegoPictogramas()
     {
         // 1. Cargar la lista de preguntas desde la BD
-        List<PreguntaPictograma> preguntas = BD.ObtenerPreguntasPictogramas();
+        List<PreguntaPictograma> preguntas = BD.ObtenerPreguntasPictogramas(); // heiron falta aca crear la funcion en bd de obteer preguntapictogramas 
         
         // 2. Guardar la lista completa en la Sesión
         string jsonPreguntas = JsonSerializer.Serialize(preguntas);
