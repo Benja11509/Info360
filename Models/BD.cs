@@ -124,7 +124,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'tutor' AND id IN (SELECT idTutor FROM Tutoria WHERE idPerteneciente = @idUser)";
+                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'tutor' AND id IN (SELECT idTutor FROM Tutorias WHERE idPerteneciente = @idUser)";
                 ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
             }
         }
@@ -137,7 +137,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
          
-            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idTutor)";
+            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (SELECT idPerteneciente FROM Tutorias WHERE idTutor = @idTutor)";
             lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
         }
         return lista;

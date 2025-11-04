@@ -69,25 +69,16 @@
                 <label class="info-label">Puntos:</label>
                 <p class="info-value">@ViewBag.usuario.puntos</p>
             </div>
+        
         }
         
-        <a href='@Url.Action(ViewBag.TocoMasPefil ? "Perfil" : "VerMasPerfil", "Home")' class="nav-link" >
-            @(ViewBag.TocoMasPefil ? "Ver menos datos" : "Ver más datos")
-        </a>
-    </div>
 
-    <div class="bubble bubble-tl"></div>
-    <div class="bubble bubble-tr"></div>
-    <div class="bubble bubble-bl"></div>
-    <div class="bubble bubble-br"></div>
-</div>
-
-@if (ViewBag.usuario.tipoUsuario == "tutor")
+            @if (ViewBag.usuario.tipoUsuario == "responsable")
 {
     <section class="Perfil_Relaciones">
         <h3>Mis Pertenecientes Vinculados</h3>
 
-        @foreach (var perteneciente in ViewBag.Vinculos)
+   @foreach (Usuario perteneciente in ViewBag.Vinculos)//toma error porque recorro una lista vacia
         {
             <div class="vinculo-card">
                 <p><strong>Nombre:</strong> @perteneciente.nombre @perteneciente.apellido</p>
@@ -96,7 +87,7 @@
                 
                 <form method="post" asp-action="EliminarVinculo" style="display:inline;">
                     <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
-                    <input type="hidden" name="idPerteneciente" value="@perteneciente.id" />
+                    <input type="text" name="nombreUsuarioPerteneciente" value="nombreUsuarioPerteneciente" />
                     <button type="submit" class="btn btn-danger btn-sm">Eliminar vínculo</button>
                 </form>
             </div>
@@ -109,7 +100,7 @@
             <div>
                 <label for="idPerteneciente">Seleccionar usuario:</label>
                 <select name="idPerteneciente" required>
-                    @foreach (var usuario in ViewBag.UsuariosDisponibles)
+                    @foreach (Usuario usuario in ViewBag.UsuariosDisponibles) //toma error porque recorro una lista vacia
                     {
                         <option value="@usuario.id">@usuario.nombre @usuario.apellido (@usuario.nombreUsuario)</option>
                     }
@@ -126,3 +117,14 @@
         </form>
     </section>
 }
+        <a href='@Url.Action(ViewBag.TocoMasPefil ? "Perfil" : "VerMasPerfil", "Home")' class="nav-link" >
+            @(ViewBag.TocoMasPefil ? "Ver menos datos" : "Ver más datos")
+        </a>
+    </div>
+
+    <div class="bubble bubble-tl"></div>
+    <div class="bubble bubble-tr"></div>
+    <div class="bubble bubble-bl"></div>
+    <div class="bubble bubble-br"></div>
+</div>
+
