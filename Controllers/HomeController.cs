@@ -48,6 +48,17 @@ public class HomeController : Controller
         ViewBag.Pregunta =  preg.ObtenerPreguntaActual();
         return View("JuegoOrdenarPictogramas");
     }
+ public IActionResult CerrarSesion(){
+        return View("Index");
+    }
+     public IActionResult Nosotros(){
+        return View("Nosotros");
+    }
+       public IActionResult Ayuda(){
+        return View("Ayuda");
+    }
+    
+
 
     public IActionResult Perfil(bool verMas = false)
     {

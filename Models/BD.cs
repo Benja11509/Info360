@@ -165,5 +165,15 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
             connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente });
         }
     }
+     public static List<PreguntaPictograma> TraerPreguntas()
+    {
+        List<PreguntaPictograma> ListaPreguntas = new List<PreguntaPictograma>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT * FROM PreguntasPictogramas";
+            ListaPreguntas = connection.Query<Usuario>(query).ToList();
+        }
+        return ListaPreguntas;
+    }
      
 }
