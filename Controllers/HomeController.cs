@@ -38,9 +38,12 @@ public class HomeController : Controller
         return View("Juegos");
     }
     public IActionResul VerJuegos(){
-        return View("");
+        return View("Juegos");
     }
     public IActionResult JuegoPictograma(){
+        return View("previewJuego");
+    }
+    public IActionResult jugarOrdenarPictograma(){
         return View("JuegoOrdenarPictograma");
     }
 
