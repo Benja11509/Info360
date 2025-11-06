@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Info360.Models;
 using Microsoft.AspNetCore.Http; 
 using System; 
-using System.Text.Json;        
+using System.Text.Json;         
 
 namespace Info360.Controllers;
 
@@ -35,7 +35,7 @@ public class HomeController : Controller
     {
         return View("Juegos");
     }
- 
+
     public IActionResult Perfil(bool verMas = false)
     {
         string? usuarioJson = HttpContext.Session.GetString("Usuario");
@@ -45,23 +45,21 @@ public class HomeController : Controller
         }
         Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
         
-       
-        Usuario? usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
         if (usuarioCompleto == null)
         {
-            
             return RedirectToAction("CerrarSesion", "Account");
         }
 
         ViewBag.usuario = usuarioCompleto;
         ViewBag.Vinculos = BD.ListaVinculos(usuarioCompleto);
-        
-      
         ViewBag.TocoMasPefil = verMas; 
 
-      
-        if(usuarioCompleto.tipoUsuario == "tutor")
+        // --- CORRECCIÓN DE LÓGICA ---
+        // Cambiado de "tutor" a "responsable" para que coincida con tu Vista
+        if(usuarioCompleto.tipoUsuario == "responsable")
         {
             ViewBag.UsuariosDisponibles = BD.ListaUsuariosDisponibles(usuarioCompleto.id);
         }
@@ -72,7 +70,6 @@ public class HomeController : Controller
     
     public IActionResult VerMasPerfil()
     {
-       
         return RedirectToAction("Perfil", new { verMas = true });
     }
     
@@ -84,7 +81,8 @@ public class HomeController : Controller
             return RedirectToAction("Index", "Account");
         }
         Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-        Usuario? usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+       
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
         if (usuarioCompleto == null)
         {
@@ -94,9 +92,6 @@ public class HomeController : Controller
         ViewBag.usuario = usuarioCompleto; 
         return View("Configuracion"); 
     }
-
-    
-    
     
     [HttpPost]
     public IActionResult AgregarVinculo(int idTutor, int idPerteneciente, string parentesco)
@@ -105,15 +100,12 @@ public class HomeController : Controller
         return RedirectToAction("Perfil");
     }
 
-    
     [HttpPost]
     public IActionResult EliminarVinculo(int idTutor, int idPerteneciente)
     {
         BD.EliminarVinculoBD(idTutor, idPerteneciente);
         return RedirectToAction("Perfil");
     }
-    
-   
     
     [HttpPost]
     public IActionResult GuardarConfiguracion(string nombre, string apellido, DateTime? fechaNacimiento, string telefono, string fotoPerfil, int? nivelApoyo, string descripcion)
@@ -125,52 +117,16 @@ public class HomeController : Controller
         }
         Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
         
+  
         Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
         if (usuarioActualizado != null)
         {
-           
-            
-            if (!string.IsNullOrEmpty(nombre))
-            {
-                usuarioActualizado.nombre = nombre;
-            }
-            
-            if (!string.IsNullOrEmpty(apellido))
-            {
-                usuarioActualizado.apellido = apellido;
-            }
-
-            if (fechaNacimiento != null)
-            {
-                usuarioActualizado.fechaNacimiento = fechaNacimiento;
-            }
-            
-            if (!string.IsNullOrEmpty(telefono))
-            {
-                usuarioActualizado.telefono = telefono;
-            }
-
-            if (!string.IsNullOrEmpty(fotoPerfil))
-            {
-                usuarioActualizado.fotoPerfil = fotoPerfil;
-            }
-
-            if (nivelApoyo != null)
-            {
-                usuarioActualizado.nivelApoyo = nivelApoyo;
-            }
-            
-          
-            usuarioActualizado.descripcion = descripcion;
-
-      
-            
+            // Llamamos al método en el Modelo para actualizar los datos
+            usuarioActualizado.ActualizarDatosOpcionales(nombre, apellido, fechaNacimiento, telefono, fotoPerfil, nivelApoyo, descripcion);
             BD.ActualizarUsuario(usuarioActualizado);
         }
 
         return RedirectToAction("Perfil");
     }
-
-
 }

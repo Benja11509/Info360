@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" href="~/css/perfil.css" asp-append-version="true" />
 
-
 <div class="profile-card">
     <div class="profile-header">
         <div class="profile-picture-container">
@@ -25,7 +24,7 @@
             <p class="info-value">@ViewBag.usuario.descripcion</p>
         </div>
 
-        @if (ViewBag.usuario.tipoUsuario == "tutor" && ViewBag.Vinculos.Count > 0)
+        @if (ViewBag.usuario.tipoUsuario == "responsable" && ViewBag.Vinculos.Count > 0)
         {
             <div class="info-group">
                 <label class="info-label">Perteneciente/s:</label>
@@ -73,51 +72,50 @@
         
         }
         
-
-            @if (ViewBag.usuario.tipoUsuario == "responsable")
-{
-    <section class="Perfil_Relaciones">
-        <h3>Mis Pertenecientes Vinculados</h3>
-
-   @foreach (Usuario perteneciente in ViewBag.Vinculos)//toma error porque recorro una lista vacia
+        @if (ViewBag.usuario.tipoUsuario == "responsable")
         {
-            <div class="vinculo-card">
-                <p><strong>Nombre:</strong> @perteneciente.nombre @perteneciente.apellido</p>
-                <p><strong>Email:</strong> @perteneciente.mail</p>
-                <p><strong>Teléfono:</strong> @perteneciente.telefono</p>
+            <section class="Perfil_Relaciones">
+                <h3>Mis Pertenecientes Vinculados</h3>
+
+                @foreach (Usuario perteneciente in ViewBag.Vinculos)
+                {
+                    <div class="vinculo-card">
+                        <p><strong>Nombre:</strong> @perteneciente.nombre @perteneciente.apellido</p>
+                        <p><strong>Email:</strong> @perteneciente.mail</p>
+                        <p><strong>Teléfono:</strong> @perteneciente.telefono</p>
+                        
+                        <form method="post" asp-action="EliminarVinculo" style="display:inline;">
+                            <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
+                            <input type="hidden" name="idPerteneciente" value="@perteneciente.id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar vínculo</button>
+                        </form>
+                    </div>
+                }
                 
-                <form method="post" asp-action="EliminarVinculo" style="display:inline;">
+                <hr class="seccion-divisor" />
+                
+                <h4>Agregar Nuevo Perteneciente</h4>
+                <form method="post" asp-action="AgregarVinculo" class="vinculo-form">
+                    
+                    <div>
+                        <label for="buscadorPerteneciente">Buscar usuario:</label>
+                        <input type="text" id="buscadorPerteneciente" class="form-control" placeholder="Escribe un nombre o usuario..." autocomplete="off">
+                        
+                        <div id="listaResultados" class="search-results"></div>
+                    </div>
+
+                    <input type="hidden" id="selectedPertenecienteId" name="idPerteneciente" value="">
+                    <div>
+                        <label for="parentesco">Parentesco:</label>
+                        <input type="text" name="parentesco" required />
+                    </div>
+
                     <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
-                    <input type="text" name="nombreUsuarioPerteneciente" value="nombreUsuarioPerteneciente" />
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar vínculo</button>
+                    <button type="submit" class="btn btn-primary mt-2">Agregar vínculo</button>
                 </form>
-            </div>
+            </section>
         }
         
-        <hr class="seccion-divisor" />
-        
-        <h4>Agregar Nuevo Perteneciente</h4>
-        <form method="post" asp-action="AgregarVinculo" class="vinculo-form">
-            <div>
-                <label for="idPerteneciente">Seleccionar usuario:</label>
-                <select name="idPerteneciente" required>
-                    @foreach (Usuario usuario in ViewBag.UsuariosDisponibles) //toma error porque recorro una lista vacia
-                    {
-                        <option value="@usuario.id">@usuario.nombre @usuario.apellido (@usuario.nombreUsuario)</option>
-                    }
-                </select>
-            </div>
-
-            <div>
-                <label for="parentesco">Parentesco:</label>
-                <input type="text" name="parentesco" required />
-            </div>
-
-            <input type="hidden" name="idTutor" value="@ViewBag.usuario.id" />
-            <button type="submit" class="btn btn-primary mt-2">Agregar vínculo</button>
-        </form>
-    </section>
-}
         <a href='@Url.Action(ViewBag.TocoMasPefil ? "Perfil" : "VerMasPerfil", "Home")' class="nav-link" >
             @(ViewBag.TocoMasPefil ? "Ver menos datos" : "Ver más datos")
         </a>
@@ -129,4 +127,85 @@
     <div class="bubble bubble-br"></div>
 </div>
 
- <script src="js/site.js"></script>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. OBTENER DATOS (Corregido)
+            // Leemos la lista de C# (ViewBag) y la convertimos a un array de JavaScript
+            const usuariosDisponibles = @Html.Raw(Json.Serialize(ViewBag.UsuariosDisponibles ?? new List<Usuario>()));
+
+            // 2. OBTENER ELEMENTOS DOM (Corregido)
+            // Usamos los IDs de TU HTML
+            const input = document.getElementById('buscadorPerteneciente');
+            const lista = document.getElementById('listaResultados');
+            const hiddenInput = document.getElementById('selectedPertenecienteId');
+
+            // Si el input no existe (porque el usuario no es 'responsable'), detenemos el script
+            if (!input) return; 
+
+            // 3. RENDERIZAR (Corregido)
+            function renderList(items) {
+                lista.innerHTML = ''; 
+                
+                if (input.value === '') { // Oculta si el input está vacío
+                    lista.style.display = 'none';
+                    return;
+                }
+                lista.style.display = 'block'; 
+                
+                items.forEach(usuario => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    
+                    // Usamos las propiedades de TU 'Usuario.cs'
+                    div.innerHTML = `<strong>${usuario.nombre ?? ''} ${usuario.apellido ?? ''}</strong> (${usuario.nombreUsuario})`;
+                    
+                    div.dataset.id = usuario.id;
+                    div.dataset.name = `${usuario.nombre ?? ''} ${usuario.apellido ?? ''} (${usuario.nombreUsuario})`;
+
+                    // 4. LÓGICA DE CLIC (Corregido)
+                    div.addEventListener('click', () => {
+                        // Ponemos el ID en el input oculto (name="idPerteneciente")
+                        hiddenInput.value = div.dataset.id;
+                        
+                        // Mostramos la selección en el input
+                        input.value = div.dataset.name;
+                        
+                        // Ocultamos la lista
+                        lista.innerHTML = '';
+                        lista.style.display = 'none';
+                    });
+                    
+                    lista.appendChild(div);
+                });
+            }
+
+            // 5. FILTRAR (Corregido)
+            input.addEventListener('input', () => {
+                const texto = input.value.trim().toLowerCase();
+                
+                hiddenInput.value = ""; // Resetea el ID si el usuario escribe de nuevo
+
+                if (texto === '') {
+                    renderList([]);
+                } else {
+                    // Filtramos por las propiedades de TU 'Usuario.cs'
+                    const filtrados = usuariosDisponibles.filter(u => 
+                        (u.nombre && u.nombre.toLowerCase().includes(texto)) ||
+                        (u.apellido && u.apellido.toLowerCase().includes(texto)) ||
+                        u.nombreUsuario.toLowerCase().includes(texto)
+                    );
+                    renderList(filtrados);
+                }
+            });
+
+            // Evitar que "Enter" en el buscador envíe el formulario
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+}

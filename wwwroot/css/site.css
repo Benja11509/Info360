@@ -996,3 +996,106 @@ footer {
 body {
     padding-top: 70px;
 }
+
+.config-container {
+    max-width: 700px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.config-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.config-foto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.config-header h2 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.config-username {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.config-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.config-row label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.config-row input,
+.config-row textarea {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.config-row input:focus,
+.config-row textarea:focus {
+    border-color: #5f9df7;
+    outline: none;
+    box-shadow: 0 0 4px rgba(95,157,247,0.3);
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.btn-guardar, .btn-volver {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.btn-guardar {
+    background: #5f9df7;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-guardar:hover {
+    background: #4a8be6;
+}
+
+.btn-volver {
+    margin-left: 10px;
+    color: #5f9df7;
+    background: #eef4ff;
+}
+
+.btn-volver:hover {
+    background: #d9e8ff;
+}

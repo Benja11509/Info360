@@ -46,6 +46,18 @@ public class Usuario
     {
 
     }
+    public void ActualizarDatosOpcionales(string pnombre, string papellido, DateTime? pfechaNacimiento, string ptelefono, string pfotoPerfil, int? pnivelApoyo, string? pdescripcion )
+    {
+nombre = pnombre;
+apellido = papellido;
+fechaNacimiento = pfechaNacimiento;
+telefono = ptelefono;
+fotoPerfil = pfotoPerfil;
+nivelApoyo = pnivelApoyo;
+descripcion = pdescripcion;
+
+
+    }
 
 
 

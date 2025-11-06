@@ -1,62 +1,57 @@
 @model Usuario
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Configuración de Perfil";
+    var usuario = ViewBag.usuario;
 }
 
-<link rel="stylesheet" href="~/css/configuracion.css" asp-append-version="true" />
-
 <div class="config-container">
-    <div class="config-card">
-        <h2>Completar mi Perfil</h2>
-        <p>Completa tus datos para personalizar tu experiencia.</p>
-
-        <form asp-action="GuardarConfiguracion" asp-controller="Home" method="post">
-            
-            <div class="form-row">
-                <div class="form-col">
-                    <div class="form-group">
-                        <label asp-for="nombre">Nombre</label>
-                        <input asp-for="nombre" class="form-control" placeholder="Ej: Juan">
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="apellido">Apellido</label>
-                        <input asp-for="apellido" class="form-control" placeholder="Ej: Pérez">
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="fechaNacimiento">Fecha de Nacimiento</label>
-                        <input asp-for="fechaNacimiento" class="form-control" type="date">
-                    </div>
-
-                     <div class="form-group">
-                        <label asp-for="descripcion">Descripción</label>
-                        <textarea asp-for="descripcion" class="form-control" rows="4" placeholder="Una breve descripción sobre ti..."></textarea>
-                    </div>
-                </div>
-
-                <div class="form-col">
-                    <div class="form-group">
-                        <label asp-for="telefono">Teléfono</label>
-                        <input asp-for="telefono" class="form-control" placeholder="Ej: 1122334455">
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="fotoPerfil">URL de Foto de Perfil</label>
-                        <input asp-for="fotoPerfil" class="form-control" placeholder="https://ejemplo.com/imagen.png">
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="nivelApoyo">Nivel de Apoyo (1-5)</label>
-                        <input asp-for="nivelApoyo" class="form-control" type="number" min="1" max="5">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group form-actions">
-                <a asp-action="Perfil" class="btn btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            </div>
-        </form>
+    <div class="config-header">
+        <img src="@usuario.fotoPerfil" alt="Foto de perfil" class="config-foto" />
+        <h2>@usuario.nombre @usuario.apellido</h2>
+        <p class="config-username">@usuario.nombreUsuario</p>
     </div>
+
+    <form asp-action="GuardarConfiguracion" method="post" class="config-form">
+        <div class="config-row">
+            <label>Nombre</label>
+            <input type="text" name="nombre" value="@usuario.nombre" />
+        </div>
+
+        <div class="config-row">
+            <label>Apellido</label>
+            <input type="text" name="apellido" value="@usuario.apellido" />
+        </div>
+
+        <div class="config-row">
+            <label>Fecha de Nacimiento</label>
+            <input type="date" name="fechaNacimiento" value="@(usuario.fechaNacimiento?.ToString("yyyy-MM-dd"))" />
+        </div>
+
+        <div class="config-row">
+            <label>Teléfono</label>
+            <input type="text" name="telefono" value="@usuario.telefono" />
+        </div>
+
+        <div class="config-row">
+            <label>Foto de Perfil (URL)</label>
+            <input type="text" name="fotoPerfil" value="@usuario.fotoPerfil" />
+        </div>
+
+        @if (usuario.tipoUsuario == "tutor")
+        {
+            <div class="config-row">
+                <label>Nivel de apoyo</label>
+                <input type="number" name="nivelApoyo" value="@usuario.nivelApoyo" min="0" max="10" />
+            </div>
+        }
+
+        <div class="config-row">
+            <label>Descripción</label>
+            <textarea name="descripcion">@usuario.descripcion</textarea>
+        </div>
+
+        <button type="submit" class="btn-guardar">Guardar Cambios</button>
+        <a asp-action="Perfil" class="btn-volver">Volver</a>
+    </form>
 </div>

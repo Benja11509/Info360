@@ -109,22 +109,25 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         return sePudo;
     }
 
-    public static List<Usuario> ListaVinculos(Usuario user)
+  public static List<Usuario> ListaVinculos(Usuario user)
     {
         List<Usuario> ListVinculos = new List<Usuario>();
-        if(user.tipoUsuario == "tutor")
+
+        // --- CORRECCIÓN AQUÍ ---
+        // Se agregó la comprobación "|| user.tipoUsuario == "responsable""
+        if(user.tipoUsuario == "tutor" || user.tipoUsuario == "responsable")
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutoria WHERE idTutor = @idUser)";
+                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutorias WHERE idTutor = @idUser)";
                 ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
             }
         }
-        else 
+        else // Si es "perteneciente"
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'tutor' AND id IN (SELECT idTutor FROM Tutorias WHERE idPerteneciente = @idUser)";
+                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'responsable' AND id IN (SELECT idTutor FROM Tutorias WHERE idPerteneciente = @idUser)";
                 ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
             }
         }
@@ -144,19 +147,19 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     }
 
    
-    public static void AgregarVinculoBD(int idTutor, int idPerteneciente, string parentesco)
+    public static void AgregarVinculoBD(int idTutor, int idPerteneciente, string parentezco)
     {
-        string query = "INSERT INTO Tutoria(idTutor, idPerteneciente, parentesco) VALUES (@pIdTutor, @pIdPerteneciente, @pParentesco)";
+        string query = "INSERT INTO Tutorias(idTutor, idPerteneciente, parentezco) VALUES (@pIdTutor, @pIdPerteneciente, @pParentezco)";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente, pParentesco = parentesco });
+            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente, pParentezco = parentezco });
         }
     }
 
   
     public static void EliminarVinculoBD(int idTutor, int idPerteneciente)
     {
-        string query = "DELETE FROM Tutoria WHERE idTutor = @pIdTutor AND idPerteneciente = @pIdPerteneciente";
+        string query = "DELETE FROM Tutorias WHERE idTutor = @pIdTutor AND idPerteneciente = @pIdPerteneciente";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente });
