@@ -2,42 +2,15 @@
 @{
     ViewData["Title"] = "JuegoOrdenarPictogramas";
 }
-<div id="juego-pictograma-container" 
-     class="juego-container"
-     data-url-verificar="@Url.Action("VerificarRespuesta")" 
-     data-url-siguiente="@Url.Action("SiguientePregunta")"
-     data-url-juegos="@Url.Action("Juegos")">
-
-    <h2>¿QUÉ ES?</h2>
-
-    <div class="pictograma-imagen-container">
-        <img id="imgPictograma" src="@ViewBag.ImagenPictograma" alt="Pictograma" class="img-pictograma">
-    </div>
-
-    <input type="hidden" id="hdnIdPregunta" value="@ViewBag.IdPregunta" />
-    <h1></h1>
-    <br>
-
-    <div id="opciones-container">
-        <button class="opcion btn" data-opcion="1">@ViewBag.Opcion1</button>
-        <button class="opcion btn" data-opcion="2">@ViewBag.Opcion2</button>
-        <br>
-        <button class="opcion btn" data-opcion="3">@ViewBag.Opcion3</button>
-        <button class="opcion btn" data-opcion="4">@ViewBag.Opcion4</button>
-    </div>
-
-    <br>
-
-    <div id="feedback" style="display: none;">
-        </div>
-
-    <br>
-
-    <div class="accion-container">
-        <button id="btnVerificar" class="btn">VERIFICAR</button>
-        <button id="btnSiguiente" class="btn" style="display: none;">SIGUIENTE</button>
-    </div>
-
+<h1>¿QUE ES?</h1>
+<img src="">
+<a><h2 id="rta"></h2></a>
+<section class= "Respuestas">
+<button id= 1> </button>
+<button id= 2> </button>
+<button id= 3> </button>
+<button id= 4> @ViewBag.o</button>
+</section>
 </div>
 
 
