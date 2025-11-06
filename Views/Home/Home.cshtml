@@ -15,17 +15,11 @@
 <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Comenzar Actividad</a>
 </div>
 
-//estoy hay que ponerlo en un carousel
+
 <div class ="ActividadesPendientes ">
 <h2>Tareas Pendientes: </h2>
-<div class =" cardsActPendeintes">
-@foreach (Actividades act in ViewBag.ActividadesPendientes)
-{
-<p>@act.imagen</p>
-<p>@act.nombre</p>
-<a href='@Url.Action("JuegoPictograma", "Home")' class="botonComenzarAct">Continuar</a>
+//aca mateo e ilan cunado terminen de hacer su lo de act, pongan las act pendientes aca en un carousel
 
-}
 </div>
 <div class ="ir a Chats">
 <h2>¿Ya hablaste con alguien hoy?</h2>
