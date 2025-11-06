@@ -37,14 +37,16 @@ public class HomeController : Controller
     {
         return View("Juegos");
     }
-    public IActionResul VerJuegos(){
+    public IActionResult VerJuegos(){
         return View("Juegos");
     }
-    public IActionResult JuegoPictograma(){
+    public IActionResult JuegoPictogramas(){
         return View("previewJuego");
     }
     public IActionResult jugarOrdenarPictograma(){
-        return View("JuegoOrdenarPictograma");
+        PreguntaPictograma preg = new PreguntaPictograma();
+        ViewBag.Pregunta =  preg.ObtenerPreguntaActual();
+        return View("JuegoOrdenarPictogramas");
     }
 
     public IActionResult Perfil(bool verMas = false)

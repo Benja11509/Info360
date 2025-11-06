@@ -21,11 +21,11 @@ public class PreguntaPictograma
         // Lista estática para guardar las preguntas del juego actual
       
         public static List<PreguntaPictograma> _ListaPreguntas { get; private set; } = new List<PreguntaPictograma>();
-        public static List<int> _ListaPreguntasHechas { get; private set; } = new List<int>();
+        public  List<int> _ListaPreguntasHechas { get; private set; } = new List<int>();
         
         // Variable estática para guardar el índice de la pregunta actual
     
-        public static int _IndiceActual { get; private set; } = 0;
+        public  int _IndiceActual { get; private set; } = 0;
 
         // Método para cargar la lista de preguntas (lo llamará el Controller)
         public static void CargarPreguntas(List<PreguntaPictograma> preguntas)
@@ -38,11 +38,12 @@ public class PreguntaPictograma
         // Método para obtener la pregunta actual
         public static PreguntaPictograma ObtenerPreguntaActual()
         {
+            CargarPreguntas();
             if (_ListaPreguntas != null && !_ListaPreguntasHechas.Contains(_IndiceActual))
             {
                 _ListaPreguntasHechas.Add(_IndiceActual);
                 return _ListaPreguntas[_IndiceActual];
-            }
+            }else if(_ListaPreguntasHechas.Contains(_IndiceActual)) AvanzarSiguientePregunta();
             return null; // No hay más preguntas
         }
 
