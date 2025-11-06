@@ -23,12 +23,14 @@ public class Actividades
     public bool favorito { get; private set; }
     [JsonProperty]
     public string imagen { get; private set; }
+    [JsonProperty]
+    public List<Actividades> ListActividadesPendientes { get; private set; } = new List<Actividades>();
 
 
+public Actividades ()
+{
 
-
-
-
+}
 
 
 

@@ -1099,3 +1099,248 @@ textarea {
 .btn-volver:hover {
     background: #d9e8ff;
 }
+.btn-volver {
+    margin-left: 10px;
+    color: #5f9df7;
+    background: #eef4ff;
+}
+
+.btn-volver:hover {
+    background: #d9e8ff;
+}
+.profile-card {
+  max-width: 800px;
+  margin: 80px auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile-picture-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.edit-profile-btn {
+  background: #5f9df7;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+  background: #4a8be6;
+}
+
+/* ===== INFORMACIÓN DEL PERFIL ===== */
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-group {
+  background: #f9fafc;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #e3e8ef;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.info-value {
+  color: #555;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ===== SECCIÓN DE RELACIONES ===== */
+
+.Perfil_Relaciones {
+  margin-top: 40px;
+  background: #fdfdfd;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.Perfil_Relaciones h3, 
+.Perfil_Relaciones h4 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.vinculo-card {
+  background: #f4f7ff;
+  border: 1px solid #dbe4ff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+.vinculo-card p {
+  margin: 4px 0;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.vinculo-card form {
+  margin-top: 8px;
+}
+
+.btn-danger {
+  background: #ff5b5b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: #e04646;
+}
+
+/* ===== FORMULARIO DE NUEVO VÍNCULO ===== */
+
+.vinculo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.vinculo-form label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.vinculo-form input[type="text"],
+.vinculo-form input[type="number"] {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.vinculo-form input:focus {
+  border-color: #5f9df7;
+  box-shadow: 0 0 4px rgba(95,157,247,0.3);
+  outline: none;
+}
+
+.vinculo-form button {
+  width: fit-content;
+  background: #5f9df7;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.vinculo-form button:hover {
+  background: #4a8be6;
+}
+
+/* ===== BUSCADOR DE USUARIOS ===== */
+
+.search-results {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 4px;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.result-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.result-item:hover {
+  background: #eef4ff;
+}
+
+/* ===== BOTONES Y ENLACES ===== */
+
+.btn-primary {
+  background: #5f9df7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #4a8be6;
+}
+
+.nav-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #5f9df7;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #4077d6;
+}
+
+/* ===== BURBUJAS DECORATIVAS ===== */
+
+.bubble {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(95,157,247,0.25), transparent);
+  border-radius: 50%;
+}
+
+.bubble-tl { top: -20px; left: -20px; }
+.bubble-tr { top: -25px; right: -25px; }
+.bubble-bl { bottom: -25px; left: -25px; }
+.bubble-br { bottom: -20px; right: -20px; }

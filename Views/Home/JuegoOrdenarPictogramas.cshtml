@@ -3,14 +3,16 @@
     ViewData["Title"] = "JuegoOrdenarPictogramas";
 }
 <h1>¿QUE ES?</h1>
-<img src="">
-<a><h2 id="rta"></h2></a>
+<img src="~/imgs/am.png" alt= "amarillo">
+
+<button id="rta" onclick=""><h2></h2></button>
 <section class= "Respuestas">
-<button id= 1> </button>
-<button id= 2> </button>
-<button id= 3> </button>
-<button id= 4> @ViewBag.o</button>
+<button id= 1 onclick=""> @ViewBag.pregunta.opcion1</button>
+<button id= 2 onclick=""> @ViewBag.pregunta.opcion2</button>
+<button id= 3 onclick=""> @ViewBag.pregunta.opcion3</button>
+<button id= 4 onclick=""> @ViewBag.pregunta.opcion4</button>
 </section>
+<a href='@Url.Action("DejarTareaPendiente", "Home",new{idPregunta = "@ViewBag.pregunta.id"})'><button>Continuar más tarde</button></a>
 </div>
 
 

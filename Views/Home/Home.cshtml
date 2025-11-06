@@ -4,11 +4,30 @@
 }
 <body>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+//lesan pone aca el carrousel 
+ 
 
- <header>
-            
 
-            
-          </header>
 
+<div class ="comenzarActividades ">
+<h2>Hola! bienvenido a Támden, </h2>
+<h2>¿Listo para descubrir una nueva actividad hoy?  </h2>
+<a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Comenzar Actividad</a>
+</div>
+
+
+<div class ="ActividadesPendientes ">
+<h2>Tareas Pendientes: </h2>
+<div class =" cardsActPendeintes">
+@foreach (Actividades act in ViewBag.ActividadesPendientes)
+{
+<p>@act.imagen</p>
+<p>@act.nombre</p>
+<a href='@Url.Action("JuegoPictograma", "Home")' class="botonComenzarAct">Continuar</a>
+
+}
+</div>
+
+
+</div>
 </body>

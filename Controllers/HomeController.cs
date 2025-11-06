@@ -23,6 +23,8 @@ public class HomeController : Controller
 
     public IActionResult Home()
     {
+        Actividades Act = new Actividades();
+        ViewBag.ActividadesPendientes = Act.ListActividadesPendientes;
         return View("Home");
     }
     
@@ -34,6 +36,12 @@ public class HomeController : Controller
     public IActionResult Juegos()
     {
         return View("Juegos");
+    }
+    public IActionResul VerJuegos(){
+        return View("");
+    }
+    public IActionResult JuegoPictograma(){
+        return View("JuegoOrdenarPictograma");
     }
 
     public IActionResult Perfil(bool verMas = false)
