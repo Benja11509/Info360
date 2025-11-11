@@ -3,14 +3,15 @@
     ViewData["Title"] = "JuegoOrdenarPictogramas";
 }
 <h1>¿QUE ES?</h1>
-<img src="~/imgs/am.png" alt= "amarillo">
+<img src="~/imgs/@ViewBag.ImagenPictograma" alt= "amarillo">
 
-<button id="rta" onclick=""><h2></h2></button>
+<button id="rta" onclick="vaciarResp()"><h2></h2></button>
 <section class= "Respuestas">
-<button id= 1 onclick=""> @ViewBag.pregunta.opcion1</button>
-<button id= 2 onclick=""> @ViewBag.pregunta.opcion2</button>
-<button id= 3 onclick=""> @ViewBag.pregunta.opcion3</button>
-<button id= 4 onclick=""> @ViewBag.pregunta.opcion4</button>
+<button id= 1 onclick="resolverImg(ViewBag.pregunta.opcion1)"> @ViewBag.pregunta.opcion1</button>
+<button id= 2 onclick="resolverImg(ViewBag.pregunta.opcion2)"> @ViewBag.pregunta.opcion2</button>
+<button id= 3 onclick="resolverImg(ViewBag.pregunta.opcion3)"> @ViewBag.pregunta.opcion3</button>
+<button id= 4 onclick="resolverImg(ViewBag.pregunta.opcion4)"> @ViewBag.pregunta.opcion4</button>
+<a href= '@Url.Action("resolver", "home")'>
 </section>
 <a href='@Url.Action("DejarTareaPendiente", "Home",new{idPregunta = "@ViewBag.pregunta.id"})'><button>Continuar más tarde</button></a>
 </div>

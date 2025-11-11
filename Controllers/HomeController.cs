@@ -45,7 +45,7 @@ public class HomeController : Controller
     }
     public IActionResult jugarOrdenarPictograma(){
         PreguntaPictograma preg = new PreguntaPictograma();
-        ViewBag.Pregunta =  preg.ObtenerPreguntaActual();
+        ViewBag.Pregunta =  preg.AvanzarSiguientePregunta();
         return View("JuegoOrdenarPictogramas");
     }
  public IActionResult CerrarSesion(){

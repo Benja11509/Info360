@@ -27,25 +27,13 @@ public class PreguntaPictograma
             _IndiceActual = r.Next(_ListaPreguntas.Count);
         }
 
-        // Método para obtener la pregunta actual
-        public  PreguntaPictograma ObtenerPreguntaActual()
-        {
-            CargarPreguntas();
-            if (_ListaPreguntas != null && !_ListaPreguntasHechas.Contains(_IndiceActual))
-            {
-                _ListaPreguntasHechas.Add(_IndiceActual);
-                return _ListaPreguntas[_IndiceActual];
-            }else if(_ListaPreguntasHechas.Contains(_IndiceActual)) AvanzarSiguientePregunta();
-            return null; // No hay más preguntas
-        }
-
-        // Método para avanzar a la siguiente pregunta
         public  PreguntaPictograma AvanzarSiguientePregunta()
         {
             Random r = new Random();
             _IndiceActual = r.Next(_ListaPreguntas.Count);
             if (_ListaPreguntas != null && !_ListaPreguntasHechas.Contains(_IndiceActual))
             {
+                _ListaPreguntasHechas.Add(_IndiceActual);
                 return _ListaPreguntas[_IndiceActual];
             } else if(_ListaPreguntasHechas.Contains(_IndiceActual)) AvanzarSiguientePregunta();
             return null; // Se terminaron las preguntas
