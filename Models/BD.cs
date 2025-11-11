@@ -113,7 +113,6 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     {
         List<Usuario> ListVinculos = new List<Usuario>();
 
-        // --- CORRECCIÓN AQUÍ ---
         // Se agregó la comprobación "|| user.tipoUsuario == "responsable""
         if(user.tipoUsuario == "tutor" || user.tipoUsuario == "responsable")
         {
@@ -171,7 +170,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT * FROM PreguntasPictogramas";
-            ListaPreguntas = connection.Query<Usuario>(query).ToList();
+            ListaPreguntas = connection.Query<PreguntaPictograma>(query).ToList();
         }
         return ListaPreguntas;
     }

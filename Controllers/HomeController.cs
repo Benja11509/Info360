@@ -46,7 +46,19 @@ public class HomeController : Controller
     public IActionResult jugarOrdenarPictograma(){
         PreguntaPictograma preg = new PreguntaPictograma();
         ViewBag.Pregunta =  preg.AvanzarSiguientePregunta();
+        ViewBag.PreguntaElegida = null;
         return View("JuegoOrdenarPictogramas");
+    }
+    public IActionResult resolverQueEs(int idPregunta, int opcion){
+        PreguntaPictograma preg = new PreguntaPictograma();
+        if(preg._ListaPreguntas[idPregunta].RespuestaCorrecta == opcion) ViewBag.sala = "correcto";
+        else {
+           ViewBag.Pregunta =  preg._ListaPreguntas[idPregunta];
+            ViewBag.PreguntaElegida = null; 
+            ViewBag.intentos ++;
+            ViewBag.sala = "jugarOrdenarPictograma";
+        }
+        return View(ViewBag.sala);
     }
  public IActionResult CerrarSesion(){
         return View("Index");

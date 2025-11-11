@@ -15,7 +15,7 @@ public class PreguntaPictograma
     
         public int RespuestaCorrecta { get; set; }
       
-        public static List<PreguntaPictograma> _ListaPreguntas { get; private set; } = new List<PreguntaPictograma>();
+        public  List<PreguntaPictograma> _ListaPreguntas { get; private set; } = new List<PreguntaPictograma>();
         public  List<int> _ListaPreguntasHechas { get; private set; } = new List<int>();
     
         public  int _IndiceActual { get; private set; } = 0;

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ir59s/walDhgq0xhTGWTln8EAAXn6eYsG0/WiKpsiok=",
+  "Hash": "G6LkSQyfB9apukWrzZtHm7cYd2lJDOAKlYMyU/UztJY=",
   "Source": "Info360",
   "BasePath": "_content/Info360",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Imagenes\\CampanitaNotifi.webp"
+    },
+    {
+      "Identity": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\fotoChats.png",
+      "SourceId": "Info360",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\48857364\\Info360\\wwwroot\\",
+      "BasePath": "_content/Info360",
+      "RelativePath": "Imagenes/fotoChats.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagenes\\fotoChats.png"
     },
     {
       "Identity": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\iMAGEN DE la landing.jpg",
