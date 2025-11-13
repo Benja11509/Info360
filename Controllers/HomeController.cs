@@ -46,19 +46,33 @@ public class HomeController : Controller
  
 public IActionResult JuegoOrdenarPictogramas(int? id)
     {
-        DateTime tiempoInicio =  new DateTime();
         int idParaCargar = id ?? 1; 
+
+        // ---- 1. INICIO DEL TRACKING ----
+        // Si es la primera pregunta (id=1), reiniciamos los contadores del juego
+        if (idParaCargar == 1)
+        {
+            // Guardamos el momento exacto en que empezó
+            // Usamos "o" (Round-trip) para un formato de fecha preciso
+            HttpContext.Session.SetString("JuegoTiempoInicio", DateTime.Now.ToString("o"));
+            
+            // Reiniciamos el contador de respuestas correctas
+            HttpContext.Session.SetInt32("JuegoCorrectas", 0);
+            
+            // Contamos y guardamos el total de preguntas (usando la nueva función de BD.cs)
+            int totalPreguntas = BD.GetTotalPreguntas(); // Necesitaremos crear esta función
+            HttpContext.Session.SetInt32("JuegoTotalPreguntas", totalPreguntas);
+        }
+        // ---- FIN DEL TRACKING ----
 
         PreguntaPictograma pregunta = BD.TraerPregunta(idParaCargar);
         
-       
         if (pregunta == null)
         {
-            
+            // Si no hay más preguntas (ej. completaste la 10 y pide la 11), vamos al final
             return RedirectToAction("FinDeJuego");
         }
     
-
         ViewBag.Pregunta = pregunta;
 
         List<string> opciones = new List<string>
@@ -85,6 +99,11 @@ public IActionResult JuegoOrdenarPictogramas(int? id)
 
         if (esCorrecta)
         {
+            // ---- 2. SUMAR RESPUESTA CORRECTA ----
+            // Traemos el contador de la Sesión, le sumamos 1 y lo volvemos a guardar
+            int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
+            HttpContext.Session.SetInt32("JuegoCorrectas", correctas + 1);
+            
             int proximaPreguntaId = idPregunta + 1; 
             return RedirectToAction("JuegoOrdenarPictogramas", new { id = proximaPreguntaId });
         }
@@ -95,21 +114,64 @@ public IActionResult JuegoOrdenarPictogramas(int? id)
         }
     }
 
-   
+    
     public IActionResult FinDeJuego()
     {
+        // ---- 3. CÁLCULO DE RESULTADOS ----
+
+        // --- A. Calcular Duración ---
+        DateTime tiempoFin = DateTime.Now;
+        string tiempoInicioStr = HttpContext.Session.GetString("JuegoTiempoInicio");
+        TimeSpan duracion = TimeSpan.Zero; // 0 por defecto
+        
+        // Solo calculamos si tenemos un tiempo de inicio guardado
+        if (!string.IsNullOrEmpty(tiempoInicioStr) && DateTime.TryParse(tiempoInicioStr, out DateTime tiempoInicio))
+        {
+            duracion = tiempoFin - tiempoInicio;
+        }
+
+        // --- B. Obtener Respuestas ---
+        int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
+        int totalPreguntas = HttpContext.Session.GetInt32("JuegoTotalPreguntas") ?? 10; // 10 por si falla
+
+        // --- C. Asignar Puntos ---
+        int puntosGanados = correctas * 10; // 10 puntos por respuesta correcta
+        
         string? usuarioJson = HttpContext.Session.GetString("Usuario");
         if (string.IsNullOrEmpty(usuarioJson))
         {
             return RedirectToAction("Index", "Account");
         }
         Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-       
         Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-        usuarioCompleto.puntos =+ 100;
-        ViewBag.Puntaje = usuarioCompleto.puntos;
-   
-        
+
+        int puntajeTotalFinal = 0;
+        if (usuarioCompleto != null)
+        {
+            // MANEJO DE INT? (PUNTOS NULOS)
+            // 1. Obtenemos los puntos actuales, o 0 si es null.
+            int puntosActuales = usuarioCompleto.puntos ?? 0;
+            
+            // 2. Sumamos los nuevos puntos.
+            puntajeTotalFinal = puntosActuales + puntosGanados;
+            
+            // 3. Guardamos en la BD (Necesitaremos crear ActualizarPuntosUsuario)
+            BD.ActualizarPuntosUsuario(usuarioCompleto.id, puntajeTotalFinal);
+        }
+
+        // --- D. Limpiar Sesión ---
+        // Borramos los datos del juego para que no interfieran la próxima vez
+        HttpContext.Session.Remove("JuegoTiempoInicio");
+        HttpContext.Session.Remove("JuegoCorrectas");
+        HttpContext.Session.Remove("JuegoTotalPreguntas");
+
+        // --- E. Enviar Datos a la Vista ---
+        ViewBag.PuntosGanados = puntosGanados;
+        ViewBag.PuntajeTotal = puntajeTotalFinal;
+        ViewBag.Correctas = correctas;
+        ViewBag.TotalPreguntas = totalPreguntas;
+        ViewBag.Duracion = duracion.ToString(@"mm\:ss"); // Formato "02:30" (minutos:segundos)
+
         return View("FinDeJuego"); 
     }
 

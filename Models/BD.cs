@@ -199,5 +199,26 @@ public static bool VerificarRespuestaBD(int idPregunta, string opcion)
             
             return (resultado > 0);
         }
+        
+    }
+    public static void ActualizarPuntosUsuario(int idUsuario, int puntosTotales)
+    {
+        // Asumiendo que tu columna se llama 'puntos'
+        string query = "UPDATE Usuarios SET puntos = @pPuntos WHERE id = @pId";
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            connection.Execute(query, new { @pPuntos = puntosTotales, @pId = idUsuario });
+        }
+    }
+
+    // NUEVO MÉTODO: Para contar cuántas preguntas hay en total
+    public static int GetTotalPreguntas()
+    {
+        string query = "SELECT COUNT(*) FROM PreguntasPictogramas";
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            // ExecuteScalar es perfecto para traer un solo valor (como un COUNT)
+            return connection.ExecuteScalar<int>(query);
+        }
     }
 }

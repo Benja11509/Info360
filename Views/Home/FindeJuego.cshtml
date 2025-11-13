@@ -2,21 +2,25 @@
     ViewData["Title"] = "Fin del Juego";
 }
 
-@* Este HTML está basado en tu imagen *@
 <div style="text-align: center; margin-top: 50px;">
     
     <h2>¡Felicitaciones!</h2>
     <h3>Juego Terminado</h3>
 
     <div style="font-size: 20px; margin: 20px;">
-        <p>Recompensa de esta actividad: 100</p>
-        <p>Puntaje total: @ViewBag.Puntaje</p>
+        
+        <p>Preguntas correctas: @ViewBag.Correctas / @ViewBag.TotalPreguntas</p>
+        <p>Tiempo: @ViewBag.Duracion</p>
+        <p>Puntos Ganados: @ViewBag.PuntosGanados</p>
+        <p>Puntaje Total: @ViewBag.PuntajeTotal</p>
+
     </div>
 
     <div class="botones-fin-juego">
         
-    <a href='@Url.Action("JuegoOrdenarPictogramas", "Home")'  class="btn btn-primary" style="margin-right: 10px;">Volver a jugar </a>
-
+        <a href='@Url.Action("JuegoOrdenarPictogramas", "Home")' class="btn btn-primary" style="margin-right: 10px;">
+            Volver a jugar
+        </a>
         
         <a href='@Url.Action("Home", "Home")' class="btn btn-secondary">
             Volver al inicio
