@@ -43,18 +43,22 @@ public class HomeController : Controller
     public IActionResult JuegoPictogramas(){
         return View("previewJuego");
     }
-     public IActionResult jugarOrdenarPictograma(){
-        PreguntaPictograma preg = new PreguntaPictograma();
-        ViewBag.Pregunta =  preg.AvanzarSiguientePregunta();
-        ViewBag.PreguntaElegida = null;
-        return View("JuegoOrdenarPictogramas");
-    }
+ 
 // --- ACCIÓN 'JuegoOrdenarPictogramas' CORREGIDA ---
     public IActionResult JuegoOrdenarPictogramas(int? id)
     {
-        // Si no viene un ID, empezamos por la pregunta 1
-        int idParaCargar = id ?? 1; 
+         int idParaCargar; 
+        if(id >= 0)
+        {
+            idParaCargar = id.Value ;
+        }
+        else
+        {
+// Si no viene un ID, empezamos por la pregunta 1
+         idParaCargar = 1; 
 
+        }
+        
         PreguntaPictograma pregunta = BD.TraerPregunta(idParaCargar);
         
         if (pregunta == null)

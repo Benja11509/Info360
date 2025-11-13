@@ -182,18 +182,18 @@ public static PreguntaPictograma TraerPregunta(int idPregunta)
         PreguntaPictograma pregunta = null;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM PreguntaPictograma WHERE Id = @pIdPregunta";
-            pregunta = connection.QueryFirstOrDefault<PreguntaPictograma>(query, new { pIdPregunta = idPregunta });
+            string query = "SELECT * FROM PreguntasPictogramas WHERE Id = @IdPregunta";
+            pregunta = connection.QueryFirstOrDefault<PreguntaPictograma>(query, new { IdPregunta = idPregunta });
         }
         return pregunta;
     }
 public static bool VerificarRespuestaBD(int idPregunta, string opcion)
     {
-        string query = "SELECT COUNT(1) FROM PreguntaPictograma WHERE Id = @pIdPregunta AND OpcionCorrecta = @pOpcion";
+        string query = "SELECT COUNT(1) FROM PreguntasPictogramas WHERE Id = @IdPregunta AND OpcionCorrecta = pOpcion";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             // ExecuteScalar<int> devuelve el resultado del COUNT(1) (0 o 1)
-            int resultado = connection.ExecuteScalar<int>(query, new { pIdPregunta = idPregunta, pOpcion = opcion });
+            int resultado = connection.ExecuteScalar<int>(query, new { IdPregunta = idPregunta, Opcion = opcion });
             
             // Si el resultado es mayor que 0, significa que acertó (true)
             return (resultado > 0);
