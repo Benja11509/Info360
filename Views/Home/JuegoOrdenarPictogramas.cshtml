@@ -7,11 +7,11 @@
 
 <button id="rta" onclick="vaciarResp()"><h2></h2></button>
 <section class= "Respuestas">
-<button id= 1 onclick="resolverImg(@ViewBag.pregunta.opcion1, 1)"> @ViewBag.pregunta.opcion1</button>
-<button id= 2 onclick="resolverImg(@ViewBag.pregunta.opcion2, 2)"> @ViewBag.pregunta.opcion2</button>
-<button id= 3 onclick="resolverImg(@ViewBag.pregunta.opcion3, 3)"> @ViewBag.pregunta.opcion3</button>
-<button id= 4 onclick="resolverImg(@ViewBag.pregunta.opcion4, 4)"> @ViewBag.pregunta.opcion4</button>
-<a href= '@Url.Action("resolverQueEs", "home", new{idPregunta = "@ViewBag.pregunta.id", opcionElegida = "@ViewBag.OpcionElegida"})'>
+<button id= 1 onclick="resolverImg(@ViewBag.pregunta.Opcion1, 1)"> @ViewBag.pregunta.Opcion1</button>
+<button id= 2 onclick="resolverImg(@ViewBag.pregunta.Opcion2, 2)"> @ViewBag.pregunta.Opcion2</button>
+<button id= 3 onclick="resolverImg(@ViewBag.pregunta.Opcion3, 3)"> @ViewBag.pregunta.Opcion3</button>
+<button id= 4 onclick="resolverImg(@ViewBag.pregunta.Opcion4, 4)"> @ViewBag.pregunta.Opcion4</button>
+<a href= '@Url.Action("resolverQueEs", "home", new{idPregunta = "@ViewBag.pregunta.id", opcionElegida = "@ViewBag.OpcionElegida"})'> Enviar</a>
 </section>
 <a href='@Url.Action("DejarTareaPendiente", "Home",new{idPregunta = "@ViewBag.pregunta.id"})'><button>Continuar más tarde</button></a>
 </div>

@@ -49,17 +49,38 @@ public class HomeController : Controller
         ViewBag.PreguntaElegida = null;
         return View("JuegoOrdenarPictogramas");
     }
-    public IActionResult resolverQueEs(int idPregunta, int opcion){
-        PreguntaPictograma preg = new PreguntaPictograma();
-        if(preg._ListaPreguntas[idPregunta].RespuestaCorrecta == opcion) ViewBag.sala = "correcto";
-        else {
-           ViewBag.Pregunta =  preg._ListaPreguntas[idPregunta];
-            ViewBag.PreguntaElegida = null; 
-            ViewBag.intentos ++;
-            ViewBag.sala = "jugarOrdenarPictograma";
-        }
-        return View(ViewBag.sala);
+    public IActionResult resolverQueEs(int idPregunta, string opcion)
+{
+    PreguntaPictograma preg = new PreguntaPictograma();
+    
+    // Buscar la pregunta por su ID real, NO por índice
+    var pregunta = preg._ListaPreguntas.FirstOrDefault(p => p.IdPregunta == idPregunta);
+    if (pregunta == null)
+    {
+        return Content("La pregunta no existe.");
     }
+
+    if (pregunta.RespuestaCorrecta == opcion)
+    {
+        ViewBag.sala = "Correcto";
+    }
+    else
+    {
+        ViewBag.Pregunta = pregunta;
+        ViewBag.PreguntaElegida = null;
+        ViewBag.intentos++;
+
+        ViewBag.opcion1 = pregunta.Opcion1;
+        ViewBag.opcion2 = pregunta.Opcion2;
+        ViewBag.opcion3 = pregunta.Opcion3;
+        ViewBag.opcion4 = pregunta.Opcion4;
+
+        ViewBag.sala = "JuegoOrdenarPictogramas";
+    }
+
+    return View(ViewBag.sala);
+}
+
  public IActionResult CerrarSesion(){
         return View("Index");
     }

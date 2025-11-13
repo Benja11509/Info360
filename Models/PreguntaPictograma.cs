@@ -13,7 +13,7 @@ public class PreguntaPictograma
    
         public string Opcion4 { get; set; }
     
-        public int RespuestaCorrecta { get; set; }
+        public string RespuestaCorrecta { get; set; }
       
         public  List<PreguntaPictograma> _ListaPreguntas { get; private set; } = new List<PreguntaPictograma>();
         public  List<int> _ListaPreguntasHechas { get; private set; } = new List<int>();
@@ -22,13 +22,13 @@ public class PreguntaPictograma
 
         public  PreguntaPictograma()
         {
-            _ListaPreguntas = BD.TraerPreguntas();
             Random r = new Random();
             _IndiceActual = r.Next(_ListaPreguntas.Count);
         }
 
         public  PreguntaPictograma AvanzarSiguientePregunta()
         {
+            _ListaPreguntas = BD.TraerPreguntas();
             Random r = new Random();
             _IndiceActual = r.Next(_ListaPreguntas.Count);
             if (_ListaPreguntas != null && !_ListaPreguntasHechas.Contains(_IndiceActual))
