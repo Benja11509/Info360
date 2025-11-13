@@ -72,7 +72,7 @@ public class HomeController : Controller
         // Creamos la lista de opciones y las desordenamos
         List<string> opciones = new List<string>
         {
-            pregunta.RespuestaCorrecta,
+            
             pregunta.Opcion1,
             pregunta.Opcion2,
             pregunta.Opcion3, 
