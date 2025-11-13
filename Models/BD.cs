@@ -13,21 +13,24 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         Usuario user = null;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM Usuarios where nombreUsuario = @pNombreusuarios AND contraseña = @pContraseña ";
-            user = connection.QueryFirstOrDefault<Usuario>(query, new { pNombreusuarios = NombreUSU, pContraseña = Contraseña });
+            string storedProcedure = "TraerUNUsuario";
+            user = connection.QueryFirstOrDefault<Usuario>(storedProcedure,
+            new { pNombreusuarios = NombreUSU, pContraseña = Contraseña },
+            commandType: CommandType.StoredProcedure);
         }
         return user;
     }
 
-   
+
 
     public static List<Usuario> TraerListaUsuarios()
     {
         List<Usuario> ListUsuarios = new List<Usuario>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM Usuarios";
-            ListUsuarios = connection.Query<Usuario>(query).ToList();
+            string storedProcedure = "TraerListaUsuarios";
+            ListUsuarios = connection.Query<Usuario>(storedProcedure,
+            commandType: CommandType.StoredProcedure).ToList();
         }
         return ListUsuarios;
     }
@@ -36,8 +39,9 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         List<Actividades> ListAct = new List<Actividades>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM Actividades";
-            ListAct = connection.Query<Actividades>(query).ToList();
+            string storedProcedure = "TraerListaActividades";
+            ListAct = connection.Query<Actividades>(storedProcedure,
+            commandType: CommandType.StoredProcedure).ToList();
         }
         return ListAct;
     }
@@ -54,15 +58,18 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     {
         bool sePudo = false;
         bool esta = VerificarUsuario(Usu.nombreUsuario, Usu.contraseña);
-        
+
         if (esta == false)
         {
             sePudo = false;
-            string query = "INSERT INTO Usuarios (nombreUsuario, contraseña, tipoUsuario, mail) VALUES ( @pNombreUSU, @pContraseña, @ptipoUsuario, @pmail)";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Execute(query, new { @pNombreUSU = Usu.nombreUsuario, @pContraseña = Usu.contraseña, @ptipoUsuario = Usu.tipoUsuario, @pmail = Usu.mail});
+                string storedProcedure = "CrearUsuario";
+                connection.Execute(storedProcedure,
+                new { pNombreusuarios = Usu.nombre, pContraseña = Usu.contraseña, ptipoUsuario = Usu.tipoUsuario, pmail = Usu.mail },
+                commandType: CommandType.StoredProcedure);
             }
+            return Usu;
             esta = VerificarUsuario(Usu.nombreUsuario, Usu.contraseña);
             if (esta) sePudo = true;
         }
@@ -71,19 +78,11 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
 
     public static void ActualizarUsuario(Usuario user)
     {
-        string query = @"UPDATE Usuarios SET 
-                            nombre = @pNombre, 
-                            apellido = @pApellido, 
-                            fechaNacimiento = @pFechaNacimiento, 
-                            telefono = @pTelefono, 
-                            nivelApoyo = @pNivelApoyo, 
-                            fotoPerfil = @pFotoPerfil,
-                            descripcion = @pDescripcion
-                       WHERE id = @pId";
-        
+        string storedProcedure = "ActualizarUsuario";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            connection.Execute(query, new {
+            connection.Execute(storedProcedure, new
+            {
                 @pNombre = user.nombre,
                 @pApellido = user.apellido,
                 @pFechaNacimiento = user.fechaNacimiento,
@@ -92,44 +91,34 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
                 @pFotoPerfil = user.fotoPerfil,
                 @pDescripcion = user.descripcion,
                 @pId = user.id
-            });
+            }, commandType: CommandType.StoredProcedure);
         }
     }
 
     public static bool EliminarUsuario(string nombre)
     {
         bool sePudo = false;
-        string query = "DELETE FROM Usuarios WHERE nombreUsuario = @nombre";
         int registrosAfectados = 0;
+
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            registrosAfectados = connection.Execute(query, new { nombre });
+            string storedProcedure = "EliminarUsuario";
+            registrosAfectados = connection.Execute(storedProcedure, new { nombre }, commandType: CommandType.StoredProcedure);
         }
         if (registrosAfectados > 0) sePudo = true;
         return sePudo;
     }
 
-  public static List<Usuario> ListaVinculos(Usuario user)
+    public static List<Usuario> ListaVinculos(Usuario user)
     {
         List<Usuario> ListVinculos = new List<Usuario>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string storedProcedure = "ListaVinculos";
+            ListVinculos = connection.Query<Usuario>(storedProcedure,
+            commandType: CommandType.StoredProcedure).ToList();
+        }
 
-        // Se agregó la comprobación "|| user.tipoUsuario == "responsable""
-        if(user.tipoUsuario == "tutor" || user.tipoUsuario == "responsable")
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND id IN (SELECT idPerteneciente FROM Tutorias WHERE idTutor = @idUser)";
-                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
-            }
-        }
-        else // Si es "perteneciente"
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'responsable' AND id IN (SELECT idTutor FROM Tutorias WHERE idPerteneciente = @idUser)";
-                ListVinculos = connection.Query<Usuario>(query, new { idUser = user.id }).ToList();
-            }
-        }
         return ListVinculos;
     }
 
@@ -138,87 +127,88 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         List<Usuario> lista = new List<Usuario>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-         
-            string query = "SELECT * FROM Usuarios WHERE tipoUsuario = 'perteneciente' AND Id NOT IN (SELECT idPerteneciente FROM Tutorias WHERE idTutor = @idTutor)";
-            lista = connection.Query<Usuario>(query, new { idTutor }).ToList();
+            string storedProcedure = "ListaUsuariosDisponibles";
+            lista = connection.Query<Usuario>(storedProcedure, new { idTutor },
+            commandType: CommandType.StoredProcedure).ToList();
         }
         return lista;
     }
 
-   
+
     public static void AgregarVinculoBD(int idTutor, int idPerteneciente, string parentezco)
     {
-        string query = "INSERT INTO Tutorias(idTutor, idPerteneciente, parentezco) VALUES (@pIdTutor, @pIdPerteneciente, @pParentezco)";
+
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente, pParentezco = parentezco });
+            string storedProcedure = "AgregarVinculoBD";
+          int registrosAfectados = connection.Execute(storedProcedure, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente, pParentezco = parentezco }, commandType: CommandType.StoredProcedure);
         }
     }
 
-  
+
     public static void EliminarVinculoBD(int idTutor, int idPerteneciente)
     {
         string query = "DELETE FROM Tutorias WHERE idTutor = @pIdTutor AND idPerteneciente = @pIdPerteneciente";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente });
+            string storedProcedure = "EliminarVinculoBD";
+            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente },
+            commandType: CommandType.StoredProcedure);
         }
     }
-     public static List<PreguntaPictograma> TraerPreguntas()
+    public static List<PreguntaPictograma> TraerPreguntas()
     {
         List<PreguntaPictograma> ListaPreguntas = new List<PreguntaPictograma>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM PreguntasPictogramas";
-            ListaPreguntas = connection.Query<PreguntaPictograma>(query).ToList();
+            string storedProcedure = "TraerPreguntas";
+            ListaPreguntas = connection.Query<PreguntaPictograma>(storedProcedure, 
+            commandType: CommandType.StoredProcedure).ToList();
         }
         return ListaPreguntas;
     }
-     
 
 
-public static PreguntaPictograma TraerPregunta(int idPregunta)
+
+    public static PreguntaPictograma TraerPregunta(int idPregunta)
     {
         PreguntaPictograma pregunta = null;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM PreguntasPictogramas WHERE Id = @IdPregunta";
-            pregunta = connection.QueryFirstOrDefault<PreguntaPictograma>(query, new { IdPregunta = idPregunta });
+            string storedProcedure = "TraerPregunta";
+            pregunta = connection.QueryFirstOrDefault<PreguntaPictograma>(storedProcedure, new { IdPregunta = idPregunta }, commandType: CommandType.StoredProcedure);
         }
         return pregunta;
     }
-public static bool VerificarRespuestaBD(int idPregunta, string opcion)
+
+    public static bool VerificarRespuestaBD(int idPregunta, string opcion)
     {
-      
-        string query = "SELECT COUNT(1) FROM PreguntasPictogramas WHERE Id = @pIdPregunta AND respuestaCorrecta = @pOpcion";
-        
+        string storedProcedure = "VerificarRespuestaBD";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            // 3. Los parámetros coinciden con la query: pIdPregunta y pOpcion
-            int resultado = connection.ExecuteScalar<int>(query, new { pIdPregunta = idPregunta, pOpcion = opcion });
-            
+            int resultado = connection.ExecuteScalar<int>(storedProcedure, new { pIdPregunta = idPregunta, pOpcion = opcion }, commandType: CommandType.StoredProcedure);
             return (resultado > 0);
-        }
-        
-    }
-    public static void ActualizarPuntosUsuario(int idUsuario, int puntosTotales)
-    {
-        // Asumiendo que tu columna se llama 'puntos'
-        string query = "UPDATE Usuarios SET puntos = @pPuntos WHERE id = @pId";
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Execute(query, new { @pPuntos = puntosTotales, @pId = idUsuario });
         }
     }
 
-    // NUEVO MÉTODO: Para contar cuántas preguntas hay en total
-    public static int GetTotalPreguntas()
+    public static void ActualizarPuntosUsuario(int idUsuario, int puntosTotales)
     {
-        string query = "SELECT COUNT(*) FROM PreguntasPictogramas";
+        string storedProcedure = "ActualizarPuntosUsuario";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            // ExecuteScalar es perfecto para traer un solo valor (como un COUNT)
-            return connection.ExecuteScalar<int>(query);
+            connection.Execute(storedProcedure, new { @pPuntos = puntosTotales, @pId = idUsuario }, commandType: CommandType.StoredProcedure);
+        }
+    }
+
+
+    public static int GetTotalPreguntas()
+    {
+        string storedProcedure = "GetTotalPreguntas";
+        List<PreguntaPictograma> list = new List<PreguntaPictograma>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            list = connection.Query<PreguntaPictograma>(storedProcedure, commandType: CommandType.StoredProcedure);
+            return list;
         }
     }
 }

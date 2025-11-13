@@ -92,28 +92,35 @@ public IActionResult JuegoOrdenarPictogramas(int? id)
         return View("JuegoOrdenarPictogramas");
     }
 
-    [HttpPost]
-    public IActionResult VerificarRespuesta(string opcion, int idPregunta)
+    // [En tu HomeController.cs]
+
+[HttpPost]
+public IActionResult VerificarRespuesta(string opcion, int idPregunta)
+{
+     
+    bool esCorrecta = BD.VerificarRespuestaBD(idPregunta, opcion);
+
+ 
+    
+    if (esCorrecta) 
     {
-        bool esCorrecta = BD.VerificarRespuestaBD(idPregunta, opcion);
-
-        if (esCorrecta)
-        {
-            // ---- 2. SUMAR RESPUESTA CORRECTA ----
-            // Traemos el contador de la Sesión, le sumamos 1 y lo volvemos a guardar
-            int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
-            HttpContext.Session.SetInt32("JuegoCorrectas", correctas + 1);
-            
-            int proximaPreguntaId = idPregunta + 1; 
-            return RedirectToAction("JuegoOrdenarPictogramas", new { id = proximaPreguntaId });
-        }
-        else
-        {
-            TempData["MensajeError"] = "¡Incorrecto! Intenta de nuevo.";
-            return RedirectToAction("JuegoOrdenarPictogramas", new { id = idPregunta });
-        }
+      
+        int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
+        HttpContext.Session.SetInt32("JuegoCorrectas", correctas + 1);
+        
+     
+        int proximaPreguntaId = idPregunta + 1; 
+        return RedirectToAction("JuegoOrdenarPictogramas", new { id = proximaPreguntaId });
     }
-
+    else 
+    {
+    
+        TempData["MensajeError"] = "¡Incorrecto! Intenta de nuevo.";
+        
+       
+        return RedirectToAction("JuegoOrdenarPictogramas", new { id = idPregunta });
+    }
+}
     
     public IActionResult FinDeJuego()
     {
