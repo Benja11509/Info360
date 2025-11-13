@@ -43,43 +43,72 @@ public class HomeController : Controller
     public IActionResult JuegoPictogramas(){
         return View("previewJuego");
     }
-    public IActionResult jugarOrdenarPictograma(){
+     public IActionResult jugarOrdenarPictograma(){
         PreguntaPictograma preg = new PreguntaPictograma();
         ViewBag.Pregunta =  preg.AvanzarSiguientePregunta();
         ViewBag.PreguntaElegida = null;
         return View("JuegoOrdenarPictogramas");
     }
-    public IActionResult resolverQueEs(int idPregunta, string opcion)
-{
-    PreguntaPictograma preg = new PreguntaPictograma();
-    
-    // Buscar la pregunta por su ID real, NO por índice
-    var pregunta = preg._ListaPreguntas.FirstOrDefault(p => p.IdPregunta == idPregunta);
-    if (pregunta == null)
+// --- ACCIÓN 'JuegoOrdenarPictogramas' CORREGIDA ---
+    public IActionResult JuegoOrdenarPictogramas(int? id)
     {
-        return Content("La pregunta no existe.");
-    }
+        // Si no viene un ID, empezamos por la pregunta 1
+        int idParaCargar = id ?? 1; 
 
-    if (pregunta.RespuestaCorrecta == opcion)
-    {
-        ViewBag.sala = "Correcto";
-    }
-    else
-    {
+        PreguntaPictograma pregunta = BD.TraerPregunta(idParaCargar);
+        
+        if (pregunta == null)
+        {
+            // Si no hay más preguntas, volvemos a la página de Actividades
+            return RedirectToAction("Actividades");
+        }
+
         ViewBag.Pregunta = pregunta;
-        ViewBag.PreguntaElegida = null;
-        ViewBag.intentos++;
 
-        ViewBag.opcion1 = pregunta.Opcion1;
-        ViewBag.opcion2 = pregunta.Opcion2;
-        ViewBag.opcion3 = pregunta.Opcion3;
-        ViewBag.opcion4 = pregunta.Opcion4;
+        // Creamos la lista de opciones y las desordenamos
+        List<string> opciones = new List<string>
+        {
+            pregunta.RespuestaCorrecta,
+            pregunta.Opcion1,
+            pregunta.Opcion2,
+            pregunta.Opcion3, 
+            pregunta.Opcion4
+        };
+        ViewBag.Opciones = opciones.OrderBy(x => Guid.NewGuid()).ToList();
+        
+        // Pasamos el mensaje de error (si existe) a la vista
+        if (TempData["MensajeError"] != null)
+        {
+            ViewBag.Mensaje = TempData["MensajeError"].ToString();
+        }
 
-        ViewBag.sala = "JuegoOrdenarPictogramas";
+        return View("JuegoOrdenarPictogramas");
     }
 
-    return View(ViewBag.sala);
-}
+    // --- ACCIÓN 'VerificarRespuesta' CORREGIDA ---
+    [HttpPost]
+    public IActionResult VerificarRespuesta(string opcion, int idPregunta)
+    {
+        bool esCorrecta = BD.VerificarRespuestaBD(idPregunta, opcion);
+
+        if (esCorrecta)
+        {
+            // (Lógica simple, asumimos que la próxima pregunta es la siguiente ID)
+            int proximaPreguntaId = idPregunta + 1; 
+            
+            // (Aquí deberías agregar lógica para sumar puntos al usuario)
+            
+            return RedirectToAction("JuegoOrdenarPictogramas", new { id = proximaPreguntaId });
+        }
+        else
+        {
+            // Usamos TempData para que el mensaje sobreviva a la redirección
+            TempData["MensajeError"] = "¡Incorrecto! Intenta de nuevo.";
+            
+            // Redirigimos de vuelta a la MISMA pregunta
+            return RedirectToAction("JuegoOrdenarPictogramas", new { id = idPregunta });
+        }
+    }
 
  public IActionResult CerrarSesion(){
         return View("Index");
