@@ -44,35 +44,25 @@ public class HomeController : Controller
         return View("previewJuego");
     }
  
-// --- ACCIÓN 'JuegoOrdenarPictogramas' CORREGIDA ---
-    public IActionResult JuegoOrdenarPictogramas(int? id)
+public IActionResult JuegoOrdenarPictogramas(int? id)
     {
-         int idParaCargar; 
-        if(id >= 0)
-        {
-            idParaCargar = id.Value ;
-        }
-        else
-        {
-// Si no viene un ID, empezamos por la pregunta 1
-         idParaCargar = 1; 
+        DateTime tiempoInicio =  new DateTime();
+        int idParaCargar = id ?? 1; 
 
-        }
-        
         PreguntaPictograma pregunta = BD.TraerPregunta(idParaCargar);
         
+       
         if (pregunta == null)
         {
-            // Si no hay más preguntas, volvemos a la página de Actividades
-            return RedirectToAction("Actividades");
+            
+            return RedirectToAction("FinDeJuego");
         }
+    
 
         ViewBag.Pregunta = pregunta;
 
-        // Creamos la lista de opciones y las desordenamos
         List<string> opciones = new List<string>
         {
-            
             pregunta.Opcion1,
             pregunta.Opcion2,
             pregunta.Opcion3, 
@@ -80,7 +70,6 @@ public class HomeController : Controller
         };
         ViewBag.Opciones = opciones.OrderBy(x => Guid.NewGuid()).ToList();
         
-        // Pasamos el mensaje de error (si existe) a la vista
         if (TempData["MensajeError"] != null)
         {
             ViewBag.Mensaje = TempData["MensajeError"].ToString();
@@ -89,7 +78,6 @@ public class HomeController : Controller
         return View("JuegoOrdenarPictogramas");
     }
 
-    // --- ACCIÓN 'VerificarRespuesta' CORREGIDA ---
     [HttpPost]
     public IActionResult VerificarRespuesta(string opcion, int idPregunta)
     {
@@ -97,21 +85,32 @@ public class HomeController : Controller
 
         if (esCorrecta)
         {
-            // (Lógica simple, asumimos que la próxima pregunta es la siguiente ID)
             int proximaPreguntaId = idPregunta + 1; 
-            
-            // (Aquí deberías agregar lógica para sumar puntos al usuario)
-            
             return RedirectToAction("JuegoOrdenarPictogramas", new { id = proximaPreguntaId });
         }
         else
         {
-            // Usamos TempData para que el mensaje sobreviva a la redirección
             TempData["MensajeError"] = "¡Incorrecto! Intenta de nuevo.";
-            
-            // Redirigimos de vuelta a la MISMA pregunta
             return RedirectToAction("JuegoOrdenarPictogramas", new { id = idPregunta });
         }
+    }
+
+   
+    public IActionResult FinDeJuego()
+    {
+        string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+       
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+        usuarioCompleto.puntos =+ 100;
+        ViewBag.Puntaje = usuarioCompleto.puntos;
+   
+        
+        return View("FinDeJuego"); 
     }
 
  public IActionResult CerrarSesion(){
