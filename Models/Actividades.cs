@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 public class Actividades
 {
 [JsonProperty]
-    public int Id { get; private set; }
+    public int Id { get;  set; }
     
     [JsonProperty]
-    public string nombre { get; private set; }
+    public string nombre { get; set; }
     [JsonProperty]
     public string categoria { get; private set; }
     [JsonProperty]
@@ -23,8 +23,8 @@ public class Actividades
     public bool favorito { get; private set; }
     [JsonProperty]
     public string imagen { get; private set; }
-    [JsonProperty]
-    public List<Actividades> ListActividadesPendientes { get; private set; } = new List<Actividades>();
+   
+   
 
 
 public Actividades ()

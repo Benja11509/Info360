@@ -21,12 +21,35 @@ public class HomeController : Controller
          return View("Index");
     }
 
-    public IActionResult Home()
+  public IActionResult Home()
+{
+    // 1. Obtener el JSON del usuario de la sesión
+    string? usuarioJson = HttpContext.Session.GetString("Usuario");
+    if (string.IsNullOrEmpty(usuarioJson))
     {
-        Actividades Act = new Actividades();
-        ViewBag.ActividadesPendientes = Act.ListActividadesPendientes;
-        return View("Home");
+        // Si no hay usuario en sesión, redirigir al login
+        return RedirectToAction("Index", "Account"); 
     }
+    
+    // 2. Convertir el JSON a objeto Usuario para obtener nombreUsuario/contraseña
+    Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+    
+    // 3. Traer el usuario completo de la BD (se necesita el Id)
+    Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+    List<Actividades> actividadesPendientes = new List<Actividades>();
+
+    if (usuarioCompleto != null)
+    {
+        // 4. Usar el ID del usuario para traer SOLO sus actividades pendientes
+        actividadesPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id); 
+    }
+    
+    // 5. Pasar la lista REAL de actividades pendientes a la vista
+    ViewBag.ActividadesPendientes = actividadesPendientes; 
+    
+    return View("Home");
+}
     
     public IActionResult Actividades()
     {
@@ -44,144 +67,182 @@ public class HomeController : Controller
         return View("previewJuego");
     }
  
-public IActionResult JuegoOrdenarPictogramas(int? id)
-    {
-        int idParaCargar = id ?? 1; 
 
-        // ---- 1. INICIO DEL TRACKING ----
-        // Si es la primera pregunta (id=1), reiniciamos los contadores del juego
-        if (idParaCargar == 1)
-        {
-            // Guardamos el momento exacto en que empezó
-            // Usamos "o" (Round-trip) para un formato de fecha preciso
-            HttpContext.Session.SetString("JuegoTiempoInicio", DateTime.Now.ToString("o"));
-            
-            // Reiniciamos el contador de respuestas correctas
-            HttpContext.Session.SetInt32("JuegoCorrectas", 0);
-            
-            // Contamos y guardamos el total de preguntas (usando la nueva función de BD.cs)
-            int totalPreguntas = BD.GetTotalPreguntas(); // Necesitaremos crear esta función
-            HttpContext.Session.SetInt32("JuegoTotalPreguntas", totalPreguntas);
-        }
-        // ---- FIN DEL TRACKING ----
 
-        PreguntaPictograma pregunta = BD.TraerPregunta(idParaCargar);
-        
-        if (pregunta == null)
-        {
-            // Si no hay más preguntas (ej. completaste la 10 y pide la 11), vamos al final
-            return RedirectToAction("FinDeJuego");
-        }
-    
-        ViewBag.Pregunta = pregunta;
 
-        List<string> opciones = new List<string>
-        {
-            pregunta.Opcion1,
-            pregunta.Opcion2,
-            pregunta.Opcion3, 
-            pregunta.Opcion4
-        };
-        ViewBag.Opciones = opciones.OrderBy(x => Guid.NewGuid()).ToList();
-        
-        if (TempData["MensajeError"] != null)
-        {
-            ViewBag.Mensaje = TempData["MensajeError"].ToString();
-        }
 
-        return View("JuegoOrdenarPictogramas");
-    }
-
-    // [En tu HomeController.cs]
-
-[HttpPost]
-public IActionResult VerificarRespuesta(string opcion, int idPregunta)
+public IActionResult JuegoOrdenarPictogramas(int? index, bool? continuar)
 {
-    if(idPregunta == 0) idPregunta++;
-     
-    bool esCorrecta = BD.VerificarRespuestaBD(idPregunta, opcion);
-
- 
-    
-    if (esCorrecta) 
+    int indiceActual;
+    const int ID_ACTIVIDAD_PICTOGRAMAS = 6; 
+    if (continuar == false)
     {
-      
-        int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
-        HttpContext.Session.SetInt32("JuegoCorrectas", correctas + 1);
-        
-     
-        int proximaPreguntaId = idPregunta + 1; 
-        return RedirectToAction("JuegoOrdenarPictogramas", new { id = proximaPreguntaId });
+   indiceActual = index ?? 0; 
     }
     else 
     {
+        int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
+indiceActual = correctas;
+    }
+  
     
+    List<int> idsPreguntas;
+    
+   
+    if (indiceActual == 0) 
+    {
+       
+        HttpContext.Session.SetString("JuegoTiempoInicio", DateTime.Now.ToString("o"));
+        HttpContext.Session.SetInt32("JuegoCorrectas", 0);
+        
+        idsPreguntas = BD.TraerIdsPreguntasActividad(ID_ACTIVIDAD_PICTOGRAMAS); 
+        
+        if (idsPreguntas.Count == 0) return RedirectToAction("Home");
+        
+        HttpContext.Session.SetString("JuegoIds", System.Text.Json.JsonSerializer.Serialize(idsPreguntas));
+        HttpContext.Session.SetInt32("JuegoTotalPreguntas", idsPreguntas.Count);
+        HttpContext.Session.SetInt32("JuegoIndiceActual", 0);
+    }
+    else
+    {
+        
+        string? idsJson = HttpContext.Session.GetString("JuegoIds");
+        if (string.IsNullOrEmpty(idsJson)) return RedirectToAction("Home"); 
+        
+        idsPreguntas = System.Text.Json.JsonSerializer.Deserialize<List<int>>(idsJson)!;
+        HttpContext.Session.SetInt32("JuegoIndiceActual", indiceActual);
+    }
+    
+ 
+    if (indiceActual >= idsPreguntas.Count)
+    {
+        return RedirectToAction("FinDeJuego");
+    }
+
+   
+    int idPreguntaActual = idsPreguntas[indiceActual];
+    PreguntaPictograma pregunta = BD.TraerPregunta(idPreguntaActual);
+
+   
+    if (pregunta == null)
+    {
+        return RedirectToAction("JuegoOrdenarPictogramas", new { index = indiceActual + 1 });
+    }
+
+
+    HttpContext.Session.SetInt32("JuegoIdPreguntaActual", idPreguntaActual);
+
+
+    ViewBag.Pregunta = pregunta;
+    ViewBag.IndiceActual = indiceActual; 
+    
+    
+    
+    List<string> opciones = new List<string>
+    {
+        pregunta.Opcion1,
+        pregunta.Opcion2,
+        pregunta.Opcion3, 
+        pregunta.Opcion4
+    };
+    
+  
+    ViewBag.Opciones = opciones.OrderBy(x => Guid.NewGuid()).ToList();
+
+  
+
+    if (TempData["MensajeError"] != null)
+    {
+        ViewBag.Mensaje = TempData["MensajeError"].ToString();
+    }
+
+    return View("JuegoOrdenarPictogramas");
+}
+
+[HttpPost]
+public IActionResult VerificarRespuesta(string opcion)
+{
+    int idPreguntaActual = HttpContext.Session.GetInt32("JuegoIdPreguntaActual") ?? 0;
+    int indiceActual = HttpContext.Session.GetInt32("JuegoIndiceActual") ?? 0;
+
+    if (idPreguntaActual == 0)
+    {
+        return RedirectToAction("Home");
+    }
+     
+    bool esCorrecta = BD.VerificarRespuestaBD(idPreguntaActual, opcion);
+    
+    if (esCorrecta) 
+    {
+        int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
+        HttpContext.Session.SetInt32("JuegoCorrectas", correctas + 1);
+        
+        int proximoIndice = indiceActual + 1; 
+        
+        return RedirectToAction("JuegoOrdenarPictogramas", new { index = proximoIndice });
+    }
+    else 
+    {
         TempData["MensajeError"] = "¡Incorrecto! Intenta de nuevo.";
         
-       
-        return RedirectToAction("JuegoOrdenarPictogramas", new { id = idPregunta });
+        return RedirectToAction("JuegoOrdenarPictogramas", new { index = indiceActual });
     }
 }
     
-    public IActionResult FinDeJuego()
+public IActionResult FinDeJuego()
+{
+    DateTime tiempoFin = DateTime.Now;
+    string tiempoInicioStr = HttpContext.Session.GetString("JuegoTiempoInicio");
+    TimeSpan duracion = TimeSpan.Zero;
+    
+    if (!string.IsNullOrEmpty(tiempoInicioStr) && DateTime.TryParse(tiempoInicioStr, out DateTime tiempoInicio))
     {
-        // ---- 3. CÁLCULO DE RESULTADOS ----
-
-        // --- A. Calcular Duración ---
-        DateTime tiempoFin = DateTime.Now;
-        string tiempoInicioStr = HttpContext.Session.GetString("JuegoTiempoInicio");
-        TimeSpan duracion = TimeSpan.Zero; // 0 por defecto
-        
-        // Solo calculamos si tenemos un tiempo de inicio guardado
-        if (!string.IsNullOrEmpty(tiempoInicioStr) && DateTime.TryParse(tiempoInicioStr, out DateTime tiempoInicio))
-        {
-            duracion = tiempoFin - tiempoInicio;
-        }
-
-        // --- B. Obtener Respuestas ---
-        int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
-        int totalPreguntas = HttpContext.Session.GetInt32("JuegoTotalPreguntas") ?? 10; // 10 por si falla
-
-        // --- C. Asignar Puntos ---
-        int puntosGanados = correctas * 10; // 10 puntos por respuesta correcta
-        
-        string? usuarioJson = HttpContext.Session.GetString("Usuario");
-        if (string.IsNullOrEmpty(usuarioJson))
-        {
-            return RedirectToAction("Index", "Account");
-        }
-        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
-        int puntajeTotalFinal = 0;
-        if (usuarioCompleto != null)
-        {
-            // MANEJO DE INT? (PUNTOS NULOS)
-            // 1. Obtenemos los puntos actuales, o 0 si es null.
-            int puntosActuales = usuarioCompleto.puntos ?? 0;
-            
-            // 2. Sumamos los nuevos puntos.
-            puntajeTotalFinal = puntosActuales + puntosGanados;
-            
-            // 3. Guardamos en la BD (Necesitaremos crear ActualizarPuntosUsuario)
-            BD.ActualizarPuntosUsuario(usuarioCompleto.id, puntajeTotalFinal);
-        }
-
-        // --- D. Limpiar Sesión ---
-        // Borramos los datos del juego para que no interfieran la próxima vez
-        HttpContext.Session.Remove("JuegoTiempoInicio");
-        HttpContext.Session.Remove("JuegoCorrectas");
-        HttpContext.Session.Remove("JuegoTotalPreguntas");
-
-        // --- E. Enviar Datos a la Vista ---
-        ViewBag.PuntosGanados = puntosGanados;
-        ViewBag.PuntajeTotal = puntajeTotalFinal;
-        ViewBag.Correctas = correctas;
-        ViewBag.TotalPreguntas = totalPreguntas;
-        ViewBag.Duracion = duracion.ToString(@"mm\:ss"); // Formato "02:30" (minutos:segundos)
-
-        return View("FinDeJuego"); 
+        duracion = tiempoFin - tiempoInicio;
     }
+
+    int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
+    int totalPreguntas = HttpContext.Session.GetInt32("JuegoTotalPreguntas") ?? 10;
+    int puntosGanados = correctas * 10;
+    
+    const int ID_ACTIVIDAD_PICTOGRAMAS = 6; 
+    
+    string? usuarioJson = HttpContext.Session.GetString("Usuario");
+    if (string.IsNullOrEmpty(usuarioJson))
+    {
+        return RedirectToAction("Index", "Account");
+    }
+    Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+    Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+    int puntajeTotalFinal = 0;
+    if (usuarioCompleto != null)
+    {
+        int puntosActuales = usuarioCompleto.puntos ?? 0;
+        puntajeTotalFinal = puntosActuales + puntosGanados;
+        BD.ActualizarPuntosUsuario(usuarioCompleto.id, puntajeTotalFinal);
+        
+      
+        int progresoCompleto = 100;
+        BD.ActualizarProgresoActividad(usuarioCompleto.id, ID_ACTIVIDAD_PICTOGRAMAS, progresoCompleto);
+    }
+
+    // Limpieza de Sesión
+    HttpContext.Session.Remove("JuegoTiempoInicio");
+    HttpContext.Session.Remove("JuegoCorrectas");
+    HttpContext.Session.Remove("JuegoTotalPreguntas");
+    HttpContext.Session.Remove("JuegoIds");
+    HttpContext.Session.Remove("JuegoIndiceActual");
+    HttpContext.Session.Remove("JuegoIdPreguntaActual");
+
+    // Datos a la Vista
+    ViewBag.PuntosGanados = puntosGanados;
+    ViewBag.PuntajeTotal = puntajeTotalFinal;
+    ViewBag.Correctas = correctas;
+    ViewBag.TotalPreguntas = totalPreguntas;
+    ViewBag.Duracion = duracion.ToString(@"mm\:ss");
+
+    return View("FinDeJuego"); 
+}
 
  public IActionResult CerrarSesion(){
         return View("Index");
@@ -216,8 +277,7 @@ public IActionResult VerificarRespuesta(string opcion, int idPregunta)
         ViewBag.Vinculos = BD.ListaVinculos(usuarioCompleto);
         ViewBag.TocoMasPefil = verMas; 
 
-        // --- CORRECCIÓN DE LÓGICA ---
-        // Cambiado de "tutor" a "responsable" para que coincida con tu Vista
+       
         if(usuarioCompleto.tipoUsuario == "responsable")
         {
             ViewBag.UsuariosDisponibles = BD.ListaUsuariosDisponibles(usuarioCompleto.id);
@@ -281,7 +341,7 @@ public IActionResult VerificarRespuesta(string opcion, int idPregunta)
 
         if (usuarioActualizado != null)
         {
-            // Llamamos al método en el Modelo para actualizar los datos
+           
             usuarioActualizado.ActualizarDatosOpcionales(nombre, apellido, fechaNacimiento, telefono, fotoPerfil, nivelApoyo, descripcion);
             BD.ActualizarUsuario(usuarioActualizado);
         }

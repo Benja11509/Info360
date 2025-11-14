@@ -217,4 +217,46 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         }
         return cantList;
     }
+
+    
+public static List<Actividades> TraerActividadesPendientes(int idUsuario)
+{
+    List<Actividades> ListActPendientes = new List<Actividades>();
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string storedProcedure = "TraerActividadesPendientes"; 
+        // Pasamos el Id del usuario como parámetro
+        ListActPendientes = connection.Query<Actividades>(storedProcedure, 
+            new { pIdUsuario = idUsuario }, 
+            commandType: CommandType.StoredProcedure).ToList();
+    }
+    return ListActPendientes;
+}
+
+
+
+// 1. Método para obtener todos los IDs de las preguntas de una actividad (para navegación robusta)
+public static List<int> TraerIdsPreguntasActividad(int idActividad)
+{
+    // Consulta directa para obtener los IDs de preguntas ordenadas por ID
+    string query = "SELECT id FROM PreguntasPictogramas WHERE idActividad = @pIdActividad ORDER BY id ASC";
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        return connection.Query<int>(query, new { pIdActividad = idActividad }).ToList();
+    }
+}
+
+// 2. Método para actualizar el progreso de la actividad para un usuario
+public static void ActualizarProgresoActividad(int idUsuario, int idActividad, int progreso)
+{
+    string storedProcedure = "ActualizarProgresoActividad";
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        connection.Execute(storedProcedure, new { 
+            pIdUsuario = idUsuario, 
+            pIdActividad = idActividad, 
+            pProgreso = progreso 
+        }, commandType: CommandType.StoredProcedure);
+    }
+}
 }
