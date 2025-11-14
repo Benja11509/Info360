@@ -2,7 +2,7 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Data;
 public static class BD
 {
     private static string _connectionString = @"Server=localhost;
@@ -69,7 +69,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
                 new { pNombreusuarios = Usu.nombre, pContraseña = Usu.contraseña, ptipoUsuario = Usu.tipoUsuario, pmail = Usu.mail },
                 commandType: CommandType.StoredProcedure);
             }
-            return Usu;
+
             esta = VerificarUsuario(Usu.nombreUsuario, Usu.contraseña);
             if (esta) sePudo = true;
         }
@@ -141,7 +141,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string storedProcedure = "AgregarVinculoBD";
-          int registrosAfectados = connection.Execute(storedProcedure, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente, pParentezco = parentezco }, commandType: CommandType.StoredProcedure);
+            int registrosAfectados = connection.Execute(storedProcedure, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente, pParentezco = parentezco }, commandType: CommandType.StoredProcedure);
         }
     }
 
@@ -162,7 +162,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string storedProcedure = "TraerPreguntas";
-            ListaPreguntas = connection.Query<PreguntaPictograma>(storedProcedure, 
+            ListaPreguntas = connection.Query<PreguntaPictograma>(storedProcedure,
             commandType: CommandType.StoredProcedure).ToList();
         }
         return ListaPreguntas;
@@ -184,10 +184,15 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     public static bool VerificarRespuestaBD(int idPregunta, string opcion)
     {
         string storedProcedure = "VerificarRespuestaBD";
+        bool ADevolver = false;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             int resultado = connection.ExecuteScalar<int>(storedProcedure, new { pIdPregunta = idPregunta, pOpcion = opcion }, commandType: CommandType.StoredProcedure);
-            return (resultado > 0);
+            if (resultado > 0)
+            {
+                ADevolver = true;
+            }
+            return (ADevolver);
         }
     }
 
@@ -204,11 +209,12 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     public static int GetTotalPreguntas()
     {
         string storedProcedure = "GetTotalPreguntas";
-        List<PreguntaPictograma> list = new List<PreguntaPictograma>();
+        int cantList = 0;
+
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            list = connection.Query<PreguntaPictograma>(storedProcedure, commandType: CommandType.StoredProcedure);
-            return list;
+            cantList = connection.Query<int>(storedProcedure, commandType: CommandType.StoredProcedure).ToList().Count();
         }
+        return cantList;
     }
 }

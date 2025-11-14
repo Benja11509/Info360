@@ -97,6 +97,7 @@ public IActionResult JuegoOrdenarPictogramas(int? id)
 [HttpPost]
 public IActionResult VerificarRespuesta(string opcion, int idPregunta)
 {
+    if(idPregunta == 0) idPregunta++;
      
     bool esCorrecta = BD.VerificarRespuestaBD(idPregunta, opcion);
 
