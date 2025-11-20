@@ -66,7 +66,7 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
             {
                 string storedProcedure = "CrearUsuario";
                 connection.Execute(storedProcedure,
-                new { pNombreusuarios = Usu.nombre, pContraseña = Usu.contraseña, ptipoUsuario = Usu.tipoUsuario, pmail = Usu.mail },
+                new { pNombreUsu = Usu.nombreUsuario, pContraseña = Usu.contraseña, ptipoUsuario = Usu.tipoUsuario, pmail = Usu.mail },
                 commandType: CommandType.StoredProcedure);
             }
 
@@ -149,11 +149,10 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
 
     public static void EliminarVinculoBD(int idTutor, int idPerteneciente)
     {
-        string query = "DELETE FROM Tutorias WHERE idTutor = @pIdTutor AND idPerteneciente = @pIdPerteneciente";
+        string storedProcedure = "EliminarVinculoBD";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string storedProcedure = "EliminarVinculoBD";
-            connection.Execute(query, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente },
+            connection.Execute(storedProcedure, new { pIdTutor = idTutor, pIdPerteneciente = idPerteneciente },
             commandType: CommandType.StoredProcedure);
         }
     }

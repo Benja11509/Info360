@@ -1,39 +1,36 @@
 @{
     ViewData["Title"] = "Home";
-  
 }
-<body>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-   <section class="imgTandem"><img src="IMG/Tandem.png" alt="Tandem"></section>
-            <section class="carousel-infinito">
-                <div class="carousel-track">
-                  <img src="~/Imagenes/Carrusel1.png" alt="">   
-                  <img src="~/Imagenes/Carrusel2.png" alt="">
-                  <img src="~/Imagenes/Carrusel3.png" alt="">
-                  <img src="~/Imagenes/Carrusel4.png" alt="">
-                  <!-- duplicamos para que parezca continuo -->
-                  <img src="~/Imagenes/Carrusel1.png" alt="">   
-                  <img src="~/Imagenes/Carrusel2.png" alt="">
-                  <img src="~/Imagenes/Carrusel3.png" alt="">
-                  <img src="~/Imagenes/Carrusel4.png" alt="">
-                </div>
-              </section>
 
+<section class="imgTandem">
+    <img src="IMG/Tandem.png" alt="Tandem">
+</section>
 
- 
+<section class="carousel-infinito">
+    <div class="carousel-track">
+        <img src="~/Imagenes/Carrusel1.png" alt="">
+        <img src="~/Imagenes/Carrusel2.png" alt="">
+        <img src="~/Imagenes/Carrusel3.png" alt="">
+        <img src="~/Imagenes/Carrusel4.png" alt="">
+        <!-- duplicamos para que parezca continuo -->
+        <img src="~/Imagenes/Carrusel1.png" alt="">
+        <img src="~/Imagenes/Carrusel2.png" alt="">
+        <img src="~/Imagenes/Carrusel3.png" alt="">
+        <img src="~/Imagenes/Carrusel4.png" alt="">
+    </div>
+</section>
 
-
-
-<div class ="comenzarActividades ">
-<h2>Hola! bienvenido a Támden, </h2>
-<h2>¿Listo para descubrir una nueva actividad hoy?  </h2>
-<a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Comenzar Actividad</a>
+<div class="comenzarActividades">
+    <h2>Hola! bienvenido a Tándem, </h2>
+    <h2>¿Listo para descubrir una nueva actividad hoy?</h2>
+    <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Comenzar Actividad</a>
 </div>
-
 
 <div class="carousel-container">
     <button class="carousel-btn prev">&#10094;</button>
+
     <div class="carousel">
         <div class="card">
             <img src="~/Imagenes/descubre_El_Lugar.png" alt="Descubre el lugar">
@@ -56,6 +53,7 @@
             <a href="#" class="btn-continuar">Continuar</a>
         </div>
     </div>
+
     <button class="carousel-btn next">&#10095;</button>
 
     <div class="carousel-dots">
@@ -88,17 +86,41 @@
         updateCarousel();
     });
 </script>
-<div class ="ir a Chats">
-<h2>¿Ya hablaste con alguien hoy?</h2>
-<img src="~/Content/Images/fotoChats.png" alt="Logo Tandem" class="nav-logo">
-<a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Habla Ahora</a>
+
+<div class="ir a Chats">
+    <h2>¿Ya hablaste con alguien hoy?</h2>
+    <img src="~/Content/Images/fotoChats.png" alt="Logo Tandem" class="nav-logo">
+    <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Habla Ahora</a>
 </div>
 
+<div class="ActividadesPendientes">
+    <h2>Tareas Pendientes: </h2>
 
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            @for (int i = 0; i < ViewBag.TareasPendientes.Count; i++)
+            {
+                var actividad = ViewBag.TareasPendientes[i];
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+                    <img src="@actividad.imagen" class="d-block w-100" alt="FotoActividad">
+                    <a href='@Url.Action("JuegoOrdenarPictogramas", "Home")' class="botonComenzarAct">Ir Ahora</a>
+                </div>
+            }
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 </div>
-<div class ="Contactanos">
-<h2>¿Estamos para ayudarte!!! </h2>
-<a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Contactanos</a>
+
+<div class="Contactanos">
+    <h2>¿Estamos para ayudarte!!! </h2>
+    <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Contactanos</a>
 </div>
-</div>
-</body>

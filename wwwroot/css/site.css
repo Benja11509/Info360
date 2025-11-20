@@ -6,7 +6,7 @@
   position: relative;
 }
 
-/* Círculos decorativos */
+
 .circulo {
   position: absolute;
   border-radius: 50%;
@@ -37,7 +37,7 @@
   left: 120px;
 }
 
-/* === TARJETA PRINCIPAL === */
+
 .juego-card {
   background: white;
   padding: 40px;
@@ -46,7 +46,7 @@
   margin-top: 40px;
 }
 
-/* === TITULO === */
+
 .juego-card h2 {
   font-family: 'Nunito', sans-serif;
   font-size: 28px;
@@ -55,7 +55,6 @@
   margin-bottom: 20px;
 }
 
-/* === IMAGEN === */
 .juego-img {
   width: 260px;
   height: auto;
@@ -64,7 +63,6 @@
   border-radius: 15px;
 }
 
-/* === BOTONES === */
 .opciones {
   display: flex;
   justify-content: center;
@@ -89,7 +87,6 @@
   background-color: #8ecfe5;
 }
 
-/* === BOTÓN "Continuar más tarde" === */
 .btn-continuar {
   display: inline-block;
   margin-top: 30px;
@@ -106,7 +103,7 @@
   background-color: #b895da;
 }
 
-/* === RESPONSIVE === */
+
 @media (max-width: 768px) {
   .opciones {
       flex-direction: column;
@@ -131,7 +128,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Header */
 header {
   background-color: white;
   padding: 20px 60px;
@@ -186,7 +182,6 @@ header {
   color: white;
 }
 
-/* Hero Section */
 .hero-section {
   position: relative;
   padding: 80px 60px;
@@ -258,7 +253,6 @@ header {
   background-color: #f4f4f4; 
 }
 
-/* Este es el contenedor blanco centrado */
 .faq-container {
   max-width: 800px;
   margin: 0 auto;
@@ -267,7 +261,7 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Estilos para el título y las preguntas */
+
 .faq-container h2 {
   text-align: center;
   padding: 20px;
@@ -286,15 +280,15 @@ details:last-child {
 summary {
   font-weight: bold;
   cursor: pointer;
-  list-style: none; /* Oculta el marcador triangular */
+  list-style: none; 
 }
 
-summary::-webkit-details-marker { /* Oculta el marcador en Chrome/Safari */
+summary::-webkit-details-marker { 
   display: none;
 }
 
 details[open] summary {
-  color: #007bff; /* Color de la pregunta cuando está abierta */
+  color: #007bff; 
 }
 
 details p {
@@ -302,7 +296,7 @@ details p {
   line-height: 1.5;
   color: #333;
 }
-/* PLACEHOLDER: Reemplaza con tu imagen */
+
 .hero-image-placeholder {
   border-radius: 20px;
   background-image: (135deg, #E8E8E8 0%, #D0D0D0 100%);
@@ -343,7 +337,6 @@ details p {
   line-height: 1.6;
   margin-bottom: 30px;
   margin-left: 20%;
-
 }
 
 .btn-hero {
@@ -353,10 +346,9 @@ details p {
   font-size: 16px;
   border-radius: 8px;
   margin-left: 45%;
-
 }
 
-/* Mission Section */
+
 .mission-section {
   position: relative;
   padding: 80px 60px;
@@ -417,7 +409,7 @@ details p {
   
 }
 
-/* PLACEHOLDER: Reemplaza con tu ilustración */
+
 .mission-image-placeholder {
   width: 600px;
   height: 400px;
@@ -448,7 +440,6 @@ details p {
 }
 
 
-/* Benefits Section */
 .benefits-section {
   padding: 80px 60px;
   max-width: 1200px;
@@ -505,7 +496,6 @@ details p {
   color: #555;
 }
 
-/* Testimonials Section */
 .testimonials-section {
   padding: 80px 60px;
   max-width: 1400px;
@@ -536,7 +526,6 @@ details p {
   background-color: white;
 }
 
-/* PLACEHOLDER: Reemplaza con tu imagen */
 .testimonial-avatar-placeholder {
   width: 100px;
   height: 100px;
@@ -576,7 +565,6 @@ details p {
   font-size: 24px;
 }
 
-/* CTA Section */
 .cta-section {
   padding: 80px 60px;
   max-width: 1200px;
@@ -602,7 +590,6 @@ details p {
   height: 40px;
 }
 
-
 .cta-section h2 {
   font-family: 'Nunito', sans-serif;
   font-size: 40px;
@@ -618,7 +605,6 @@ details p {
   border-radius: 8px;
 }
 
-/* Footer */
 footer {
   background-color: white;
   padding: 40px 60px;
@@ -717,13 +703,11 @@ footer {
 }
 /* ====== Landing Fin ====== */
 
-/* Forzar header arriba */
 nav.navbar {
   margin: 0 !important;
   padding: 10px 20px !important;
 }
 
-/* Contenedor principal */
 .header-container {
   display: flex !important;
   align-items: center !important;
@@ -731,19 +715,16 @@ nav.navbar {
   width: 100% !important;
 }
 
-/* Contenedor derecho (botones) */
 .buttons-container {
-  margin-left: auto !important;   /* EMPUJA TODO A LA DERECHA */
+  margin-left: auto !important;   
   display: flex !important;
   gap: 15px !important;
 }
 
-/* Botones */
 .nav-btn {
   padding: 8px 16px !important;
 }
 
-/* Logo */
 .navbar-brand img {
   height: 50px;
   width: auto;
@@ -767,7 +748,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -827,7 +807,6 @@ header {
   padding: 8px;
 }
 
-/* Main Content */
 .main-content {
   padding: 40px;
   max-width: 1400px;
@@ -845,7 +824,6 @@ header {
   align-items: center;
 }
 
-/* Left Section */
 .completion-info {
   display: flex;
   flex-direction: column;
@@ -957,7 +935,6 @@ header {
   background-color: #f5d960;
 }
 
-/* Right Section - Character */
 .character-section {
   display: flex;
   justify-content: center;
@@ -974,13 +951,12 @@ header {
   box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 
-.character-img {
+.character-container img {
   width: 280px;
   height: auto;
 }
+
 /* ====== FindeJuego Fin ====== */
-
-
 * {
   margin: 0;
   padding: 0;
@@ -993,7 +969,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -1046,7 +1021,6 @@ header {
   padding: 8px;
 }
 
-/* Main Content */
 .main-content {
   padding: 40px;
   max-width: 1400px;
@@ -1066,7 +1040,6 @@ header {
   position: relative;
 }
 
-/* Decorative circles */
 .circle-decor {
   position: absolute;
   border-radius: 50%;
@@ -1091,7 +1064,6 @@ header {
   margin-top: 1%;
 }
 
-/* Left Section */
 .activity-section {
   display: flex;
   flex-direction: column;
@@ -1114,7 +1086,6 @@ header {
   padding: 30px;
   width: 100%;
   max-width: 400px;
-  
 }
 
 .preview-header {
@@ -1144,7 +1115,6 @@ header {
   align-items: center;
   margin-bottom: 20px;
 }
-
 .text-input {
   flex: 1;
   padding: 12px;
@@ -1186,7 +1156,6 @@ header {
   background-color: #8fd3e5;
 }
 
-/* Instruction Box */
 .instruction-box {
   background-color: #C9A7EB;
   border-radius: 25px;
@@ -1206,7 +1175,6 @@ header {
   line-height: 1.6;
 }
 
-/* Right Section - Character */
 .character-section {
   width: auto !important;
   height: auto !important;
@@ -1222,8 +1190,7 @@ header {
 
 }
 
-.character-section img {
-  width: 700px;           
+.character-section img {         
   height: auto;
   display: block;
   margin: 0 auto;
@@ -1238,7 +1205,6 @@ header {
   backface-visibility: hidden;
   
 }
-
 
 .back-btn {
   background-color: #C9A7EB;
@@ -1262,7 +1228,6 @@ header {
   height: auto;
 }
 
-/* Bottom Play Button */
 .bottom-play {
   text-align: center;
   margin-top: 30px;
@@ -1286,7 +1251,6 @@ header {
   transform: scale(1.05);
 }
 
-/* ====== PreviewActi Fin ====== */
 .carousel-infinito{
   margin-top: 20px;
 }
@@ -1318,7 +1282,6 @@ header {
       height: auto !important;
   }
 
-  /* Input + botón play */
   .input-row {
       flex-direction: column !important;
       align-items: stretch !important;
@@ -1332,7 +1295,6 @@ header {
       width: 100% !important;
   }
 
-  /* Botones de opciones */
   .option-buttons {
       flex-direction: column !important;
       gap: 10px !important;
@@ -1344,17 +1306,14 @@ header {
       padding: 10px !important;
   }
 
-  /* Caja instrucciones */
   .instruction-box {
       padding: 20px !important;
   }
 
-  /* Personaje */
   .character-section {
       padding: 0 !important;
   }
 
-  /* Botón de reproducir abajo */
   .bottom-play-btn {
       padding: 12px !important;
       width: 65px !important;
@@ -1373,7 +1332,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -1428,7 +1386,6 @@ header {
   height: 40px;
 }
 
-/* Main Content */
 .main-content {
   padding: 40px;
   max-width: 1400px;
@@ -1446,7 +1403,6 @@ header {
   overflow: hidden;
 }
 
-/* Left Section */
 .completion-info {
   padding: 0;
 }
@@ -1537,7 +1493,6 @@ header {
   background-color: #f5d960;
 }
 
-/* Right Section - Character */
 .character-section {
  
   display: flex;
@@ -1554,8 +1509,6 @@ header {
   justify-content: center;
   align-items: center;
 }
-
-
 
 .carousel-container {
     position: relative;
@@ -1642,7 +1595,6 @@ header {
     background-color: #333;
 }
 
-/* Mantiene el estilo del bloque superior */
 .comenzarActividades {
     text-align: center;
     margin-top: 40px;
@@ -1702,7 +1654,6 @@ header {
   background-color: #f0c800;
 }
 
-/* ====== FLECHAS ====== */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -1730,7 +1681,6 @@ header {
   right: 0;
 }
 
-/* ====== PUNTOS DE NAVEGACIÓN ====== */
 .carousel-dots {
   margin-top: 15px;
   display: flex;
@@ -1751,7 +1701,6 @@ header {
   background-color: #000;
 }
 
-/* ====== SECCIÓN "HABLAR AHORA" ====== */
 .ir.a.Chats {
   text-align: center;
   margin-top: 50px;
@@ -1788,7 +1737,6 @@ body {
   padding: 0;
 }
 
-/* ===== Sección principal ===== */
 .about-section {
   display: flex;
   justify-content: center;
@@ -1796,7 +1744,6 @@ body {
   padding: 80px 20px;
 }
 
-/* ===== Contenedor del contenido ===== */
 .about-container {
   background: #fff;
   border-radius: 28px;
@@ -1807,7 +1754,6 @@ body {
   position: relative;
 }
 
-/* ===== Etiqueta “Nosotros” ===== */
 .about-pill {
   position: absolute;
   top: -18px;
@@ -1822,7 +1768,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* ===== Título principal ===== */
 .about-container h1 {
   font-size: 2.8rem;
   color: #1e1e2f;
@@ -1831,7 +1776,6 @@ body {
   font-weight: 700;
 }
 
-/* ===== Párrafos ===== */
 .about-container p {
   font-size: 1.1rem;
   line-height: 1.9;
@@ -1844,7 +1788,6 @@ body {
   font-weight: 600;
 }
 
-/* ===== Frase final resaltada ===== */
 .about-highlight {
   background: linear-gradient(90deg, rgba(123, 93, 252, 0.1), rgba(255, 255, 255, 0.3));
   border-left: 4px solid #7b5dfc;
@@ -1855,24 +1798,11 @@ body {
   color: #333;
 }
 
-/* ===== Hover para efecto sutil ===== */
 .about-container:hover {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease;
 }
 
-/* ===== Versión adaptada a pantallas medianas ===== */
-@media (max-width: 992px) {
-  .about-container {
-    padding: 50px 60px;
-  }
-
-  .about-container h1 {
-    font-size: 2.3rem;
-  }
-}
-
-/* ===== Versión móvil (mantiene el estilo de tu app) ===== */
 @media (max-width: 768px) {
   .about-section {
     padding: 40px 20px;
@@ -2015,7 +1945,7 @@ footer {
   color: #999;
 }
 
-/* RESPONSIVE */
+
 @media (max-width: 1024px) {
   .footer-content {
       flex-direction: column;
@@ -2036,19 +1966,18 @@ footer {
 main {
   flex: 1;
 }
-/* Deja espacio al final del contenido para que no se solape con el footer */
+
 body {
-  padding-bottom: 70px; /* mismo alto que el footer */
+  padding-bottom: 70px; 
 }
-/* Deja espacio al final del contenido para que no se solape con el footer */
+
 body {
-  padding-bottom: 70px; /* mismo alto que el footer */
+  padding-bottom: 70px; 
 }
 .carousel-track {
   display: inline-block;
   animation: scroll 25s linear infinite;
 }
-
 
 .carousel-track img {
   width: 300px;
@@ -2058,12 +1987,10 @@ body {
   object-fit: cover;
 }
 
-
 @keyframes scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 
 
 @media (min-width: 768px) {
@@ -2072,18 +1999,11 @@ body {
   }
 }
 
-
-
-
-/* Asegúrate de que el body tenga un fondo para que contraste la tarjeta */
 body {
   background-color: #f0f2f5;
-  font-family: 'Roboto', sans-serif; /* O la fuente que estés usando */
+  font-family: 'Roboto', sans-serif; 
   padding: 20px;
 }
-
-
-
 
 .profile-card {
   background-color: #fff;
@@ -2095,11 +2015,8 @@ body {
   text-align: center;
   position: relative;
   overflow: hidden;
-  margin: 40px auto; /* Centra la tarjeta */
+  margin: 40px auto; 
 }
-
-
-
 
 .profile-header {
   margin-bottom: 30px;
@@ -2117,7 +2034,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -2170,7 +2086,6 @@ header {
   padding: 8px;
 }
 
-/* Main Content */
 .main-content {
   padding: 40px;
   max-width: 1400px;
@@ -2189,7 +2104,6 @@ header {
   position: relative;
 }
 
-/* Decorative circles */
 .circle-decor {
   position: absolute;
   border-radius: 50%;
@@ -2213,7 +2127,6 @@ header {
   opacity: 0.7;
 }
 
-/* Left Section */
 .activity-section {
   display: flex;
   flex-direction: column;
@@ -2306,7 +2219,6 @@ header {
   background-color: #8fd3e5;
 }
 
-/* Instruction Box */
 .instruction-box {
   background-color: #C9A7EB;
   border-radius: 25px;
@@ -2326,7 +2238,6 @@ header {
   line-height: 1.6;
 }
 
-/* Right Section - Character */
 .character-section {
  width: 1px;
  height: 20px;
@@ -2354,7 +2265,6 @@ header {
   height: auto;
 }
 
-/* Bottom Play Button */
 .bottom-play {
   text-align: center;
   margin-top: 30px;
@@ -2378,9 +2288,6 @@ header {
   transform: scale(1.05);
 }
 
-
-
-
 .profile-picture-container {
   width: 150px;
   height: 150px;
@@ -2391,18 +2298,12 @@ header {
   margin: 0 auto 15px auto;
 }
 
-
-
-
 .profile-picture {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
-
-
-
 
 .edit-photo-link {
   color: #6699ff;
@@ -2411,22 +2312,13 @@ header {
   font-weight: 500;
 }
 
-
-
-
 .edit-photo-link:hover {
   text-decoration: underline;
 }
 
-
-
-
 .profile-info {
   text-align: left;
 }
-
-
-
 
 .info-group {
   background-color: #f5f5f5;
@@ -2436,14 +2328,9 @@ header {
 }
 
 
-
-
 .info-group.description-group {
   min-height: 100px;
 }
-
-
-
 
 .info-label {
   font-size: 0.85em;
@@ -2451,9 +2338,6 @@ header {
   margin-bottom: 5px;
   font-weight: 500;
 }
-
-
-
 
 .info-value {
   font-size: 1.1em;
@@ -2463,13 +2347,6 @@ header {
   word-break: break-word;
 }
 
-
-
-
-
-
-
-
 .bubble {
   position: absolute;
   border-radius: 50%;
@@ -2477,9 +2354,6 @@ header {
   filter: blur(8px);
   z-index: 0;
 }
-
-
-
 
 .bubble-tl {
   width: 60px;
@@ -2489,9 +2363,6 @@ header {
   left: -20px;
 }
 
-
-
-
 .bubble-tr {
   width: 40px;
   height: 40px;
@@ -2499,9 +2370,6 @@ header {
   top: 10px;
   right: 10px;
 }
-
-
-
 
 .bubble-bl {
   width: 50px;
@@ -2512,8 +2380,6 @@ header {
 }
 
 
-
-
 .bubble-br {
   width: 30px;
   height: 30px;
@@ -2522,17 +2388,11 @@ header {
   right: 0px;
 }
 
-
-
-
 .main{
   margin-top:56px;
 }
 
-
-
-
-/* ----------- Reset básico ----------- */
+/* ----------- Nosotros inicio ----------- */
 * {
   margin: 0;
   padding: 0;
@@ -2541,18 +2401,12 @@ header {
 }
 
 
-
-
 body {
   background-color: #fff;
   color: #333;
   line-height: 1.6;
 }
 
-
-
-
-/* ----------- Hero Section ----------- */
 .hero {
   display: flex;
   align-items: center;
@@ -2560,9 +2414,6 @@ body {
   padding: 4rem 3rem;
   background-color: #f5f9ff;
 }
-
-
-
 
 .hero-content {
   display: flex;
@@ -2572,9 +2423,6 @@ body {
   justify-content: center;
   max-width: 1200px;
 }
-
-
-
 
 .hero-image .img-placeholder {
   width: 400px;
@@ -2587,14 +2435,6 @@ body {
   color: #555;
 }
 .img-placeholder , img{
-
-
-
-
-
-
-
-
   width: 100%;
    border-radius:3% ;
 }
@@ -2602,16 +2442,11 @@ body {
   max-width: 500px;
 }
 
-
-
-
 .hero-text h1 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
   color: #2c3e50;
 }
-
-
 
 .btn-so
 .hero-text h3 {
@@ -2623,7 +2458,6 @@ body {
 .hero-text p {
   margin-bottom: 1.5rem;
 }
-
 
 .btn-solid {
   border: none;
@@ -2637,17 +2471,10 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-
-
-
 .btn-solid:hover {
   background-color: #3b77c7;
 }
 
-
-
-
-/* ----------- Quiénes somos ----------- */
 .about {
   display: flex;
   flex-wrap: wrap;
@@ -2656,9 +2483,6 @@ body {
   padding: 4rem 2rem;
   background-color: #fffbe6;
 }
-
-
-
 
 .about-content {
   display: flex;
@@ -2669,24 +2493,15 @@ body {
   max-width: 1100px;
 }
 
-
-
-
 .about-text {
   flex: 1;
   min-width: 300px;
 }
 
-
-
-
 .about-text h2 {
   margin-bottom: 1rem;
   color: #2c3e50;
 }
-
-
-
 
 .about-illustration .illustration-placeholder {
   width: 200px;
@@ -2699,17 +2514,10 @@ body {
   color: #555;
 }
 
-
-
-
-/* ----------- Valores ----------- */
 .values {
   text-align: center;
   padding: 4rem 2rem;
 }
-
-
-
 
 .values-list {
   display: flex;
@@ -2718,9 +2526,6 @@ body {
   max-width: 700px;
   margin: 2rem auto 0;
 }
-
-
-
 
 .value-card {
   background-color: #f8f9fa;
@@ -2732,15 +2537,9 @@ body {
   border: 1px solid #e0e0e0;
 }
 
-
-
-
 .value-info {
   text-align: left;
 }
-
-
-
 
 .value-number {
   width: 40px;
@@ -2755,17 +2554,11 @@ body {
 }
 
 
-
-
-/* ----------- Equipo ----------- */
 .team {
   padding: 4rem 2rem;
   text-align: center;
   background-color: #f5f9ff;
 }
-
-
-
 
 .team-members {
   display: flex;
@@ -2775,9 +2568,6 @@ body {
   margin-top: 2rem;
 }
 
-
-
-
 .team-member {
   background-color: white;
   padding: 1.5rem;
@@ -2785,9 +2575,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 250px;
 }
-
-
-
 
 .photo-placeholder {
   width: 100px;
@@ -2797,25 +2584,14 @@ body {
   margin: 0 auto 1rem auto;
 }
 
-
-
-
-/* ----------- CTA final ----------- */
 .cta {
   text-align: center;
   padding: 4rem 2rem;
 }
-
-
-
-
 .cta h3 {
   margin-bottom: 1.5rem;
   color: #2c3e50;
 }
-
-
-
 
 /* ----------- Responsive ----------- */
 @media (max-width: 768px) {
@@ -2824,24 +2600,14 @@ body {
       text-align: center;
   }
 
-
-
-
   .about-content {
       flex-direction: column;
       text-align: center;
   }
 
-
-
-
   .values-list {
       width: 100%;
   }
-
-
-
-
   .team-members {
       flex-direction: column;
   }
@@ -2858,23 +2624,10 @@ font-size: 150%;
 
 
 
+/* ----------- Nosotros Fin ----------- */
 
 
-
-
-
-
-
-
-
-
-
-/* ----------- actividades ----------- */
-
-
-
-
-
+/* ----------- Inicio de actividades ----------- */
 
 
 
@@ -2882,9 +2635,6 @@ font-size: 150%;
   padding: 40px 20px;
   position: relative;
 }
-
-
-
 
 /* Fondo amarillo ondulado */
 .fondo-amarillo {
@@ -2909,10 +2659,8 @@ font-size: 150%;
   color: white;
   margin-top: -60px;
   margin-bottom: 60px;
+  text-align: center;
 }
-
-
-
 
 .contenedor-botones {
   display: flex;
@@ -2920,8 +2668,6 @@ font-size: 150%;
   gap: 60px;
   flex-wrap: wrap;
 }
-
-
 
 
 .tarjeta {
@@ -2939,14 +2685,9 @@ font-size: 150%;
   transition: transform 0.2s ease;
 }
 
-
-
-
 .tarjeta:hover {
   transform: scale(1.05);
 }
-
-
 
 
 .pictogramas {
@@ -2954,13 +2695,9 @@ font-size: 150%;
 }
 
 
-
-
 .juegos {
   background-color: #9BD9EB;
 }
-
-
 
 
 .boton-play {
@@ -2975,9 +2712,6 @@ font-size: 150%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-
-
-
 .boton-play i {
   border-style: solid;
   border-width: 8px 0 8px 14px;
@@ -2985,18 +2719,10 @@ font-size: 150%;
   margin-left: 3px;
 }
 
-
-
-
-/* Variante para botón celeste */
 .juegos .boton-play i {
   border-color: transparent transparent transparent #2BBBE2;
 }
 
-
-
-
-/* Circulitos decorativos */
 .decorativos {
   position: absolute;
   top: 40px;
@@ -3005,43 +2731,22 @@ font-size: 150%;
   gap: 10px;
 }
 
-
-
-
 .circulo {
   width: 25px;
   height: 25px;
   border-radius: 50%;
 }
 
-
-
-
 .circulo.violeta {
   background-color: #C9A4F5;
 }
-
-
-
 
 .circulo.celeste {
   background-color: #9BD9EB;
  
 }
 
-
-
-
-
-
-
-
 /* ----------- fin de actividades ----------- */
-
-
-
-
-
 
 
 
@@ -3049,16 +2754,12 @@ font-size: 150%;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 160px); /* deja espacio para header y footer */
+    min-height: calc(100vh - 160px); 
     background-color: #f9f9f9;
     position: relative;
     overflow: hidden;
 }
 
-
-
-
-/* Círculos decorativos */
 .registro-container::before,
 .registro-container::after {
     content: "";
@@ -3066,9 +2767,6 @@ font-size: 150%;
     border-radius: 50%;
     z-index: 0;
 }
-
-
-
 
 .registro-container::before {
     width: 90px;
@@ -3078,9 +2776,6 @@ font-size: 150%;
     left: 60px;
 }
 
-
-
-
 .registro-container::after {
     width: 120px;
     height: 120px;
@@ -3089,10 +2784,6 @@ font-size: 150%;
     right: 70px;
 }
 
-
-
-
-/* Tarjeta del formulario */
 .registro-card {
     background-color: white;
     width: 380px;
@@ -3104,10 +2795,6 @@ font-size: 150%;
     text-align: center;
 }
 
-
-
-
-/* Encabezado superior celeste */
 .registro-card .registro-header {
     background-color: #d6eef6;
     border-top-left-radius: 12px;
@@ -3116,47 +2803,28 @@ font-size: 150%;
     padding: 25px 0 15px 0;
 }
 
-
-
-
 .registro-card .registro-header img {
     width: 65px;
     display: block;
     margin: 0 auto 8px auto;
 }
-
-
-
-
 .registro-card .registro-header h2 {
     font-size: 1.1rem;
     color: #555;
     font-weight: 600;
 }
 
-
-
-
-/* Título */
 .registro-card h1 {
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 25px;
     color: #333;
 }
-
-
-
-
-/* Campos del formulario */
 .registro-card form ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
-
-
 
 .registro-card form li {
     text-align: left;
@@ -3164,9 +2832,6 @@ font-size: 150%;
     font-weight: 500;
     color: #333;
 }
-
-
-
 
 .registro-card input[type="text"],
 .registro-card input[type="password"] {
@@ -3178,27 +2843,15 @@ font-size: 150%;
     margin-top: 6px;
     transition: border-color 0.2s;
 }
-
-
-
-
 .registro-card input[type="text"]:focus,
 .registro-card input[type="password"]:focus {
     border-color: #b49aff;
     outline: none;
 }
-
-
-
-
-/* Radios */
 .registro-card .InputRadio {
     margin-top: 10px;
     text-align: center;
 }
-
-
-
 
 .registro-card .InputRadio label {
     background-color: #c9e7f2;
@@ -3210,26 +2863,14 @@ font-size: 150%;
     font-weight: 500;
     color: #333;
 }
-
-
-
-
 .registro-card .InputRadio input[type="radio"] {
     display: none;
 }
-
-
-
-
 .registro-card .InputRadio input[type="radio"]:checked + label {
     background-color: #d1c3ff;
     color: #000;
 }
 
-
-
-
-/* Botón principal */
 .registro-card button.btn-primary {
     background-color: #c7b0ff;
     border: none;
@@ -3243,42 +2884,24 @@ font-size: 150%;
     transition: background-color 0.3s;
     margin-top: 20px;
 }
-
-
-
-
 .registro-card button.btn-primary:hover {
     background-color: #b89df8;
 }
 
-
-
-
-/* Texto inferior */
 .registro-card p {
     margin-top: 15px;
     font-size: 0.9rem;
     color: #333;
 }
 
-
-
-
 .registro-card a {
     color: #4b6cff;
     text-decoration: none;
 }
 
-
-
-
 .registro-card a:hover {
     text-decoration: underline;
 }
-
-
-
-
 
 .login-background {
     min-height: 85vh;
@@ -3290,19 +2913,12 @@ font-size: 150%;
     padding: 40px 0;
 }
 
-
-
-
-/* === CÍRCULOS DECORATIVOS === */
 .circle {
     position: absolute;
     border-radius: 50%;
     z-index: 0;
     opacity: 0.7;
 }
-
-
-
 
 .circle-top {
     width: 120px;
@@ -3311,9 +2927,6 @@ font-size: 150%;
     top: 60px;
     left: 60px;
 }
-
-
-
 
 .circle-top::after {
     content: "";
@@ -3326,9 +2939,6 @@ font-size: 150%;
     top: 30px;
 }
 
-
-
-
 .circle-bottom {
     width: 130px;
     height: 130px;
@@ -3336,10 +2946,6 @@ font-size: 150%;
     bottom: 70px;
     right: 100px;
 }
-
-
-
-
 .circle-bottom::after {
     content: "";
     position: absolute;
@@ -3354,7 +2960,7 @@ font-size: 150%;
 
 
 
-/* === CONTENEDOR DEL LOGIN === */
+/* === LOGIN === */
 .login-container {
     position: relative;
     background: #fff;
@@ -3365,18 +2971,12 @@ font-size: 150%;
     z-index: 1;
 }
 
-
-
-
-/* === HEADER CELESTE CON LOGO === */
 .login-header {
     background-color: #d6f1fc;
     text-align: center;
     padding: 20px 0;
     border-bottom: 3px solid #6dc4eb;
 }
-
-
 
 
 .logo-login {
@@ -3386,25 +2986,16 @@ font-size: 150%;
 }
 
 
-
-
 .login-header h2 {
     font-size: 16px;
     color: #333;
     margin: 0;
 }
 
-
-
-
-/* === CUERPO DE LOGIN === */
 .login-box {
     padding: 30px;
     text-align: center;
 }
-
-
-
 
 .login-box h1 {
     font-size: 24px;
@@ -3414,9 +3005,6 @@ font-size: 150%;
 }
 
 
-
-
-/* === INPUTS === */
 .input-group {
     display: flex;
     align-items: center;
@@ -3426,16 +3014,11 @@ font-size: 150%;
     margin-bottom: 15px;
 }
 
-
-
-
 .input-group i {
     color: #333;
     margin-right: 10px;
     font-size: 18px;
 }
-
-
 
 
 .input-group input {
@@ -3447,10 +3030,6 @@ font-size: 150%;
     color: #333;
 }
 
-
-
-
-/* === BOTÓN LOGIN === */
 .btn-login {
     background-color: #c4a6ff;
     border: none;
@@ -3465,16 +3044,10 @@ font-size: 150%;
 }
 
 
-
-
 .btn-login:hover {
     background-color: #b18df5;
 }
 
-
-
-
-/* === ENLACES Y TEXTO === */
 .forgot {
     display: block;
     text-align: left;
@@ -3484,14 +3057,9 @@ font-size: 150%;
     text-decoration: none;
 }
 
-
-
-
 .forgot:hover {
     text-decoration: underline;
 }
-
-
 
 
 .no-account {
@@ -3499,34 +3067,23 @@ font-size: 150%;
     color: #333;
 }
 
-
-
-
 .no-account a {
     color: #4169e1;
     font-weight: bold;
     text-decoration: none;
 }
 
-
-
-
 .no-account a:hover {
     text-decoration: underline;
 }
 
 
-
-
-/* === BOTONES SOCIALES === */
 .social-login {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
 }
-
-
 
 
 .social-icon {
@@ -3539,15 +3096,9 @@ font-size: 150%;
     transition: transform 0.2s ease;
 }
 
-
-
-
 .social-icon:hover {
     transform: scale(1.1);
 }
-
-
-
 
 .navbar-custom {
     width: 100%;
@@ -3564,26 +3115,16 @@ font-size: 150%;
     margin-top: 0;
 }
 
-
-
-
 .nav-left {
     display: flex;
     align-items: center;
 }
-
-
-
 
 .nav-logo {
     height: 40px;
     width: auto;
 }
 
-
-
-
-/* ===== CENTRO: BOTONES ===== */
 .nav-center {
     display: flex;
     gap: 10px;
@@ -3592,20 +3133,14 @@ font-size: 150%;
     border-radius: 25px;
 }
 
-
-
-
 .nav-btn {
     color: #000;
     text-decoration: none;
     font-weight: 500;
     padding: 8px 12px;
     border-radius: 20px;
-    transition: background 0.3s;
+   
 }
-
-
-
 
 .nav-btn:hover {
     background-color: #e1e1e1;
@@ -3614,16 +3149,12 @@ font-size: 150%;
 
 
 
-/* ===== DERECHA: ICONOS ===== */
+/* ===== ICONOS ===== */
 .nav-right {
     display: flex;
     align-items: center;
     gap: 18px;
 }
-
-
-
-
 .nav-icon {
     font-size: 20px;
     color: #333;
@@ -3631,16 +3162,10 @@ font-size: 150%;
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
-
-
-
 .nav-icon:hover {
     transform: scale(1.1);
     color: #5d3fd3;
 }
-
-
-
 
 .menu-btn {
     border: none;
@@ -3651,23 +3176,13 @@ font-size: 150%;
     transition: color 0.2s ease;
 }
 
-
-
-
 .menu-btn:hover {
     color: #5d3fd3;
 }
 
-
-
-
-/* ===== Ajuste general ===== */
 body {
     padding-top: 70px;
 }
-
-
-
 
 .config-container {
     max-width: 700px;
@@ -3678,16 +3193,10 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-
-
-
 .config-header {
     text-align: center;
     margin-bottom: 30px;
 }
-
-
-
 
 .config-foto {
     width: 120px;
@@ -3698,25 +3207,16 @@ body {
     margin-bottom: 15px;
 }
 
-
-
-
 .config-header h2 {
     font-size: 1.6rem;
     color: #333;
     margin-bottom: 5px;
 }
 
-
-
-
 .config-username {
     font-size: 0.9rem;
     color: #777;
 }
-
-
-
 
 .config-form {
     display: flex;
@@ -3724,25 +3224,16 @@ body {
     gap: 20px;
 }
 
-
-
-
 .config-row {
     display: flex;
     flex-direction: column;
 }
-
-
-
 
 .config-row label {
     font-weight: 600;
     color: #444;
     margin-bottom: 5px;
 }
-
-
-
 
 .config-row input,
 .config-row textarea {
@@ -3753,9 +3244,6 @@ body {
     transition: all 0.2s ease;
 }
 
-
-
-
 .config-row input:focus,
 .config-row textarea:focus {
     border-color: #5f9df7;
@@ -3763,16 +3251,10 @@ body {
     box-shadow: 0 0 4px rgba(95,157,247,0.3);
 }
 
-
-
-
 textarea {
     min-height: 90px;
     resize: vertical;
 }
-
-
-
 
 .btn-guardar, .btn-volver {
     display: inline-block;
@@ -3784,9 +3266,6 @@ textarea {
     transition: 0.2s ease;
 }
 
-
-
-
 .btn-guardar {
     background: #5f9df7;
     color: white;
@@ -3795,23 +3274,15 @@ textarea {
 }
 
 
-
-
 .btn-guardar:hover {
     background: #4a8be6;
 }
-
-
-
 
 .btn-volver {
     margin-left: 10px;
     color: #5f9df7;
     background: #eef4ff;
 }
-
-
-
 
 .btn-volver:hover {
     background: #d9e8ff;
@@ -3821,9 +3292,6 @@ textarea {
     color: #5f9df7;
     background: #eef4ff;
 }
-
-
-
 
 .btn-volver:hover {
     background: #d9e8ff;
@@ -3838,9 +3306,6 @@ textarea {
   position: relative;
 }
 
-
-
-
 .profile-header {
   display: flex;
   justify-content: space-between;
@@ -3848,16 +3313,10 @@ textarea {
   margin-bottom: 30px;
 }
 
-
-
-
 .profile-picture-container {
   display: flex;
   align-items: center;
 }
-
-
-
 
 .profile-picture {
   width: 120px;
@@ -3866,9 +3325,6 @@ textarea {
   object-fit: cover;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
-
-
-
 
 .edit-profile-btn {
   background: #5f9df7;
@@ -3879,29 +3335,18 @@ textarea {
   transition: 0.2s ease;
 }
 
-
-
-
 .edit-profile-btn:hover {
   background: #4a8be6;
 }
 
 
-
-
 /* ===== INFORMACIÓN DEL PERFIL ===== */
-
-
-
 
 .profile-info {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-
-
-
 
 .info-group {
   background: #f9fafc;
@@ -3910,9 +3355,6 @@ textarea {
   border: 1px solid #e3e8ef;
 }
 
-
-
-
 .info-label {
   font-weight: 600;
   color: #444;
@@ -3920,22 +3362,13 @@ textarea {
   display: block;
 }
 
-
-
-
 .info-value {
   color: #555;
   margin: 0;
   font-size: 0.95rem;
 }
 
-
-
-
 /* ===== SECCIÓN DE RELACIONES ===== */
-
-
-
 
 .Perfil_Relaciones {
   margin-top: 40px;
@@ -3945,17 +3378,11 @@ textarea {
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-
-
-
 .Perfil_Relaciones h3,
 .Perfil_Relaciones h4 {
   color: #333;
   margin-bottom: 15px;
 }
-
-
-
 
 .vinculo-card {
   background: #f4f7ff;
@@ -3966,24 +3393,15 @@ textarea {
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
 }
 
-
-
-
 .vinculo-card p {
   margin: 4px 0;
   color: #444;
   font-size: 0.95rem;
 }
 
-
-
-
 .vinculo-card form {
   margin-top: 8px;
 }
-
-
-
 
 .btn-danger {
   background: #ff5b5b;
@@ -3992,23 +3410,14 @@ textarea {
   border-radius: 8px;
   padding: 6px 12px;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
-
-
-
 
 .btn-danger:hover {
   background: #e04646;
 }
 
 
-
-
 /* ===== FORMULARIO DE NUEVO VÍNCULO ===== */
-
-
-
 
 .vinculo-form {
   display: flex;
@@ -4017,17 +3426,11 @@ textarea {
   margin-top: 20px;
 }
 
-
-
-
 .vinculo-form label {
   font-weight: 600;
   color: #333;
   margin-bottom: 5px;
 }
-
-
-
 
 .vinculo-form input[type="text"],
 .vinculo-form input[type="number"] {
@@ -4038,17 +3441,11 @@ textarea {
   font-size: 0.95rem;
 }
 
-
-
-
 .vinculo-form input:focus {
   border-color: #5f9df7;
   box-shadow: 0 0 4px rgba(95,157,247,0.3);
   outline: none;
 }
-
-
-
 
 .vinculo-form button {
   width: fit-content;
@@ -4063,16 +3460,9 @@ textarea {
 }
 
 
-
-
 .vinculo-form button:hover {
   background: #4a8be6;
 }
-
-
-
-
-
 
 
 .search-results {
@@ -4089,25 +3479,15 @@ textarea {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-
-
-
 .result-item {
   padding: 8px 12px;
   cursor: pointer;
   transition: 0.15s;
 }
 
-
-
-
 .result-item:hover {
   background: #eef4ff;
 }
-
-
-
-
 
 
 .btn-primary {
@@ -4118,18 +3498,12 @@ textarea {
   padding: 8px 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease;
+  
 }
-
-
-
 
 .btn-primary:hover {
   background: #4a8be6;
 }
-
-
-
 
 .nav-link {
   display: inline-block;
@@ -4139,19 +3513,9 @@ textarea {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
-
-
-
 .nav-link:hover {
   color: #4077d6;
 }
-
-
-
-
-
-
 
 
 .bubble {
@@ -4162,24 +3526,20 @@ textarea {
   border-radius: 50%;
 }
 
-
-
-
 .bubble-tl { top: -20px; left: -20px; }
 .bubble-tr { top: -25px; right: -25px; }
 .bubble-bl { bottom: -25px; left: -25px; }
 .bubble-br { bottom: -20px; right: -20px; }
-
-
-
 
 body {
   background-color: #fff;
   font-family: 'Poppins', sans-serif;
   color: #333;
   overflow-x: hidden;
+  padding-top:0%;
+  margin: 0%;
+  width: 100%;
 }
-
 
 .comenzarActividades {
   position: relative;
@@ -4187,18 +3547,12 @@ body {
   padding: 80px 20px 60px;
 }
 
-
-
-
 .comenzarActividades h2 {
   font-size: 1.4rem;
   color: #333;
   font-weight: 600;
   line-height: 1.4;
 }
-
-
-
 
 .comenzarActividades::before {
   content: "";
@@ -4213,10 +3567,6 @@ body {
   border-radius: 120px 120px 120px 120px / 80px 80px 80px 80px;
   z-index: -1;
 }
-
-
-
-
 .botonComenzarAct {
   display: inline-block;
   background-color: #cba8f9;
@@ -4231,8 +3581,6 @@ body {
 }
 
 
-
-
 .botonComenzarAct:hover {
   background-color: #a886f3;
 }
@@ -4242,24 +3590,16 @@ body {
   padding: 60px 20px;
 }
 
-
-
-
 .ActividadesPendientes h2 {
   font-size: 1.3rem;
   color: #333;
   margin-bottom: 25px;
 }
 
-
-
 .ir.a.Chats {
   text-align: center;
   padding: 60px 20px;
 }
-
-
-
 
 .ir.a.Chats h2 {
   font-size: 1.3rem;
@@ -4267,18 +3607,12 @@ body {
   margin-bottom: 20px;
 }
 
-
-
-
 .ir.a.Chats img {
   width: 280px;
   border-radius: 20px;
   margin-bottom: 25px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
-
-
 
 .Contactanos {
     position: relative;
@@ -4291,14 +3625,12 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-
 .Contactanos h2 {
     font-size: 1.6rem;
     font-weight: 700;
     color: #333;
     margin-bottom: 25px;
 }
-
 
 .Contactanos .botonComenzarAct {
     background-color: #b8e7fa;
@@ -4312,8 +3644,6 @@ body {
 }
 
 
-
-
 .bubble {
   position: absolute;
   border-radius: 50%;
@@ -4323,15 +3653,10 @@ body {
 }
 
 
-
-
 .bubble1 { width: 70px; height: 70px; background: #f8dfff; top: 10%; left: 5%; }
 .bubble2 { width: 40px; height: 40px; background: #ffea7a; top: 25%; right: 10%; }
 .bubble3 { width: 80px; height: 80px; background: #b8e7fa; bottom: 15%; left: 15%; }
 .bubble4 { width: 50px; height: 50px; background: #cba8f9; bottom: 25%; right: 15%; }
-
-
-
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -4343,24 +3668,15 @@ body {
   }
 
 
-
-
   .ir.a.Chats img {
       width: 200px;
   }
  
 
-
-
-
-
 @media (max-width: 768px) {
     .Contactanos {
         padding: 120px 20px 180px;
     }
-
-
-
 
     .Contactanos::before {
         height: 350px;
@@ -4382,18 +3698,12 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-
-
-
 .Contactanos h2 {
   font-size: 1.8rem;
   font-weight: 700;
   color: #2e2e2e;
   margin-bottom: 30px;
 }
-
-
-
 
 .Contactanos .botonComenzarAct {
   background-color: #b8e7fa;
@@ -4405,8 +3715,6 @@ body {
   text-decoration: none;
   transition: all 0.3s ease;
 }
-
-
 
 
 .Contactanos .botonComenzarAct:hover {
@@ -4422,15 +3730,10 @@ body {
   }
 
 
-
-
   .Contactanos h2 {
       font-size: 1.4rem;
       margin-bottom: 20px;
   }
-
-
-
 
   .Contactanos .botonComenzarAct {
       padding: 10px 24px;
