@@ -1,4 +1,54 @@
 
+.faq-container-wrapper {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4; 
+}
+
+/* Este es el contenedor blanco centrado */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Estilos para el título y las preguntas */
+.faq-container h2 {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+details {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+details:last-child {
+  border-bottom: none;
+}
+
+summary {
+  font-weight: bold;
+  cursor: pointer;
+  list-style: none; /* Oculta el marcador triangular */
+}
+
+summary::-webkit-details-marker { /* Oculta el marcador en Chrome/Safari */
+  display: none;
+}
+
+details[open] summary {
+  color: #007bff; /* Color de la pregunta cuando está abierta */
+}
+
+details p {
+  margin-top: 10px;
+  line-height: 1.5;
+  color: #333;
+}
 .juego-container {
   max-width: 900px;
   margin: 60px auto;
