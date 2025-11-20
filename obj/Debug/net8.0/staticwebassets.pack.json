@@ -9,6 +9,22 @@
       "PackagePath": "staticwebassets\\Imagenes\\CampanitaNotifi.webp"
     },
     {
+      "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\Carrusel1.png",
+      "PackagePath": "staticwebassets\\Imagenes\\Carrusel1.png"
+    },
+    {
+      "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\Carrusel2.png",
+      "PackagePath": "staticwebassets\\Imagenes\\Carrusel2.png"
+    },
+    {
+      "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\Carrusel3.png",
+      "PackagePath": "staticwebassets\\Imagenes\\Carrusel3.png"
+    },
+    {
+      "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\Carrusel4.png",
+      "PackagePath": "staticwebassets\\Imagenes\\Carrusel4.png"
+    },
+    {
       "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\ColoresYFor.png",
       "PackagePath": "staticwebassets\\Imagenes\\ColoresYFor.png"
     },
@@ -31,6 +47,14 @@
     {
       "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\LOGO 2.png",
       "PackagePath": "staticwebassets\\Imagenes\\LOGO 2.png"
+    },
+    {
+      "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\LOGO2.jpg",
+      "PackagePath": "staticwebassets\\Imagenes\\LOGO2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\LOGO3.jpg",
+      "PackagePath": "staticwebassets\\Imagenes\\LOGO3.jpg"
     },
     {
       "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\Logo.png",
@@ -63,6 +87,10 @@
     {
       "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\Thumbs.db",
       "PackagePath": "staticwebassets\\Imagenes\\Thumbs.db"
+    },
+    {
+      "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\descubre_El_Lugar.png",
+      "PackagePath": "staticwebassets\\Imagenes\\descubre_El_Lugar.png"
     },
     {
       "Id": "C:\\Users\\48857364\\Info360\\wwwroot\\Imagenes\\fotoChats.png",

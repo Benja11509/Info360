@@ -80,19 +80,6 @@ public class HomeController : Controller
 
 public IActionResult JuegoOrdenarPictogramas(int? index, bool? continuar)
 {
-
-    string? usuarioJson = HttpContext.Session.GetString("Usuario");
-    if (string.IsNullOrEmpty(usuarioJson))
-    {
-     
-        return RedirectToAction("Index", "Account"); 
-    }
-    
-    
-    Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-    Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
-
     int indiceActual;
     const int ID_ACTIVIDAD_PICTOGRAMAS = 6; 
     if (continuar == false)
@@ -140,7 +127,7 @@ indiceActual = correctas;
     }
 
    
-    int idPreguntaActual = usuarioCompleto.PreguntaActual ?? 0 ;
+    int idPreguntaActual = idsPreguntas[indiceActual];
     PreguntaPictograma pregunta = BD.TraerPregunta(idPreguntaActual);
 
    
@@ -185,21 +172,6 @@ indiceActual = correctas;
 [HttpPost]
 public IActionResult VerificarRespuesta(string opcion)
 {
-string? usuarioJson = HttpContext.Session.GetString("Usuario");
-    if (string.IsNullOrEmpty(usuarioJson))
-    {
-     
-        return RedirectToAction("Index", "Account"); 
-    }
-    
-    
-    Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-    
-    
-    Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
-
-
     int idPreguntaActual = HttpContext.Session.GetInt32("JuegoIdPreguntaActual") ?? 0;
     int indiceActual = HttpContext.Session.GetInt32("JuegoIndiceActual") ?? 0;
 
@@ -216,8 +188,7 @@ string? usuarioJson = HttpContext.Session.GetString("Usuario");
         HttpContext.Session.SetInt32("JuegoCorrectas", correctas + 1);
         
          idPreguntaActual = correctas + 1; 
-         correctas++; 
-BD.ActualizarProgresoActividad(usuarioCompleto.id,idPreguntaActual,correctas);
+
     HttpContext.Session.SetInt32("JuegoIdPreguntaActual", idPreguntaActual);
         
         return RedirectToAction("JuegoOrdenarPictogramas", new { index = idPreguntaActual });
