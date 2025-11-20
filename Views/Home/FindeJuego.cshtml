@@ -15,16 +15,17 @@
             <div class="completion-info">
                 <h1 class="completion-title">Juego completado</h1>
 
-                <div class="stats-section">
-                    <span class="stat-item">Completados: @ViewBag.Correctas / @ViewBag.TotalPreguntas</span>
-                    <span class="stat-item">Tiempo Total: @ViewBag.Duracion</span>
-                    <span class="stat-item">Puntos Obtenidos: @ViewBag.PuntosGanados</span>
-                    <span class="stat-item">Puntos Totales: @ViewBag.PuntajeTotal</span>
-
-                </div>
+        <div class="stats-section">
+            <span class="stat-item">Completados: @(ViewBag.Correctas) / @(ViewBag.TotalPreguntas)</span>
+            <span class="stat-item">Tiempo Total: @(ViewBag.Duracion)</span>
+            <span class="stat-item">Puntos Obtenidos: @(ViewBag.PuntosGanados)</span>
+            <span class="stat-item">Puntos Totales: @(ViewBag.PuntajeTotal)</span>
+        </div>
 
                 <section class="challenges-section">
                     <h2 class="challenges-title">Busca tu próximo desafío:</h2>
+
+                 <form method="post" asp-action="JuegoPictogramas">
 
                     <div class="challenges-grid">
                         <div class="challenge-card">
@@ -45,6 +46,8 @@
                             <button class="challenge-btn">Ver más</button>
                         </div>
                     </div>
+
+                </form>
                 </section>
             </div>
 
