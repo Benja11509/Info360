@@ -159,6 +159,9 @@ indiceActual = correctas;
     return View("JuegoOrdenarPictogramas");
 }
 
+
+
+
 [HttpPost]
 public IActionResult VerificarRespuesta(string opcion)
 {
@@ -177,18 +180,23 @@ public IActionResult VerificarRespuesta(string opcion)
         int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
         HttpContext.Session.SetInt32("JuegoCorrectas", correctas + 1);
         
-        int proximoIndice = indiceActual + 1; 
+         idPreguntaActual = correctas + 1; 
+
+    HttpContext.Session.SetInt32("JuegoIdPreguntaActual", idPreguntaActual);
         
-        return RedirectToAction("JuegoOrdenarPictogramas", new { index = proximoIndice });
+        return RedirectToAction("JuegoOrdenarPictogramas", new { index = idPreguntaActual });
     }
     else 
     {
         TempData["MensajeError"] = "¡Incorrecto! Intenta de nuevo.";
         
-        return RedirectToAction("JuegoOrdenarPictogramas", new { index = indiceActual });
+        return RedirectToAction("JuegoOrdenarPictogramas", new { index = idPreguntaActual });
     }
 }
     
+
+
+
 public IActionResult FinDeJuego()
 {
     DateTime tiempoFin = DateTime.Now;
@@ -234,7 +242,7 @@ public IActionResult FinDeJuego()
     HttpContext.Session.Remove("JuegoIndiceActual");
     HttpContext.Session.Remove("JuegoIdPreguntaActual");
 
-    // Datos a la Vista
+   
     ViewBag.PuntosGanados = puntosGanados;
     ViewBag.PuntajeTotal = puntajeTotalFinal;
     ViewBag.Correctas = correctas;

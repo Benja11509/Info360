@@ -1,31 +1,60 @@
-@{
-    ViewData["Title"] = "Fin del Juego";
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego Completado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 
-<div style="text-align: center; margin-top: 50px;">
-    
-    <h2>¡Felicitaciones!</h2>
-    <h3>Juego Terminado</h3>
+<body>
+    <main class="main-content">
+        <section class="completion-container">
+            
+            <div class="completion-info">
+                <h1 class="completion-title">Juego completado</h1>
 
-    <div style="font-size: 20px; margin: 20px;">
-        
-        <p>Preguntas correctas: @ViewBag.Correctas / @ViewBag.TotalPreguntas</p>
-        <p>Tiempo: @ViewBag.Duracion</p>
-        <p>Puntos Ganados: @ViewBag.PuntosGanados</p>
-        <p>Puntaje Total: @ViewBag.PuntajeTotal</p>
+                <div class="stats-section">
+                    <span class="stat-item">Completados: @ViewBag.Correctas / @ViewBag.TotalPreguntas</span>
+                    <span class="stat-item">Tiempo Total: @ViewBag.Duracion</span>
+                    <span class="stat-item">Puntos Obtenidos: @ViewBag.PuntosGanados</span>
+                    <span class="stat-item">Puntos Totales: @ViewBag.PuntajeTotal</span>
 
-    </div>
+                </div>
 
-    <div class="botones-fin-juego">
-        
-        <a href='@Url.Action("JuegoOrdenarPictogramas", "Home", new {continuar = true})' class="btn btn-primary" style="margin-right: 10px;">
-            Volver a jugar
-        </a>
-        
-        <a href='@Url.Action("Home", "Home")' class="btn btn-secondary">
-            Volver al inicio
-        </a>
+                <section class="challenges-section">
+                    <h2 class="challenges-title">Busca tu próximo desafío:</h2>
 
-    </div>
+                    <div class="challenges-grid">
+                        <div class="challenge-card">
+                            <img src="~/imagenes/CompletaLaAcci.png" alt="Completa la acción">
+                            <p class="challenge-name">Completa la acción</p>
+                            <button class="challenge-btn">Ver más</button>
+                        </div>
 
-</div>
+                        <div class="challenge-card">
+                            <img src="~/imagenes/OrdenaLaSec.png" alt="Ordena la secuencia">
+                            <p class="challenge-name">Ordena la secuencia</p>
+                            <button class="challenge-btn">Ver más</button>
+                        </div>
+
+                        <div class="challenge-card">
+                            <img src="~/imagenes/ColoresYFor.png" alt="Colores y formas">
+                            <p class="challenge-name">Colores y formas</p>
+                            <button class="challenge-btn">Ver más</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="character-section">
+                <div class="character-container">
+                    <img src="img/NenaPosand.png" alt="Personaje">
+                </div>
+            </aside>
+
+        </section>
+    </main>
+</body>
+</html>

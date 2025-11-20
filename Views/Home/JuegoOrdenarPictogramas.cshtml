@@ -1,4 +1,4 @@
-@* Mostramos el mensaje de error si TempData lo trajo *@
+
 @if (ViewBag.Mensaje != null)
 {
     <h3 style="color: red;">@ViewBag.Mensaje</h3>
@@ -6,29 +6,21 @@
 
 <form method="post" asp-action="VerificarRespuesta">
     
-    @* --- CORRECCIÓN 1: La propiedad se llama 'id' (minúscula) según tu script SQL --- *@
     <input type="hidden" name="idPregunta" value="@ViewBag.Pregunta.IdPregunta" />
     
     <div>
         <h2>¿Qué es?</h2>
 
-        @* --- CORRECCIÓN 2: La propiedad se llama 'imagen' (minúscula) --- *@
-        @* (Asumo que tus imágenes están en /wwwroot/Imagenes/ y tienen extensión .png o .jpg) *@
         <img src="~/Imagenes/@(ViewBag.Pregunta.ImagenPictograma).png" alt="Pregunta">
         
     </div>
     
     <div class="opciones">
 
-        @* --- CORRECCIÓN 3: Usamos un @foreach para mostrar las 5 opciones --- *@
-        @* Esto toma la lista de palabras (ej. "Comer", "Dormir") de ViewBag.Opciones *@
+    
 
         @foreach (string palabraOpcion in ViewBag.opciones)
         {
-            @*
-                El 'value' del botón es la palabra (ej. "Comer") que se enviará al controlador.
-                El texto *dentro* del botón (ej. "Comer") es lo que ve el usuario.
-            *@
             <button type="submit" name="opcion" value="@palabraOpcion">
                 @palabraOpcion
             </button>

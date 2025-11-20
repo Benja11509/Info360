@@ -1,5 +1,51 @@
-@{
-    ViewData["Title"] = "previewJuego";
-}
-<!-- aca se mnuestra la preview del juego con el boton de jugar directamente-->
-<a href= '@Url.Action("JuegoOrdenarPictogramas", "Home")'>i,mjnuhbpbiubiudniujgdrngikjb</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad Educativa</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="main-content">
+        <section class="activity-card">
+            <div class="circle-decor circle-1"></div>
+            <div class="circle-decor circle-2"></div>
+
+            <div class="activity-section">
+
+                <div class="activity-preview">
+                    <div class="preview-content">
+                        <div class="illustration">
+                            <img src="~/imagenes/QueMuestraElPictograma.png" alt="Pictograma para la actividad">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instruction-box">
+                    <h2 class="instruction-title">¿Qué muestra el pictograma?</h2>
+                    <p class="instruction-text">
+                        Observá la imagen y elegí la opción que coincida correctamente con el pictograma.
+                    </p>
+                </div>
+            </div>
+
+            <div class="character-section">
+                <img src="~/imagenes/NenaConOsito.png" alt="Niña con osito">
+            </div>
+
+            <div class="bottom-play" style="grid-column: 1 / -1;">
+                <a class="bottom-play-btn" aria-label="Reproducir" href= '@Url.Action("JuegoOrdenarPictogramas", "Home")'> 
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="#C9A7EB">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+               </a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
