@@ -112,10 +112,11 @@ DataBase=Tandem;Integrated Security=True;TrustServerCertificate=True;";
     public static List<Usuario> ListaVinculos(Usuario user)
     {
         List<Usuario> ListVinculos = new List<Usuario>();
+        int idUser = user.id;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string storedProcedure = "ListaVinculos";
-            ListVinculos = connection.Query<Usuario>(storedProcedure,
+            ListVinculos = connection.Query<Usuario>(storedProcedure, new{ idUser },
             commandType: CommandType.StoredProcedure).ToList();
         }
 
