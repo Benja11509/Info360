@@ -33,7 +33,8 @@ public class Usuario
 [JsonProperty]
     public string? descripcion { get;  set;}
 
-
+[JsonProperty]
+    public int? PreguntaActual { get;  set;}
     public Usuario(string nombreUsuario, string contraseña, string mail, string tipoUsuario)
     {
         this.nombreUsuario = nombreUsuario;

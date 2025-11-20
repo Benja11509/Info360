@@ -863,14 +863,17 @@ header {
   z-index: 100;
 }
 
+
 .logo {
   display: flex;
   align-items: center;
 }
 
-.logo svg {
-  width: 60px;
-  height: 50px;
+.logo img{
+  width: 120%;
+  border-radius:none;
+  margin-left: 15%;
+  padding: 2%;
 }
 
 .header-buttons {
@@ -1041,6 +1044,7 @@ header {
   background-color: #C9A7EB;
   border-radius: 60% 40% 50% 60% / 50% 60% 40% 50%;
   z-index: 1;
+  margin-left: 4%;
 }
 
 .mission-content {
@@ -1060,20 +1064,20 @@ header {
 .mission-text h2 {
   margin-top: -30%;
   margin-bottom: 30px;
-  margin-left: -20%;
+  margin-left: -5%;
   margin-right: 10%;
   font-family: 'Nunito', sans-serif;
   font-size: 36px;
   font-weight: 700;
-
+  text-align: center;
 }
 
 .mission-text p {
   margin-right: 10%;
-  margin-left: -20%;
+  margin-left: -5%;
   font-size: 16px;
   line-height: 1.8;
-  margin-bottom: 25px;
+  margin-bottom: 28px;
   text-align: center;
 }
 
@@ -1096,7 +1100,8 @@ header {
   font-size: 14px;
   text-align: center;
   padding: 20px;
-  margin-top: -2%;
+  margin-top: -16%;
+  margin-left: 15%;
 }
 .mission-image {
   width: 350px;
@@ -1257,6 +1262,16 @@ header {
   top: 50px;
   left: 100px;
 }
+.dot-purple{
+  width: 40px;
+  height: 40px;
+ 
+}
+.dot-yellow{
+  width: 40px;
+  height: 40px;
+}
+
 
 .cta-section h2 {
   font-family: 'Nunito', sans-serif;

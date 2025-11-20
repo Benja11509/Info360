@@ -2,96 +2,126 @@
     ViewData["Title"] = "Index";
     ViewData["mostrarHeaderLanding"] = true;
 }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css">
 
+<section class="hero-section">
+        <div class="hero-blob"></div>
 
-
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero-content">
-        <div class="hero-image">
-            <div class="img-placeholder">  
-                <img src="/Imagenes/iMAGEN DE la landing.jpg" alt="Imagen de la landing" />
+        <div class="hero-image-container">
+            <div class="hero-image-placeholder">
+                <img src="~/Imagenes/NeneJugando.png" alt="Niño jugando">
             </div>
         </div>
-        <div class="hero-text">
-            <h1>Avanzamos juntos hacia una sociedad más inclusiva. </h1>
-            <h3>Ayudamos a aquellos pertenecientes al TEA a mejorar su sentido de autonomía. </h3>
-            <a class="btn-solid" href= '@Url.Action("Registrar1", "Account")'>Sumate al cambio</a>
-        </div>
-    </div>
-</section>
 
-<section class="about">
-    <div class="about-content">
-        <div class="about-text">
-            <h2>Cuando acompañar marca la diferencia.</h2>
-            <p>Muchas familias con niños dentro del espectro autista enfrentan desafíos para lograr su inclusión social y educativa.</p>
-            <p>En Támden creemos que todos los niños merecen las mismas oportunidades para desarrollarse plenamente.</p>
-        </div>
-        <div class="about-illustration">
-            <div class="illustration-placeholder"></div>
-        </div>
-    </div>
-</section>
+        <div class="hero-content">
+            <h1>Avanzamos juntos hacia una sociedad más inclusiva.</h1>
+            <p>Ayudamos a aquellos pertenecientes al TEA a mejorar su sentido de autonomía.</p>
+            <a class="btn-solid" href= '@Url.Action("Registrarse1", "Account")' class="btn btn-hero">Sumate al cambio</a>
+           
 
-<!-- Valores -->
-<section class="values">
-    <h2>Pequeños logros, grandes cambios</h2>
-    <div class="values-list">
-        <div class="value-card">
-            <div class="value-info">
-                <h3>Mejor comunicación</h3>
+        </div>
+    </section>
+
+    <!-- Misión -->
+    <section class="mission-section">
+        <div class="mission-blob"></div>
+
+        <div class="mission-content">
+            <div class="mission-text">
+                <h2>Cuando acompañar marca la diferencia.</h2>
+                <p>Muchas familias con niños dentro del espectro autista enfrentan desafíos para lograr su inclusión social y educativa.</p>
+                <p>En Tándem creemos que todos los niños merecen las mismas oportunidades para desarrollarse plenamente.</p>
+            </div>
+
+            <div class="mission-image-container">
+                <div class="mission-image-placeholder">
+                    <img src="~/Imagenes/nenesaltando.png" alt="Niños saltando">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beneficios -->
+    <section class="benefits-section">
+        <h2 class="benefits-title">Pequeños logros, grandes cambios</h2>
+
+        <div class="benefit-card">
+            <div class="benefit-number benefit-number-1">1</div>
+            <div class="benefit-content">
+                <h3>Mejor comunicación:</h3>
                 <p>Los niños logran expresarse y comprender mejor su entorno, fortaleciendo el intercambio con sus familias y educadores.</p>
             </div>
-            <div class="value-number">1</div>
         </div>
 
-        <div class="value-card">
-            <div class="value-info">
-                <h3>Vínculos más empáticos</h3>
+        <div class="benefit-card">
+            <div class="benefit-number benefit-number-2">2</div>
+            <div class="benefit-content">
+                <h3>Vínculos más empáticos:</h3>
                 <p>Se fortalecen las relaciones, el entendimiento y la sensibilidad emocional entre niños, adultos y pares.</p>
             </div>
-            <div class="value-number">2</div>
         </div>
 
-        <div class="value-card">
-            <div class="value-info">
-                <h3>Mayor autonomía y participación</h3>
+        <div class="benefit-card">
+            <div class="benefit-number benefit-number-3">3</div>
+            <div class="benefit-content">
+                <h3>Mayor autonomía y participación:</h3>
                 <p>Cada niño gana confianza y herramientas para integrarse activamente en la escuela y la comunidad.</p>
             </div>
-            <div class="value-number">3</div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Equipo -->
-<section class="team">
-    <h2>Equipo</h2>
-    <div class="team-members">
-        <div class="team-member">
-            <div class="photo-placeholder"></div>
-            <h4>Carla Diaz</h4>
-            <p>Desde que usa Tándem, mi hijo prepara solo su mochila antes de ir al colegio.</p>
+    <!-- Testimonios -->
+    <section class="testimonials-section">
+        <div class="testimonials-grid">
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar-placeholder">📸</div>
+                <h3>Carla Díaz</h3>
+                <p>Desde que usó Tándem, mi hijo prepara solo su mochila antes de ir al colegio.</p>
+                <div class="testimonial-stars">
+                    <span class="star">★</span><span class="star">★</span>
+                    <span class="star">★</span><span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar-placeholder">📸</div>
+                <h3>Juan Gomez</h3>
+                <p>Ahora puede seguir sus rutinas sin que yo tenga que recordarle cada paso. Se lo nota más independiente.</p>
+                <div class="testimonial-stars">
+                    <span class="star">★</span><span class="star">★</span>
+                    <span class="star">★</span><span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar-placeholder">📸</div>
+                <h3>Faustina Lopez</h3>
+                <p>Como profesional, las estadísticas de Tándem me ayudan a entender mejor a mis alumnos y ajustar el acompañamiento.</p>
+                <div class="testimonial-stars">
+                    <span class="star">★</span><span class="star">★</span>
+                    <span class="star">★</span><span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-dots">
+            <div class="hero-dot dot-purple"></div>
+            <div class="hero-dot dot-yellow"></div>
         </div>
 
-        <div class="team-member">
-            <div class="photo-placeholder"></div>
-            <h4>Juan Gomez</h4>
-            <p>Ahora puede seguir sus rutinas sin que yo tenga que recordarle cada paso. Se lo nota más independiente.</p>
-        </div>
-
-        <div class="team-member">
-            <div class="photo-placeholder"></div>
-            <h4>Faustina Lopez</h4>
-            <p>Como profesional, las estadísticas de Tándem me ayudan a entender mejor los avances entre sesiones y ajustar el acompañamiento.</p>
-        </div>
-    </div>
-</section>
-
-<!-- CTA final -->
-<section class="cta">
-    <h3>Cada paso cuenta, no estás solo.</h3>
-    <button class="btn-solid">Registrate y avancemos juntos</button>
-     <a href='@Url.Action("LogIn1", "Account")'>Registrarte</a>
-</section>
+        <h2>Cada paso cuenta, no estás solo.</h2>
+        <a href='@Url.Action("Registrarse1", "Account")' class="btn btn-cta">Registrarte y avancemos juntos</a>
+    </section>
