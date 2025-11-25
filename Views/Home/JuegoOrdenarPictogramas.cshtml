@@ -8,8 +8,12 @@
     <input type="hidden" name="idPregunta" value="@ViewBag.Pregunta.IdPregunta" />
 
     <div class="juego-container">
+    
+ <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="@ViewBag.BarraProgreso" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: @ViewBag.BarraProgreso%"></div>
+</div>
 
-        <div class="circulo c1"></div>
+  
         <div class="circulo c2"></div>
         <div class="circulo c3"></div>
 

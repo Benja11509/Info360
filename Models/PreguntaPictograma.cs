@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+namespace Info360.Models;
 public class PreguntaPictograma
     {
       [JsonProperty]
@@ -22,8 +23,8 @@ public class PreguntaPictograma
         [JsonProperty]
         public  int _IndiceActual { get; private set; } = 0;
 
-    [JsonProperty]
-        public Dictionary<string, DateTime> HorasPorDia = new dictionary<string, DateTime>();
+  
+    
 
 
         public  PreguntaPictograma()

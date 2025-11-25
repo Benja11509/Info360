@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-
+namespace Info360.Models;
 public class Usuario
 {
 

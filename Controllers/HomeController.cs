@@ -162,6 +162,7 @@ indiceActual = correctas;
     {
         ViewBag.Mensaje = TempData["MensajeError"].ToString();
     }
+ ViewBag.BarraProgreso = indiceActual *10;
 
     return View("JuegoOrdenarPictogramas");
 }
@@ -257,9 +258,8 @@ public IActionResult FinDeJuego()
     ViewBag.TotalPreguntas = totalPreguntas;
     ViewBag.Duracion = duracion.ToString(@"mm\:ss");
 
-    HorasPorDia.Add(duracion.ToString(@"dd"), duracion );
-    Viewbag.HorasPorDia = HorasPorDia; 
-
+  
+  
 
 
 

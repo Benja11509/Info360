@@ -3,6 +3,7 @@ using Dapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
+namespace Info360.Models;
 public static class BD
 {
     private static string _connectionString = @"Server=localhost;
