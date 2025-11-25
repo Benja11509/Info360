@@ -209,6 +209,7 @@ public IActionResult FinDeJuego()
     DateTime tiempoFin = DateTime.Now;
     string tiempoInicioStr = HttpContext.Session.GetString("JuegoTiempoInicio");
     TimeSpan duracion = TimeSpan.Zero;
+
     
     if (!string.IsNullOrEmpty(tiempoInicioStr) && DateTime.TryParse(tiempoInicioStr, out DateTime tiempoInicio))
     {
@@ -255,6 +256,12 @@ public IActionResult FinDeJuego()
     ViewBag.Correctas = correctas;
     ViewBag.TotalPreguntas = totalPreguntas;
     ViewBag.Duracion = duracion.ToString(@"mm\:ss");
+
+    HorasPorDia.Add(duracion.ToString(@"dd"), duracion );
+    Viewbag.HorasPorDia = HorasPorDia; 
+
+
+
 
     return View("FinDeJuego"); 
 }
