@@ -54,9 +54,9 @@ public class HomeController : Controller
     
     return View("Home");
 }
-     public IActionResult Estadisticas()
+     public IActionResult IrAEstadisticas()
     {
-        return View("Actividades");
+        return View("Estadisticas");
     }
     public IActionResult Actividades()
     {
@@ -215,6 +215,7 @@ public IActionResult FinDeJuego()
     if (!string.IsNullOrEmpty(tiempoInicioStr) && DateTime.TryParse(tiempoInicioStr, out DateTime tiempoInicio))
     {
         duracion = tiempoFin - tiempoInicio;
+        
     }
 
     int correctas = HttpContext.Session.GetInt32("JuegoCorrectas") ?? 0;
@@ -239,8 +240,10 @@ public IActionResult FinDeJuego()
         BD.ActualizarPuntosUsuario(usuarioCompleto.id, puntajeTotalFinal);
         
       
-        int progresoCompleto = 100;
-        BD.ActualizarProgresoActividad(usuarioCompleto.id, ID_ACTIVIDAD_PICTOGRAMAS, progresoCompleto);
+   
+        BD.ActualizarProgresoActividad(usuarioCompleto.id, ID_ACTIVIDAD_PICTOGRAMAS, correctas);
+        BD.ActualizarTiempoNeto(duracion);
+
     }
 
     // Limpieza de Sesión
@@ -251,7 +254,7 @@ public IActionResult FinDeJuego()
     HttpContext.Session.Remove("JuegoIndiceActual");
     HttpContext.Session.Remove("JuegoIdPreguntaActual");
 
-   
+
     ViewBag.PuntosGanados = puntosGanados;
     ViewBag.PuntajeTotal = puntajeTotalFinal;
     ViewBag.Correctas = correctas;
@@ -370,4 +373,11 @@ public IActionResult FinDeJuego()
 
         return RedirectToAction("Perfil");
     }
+
+    public IActionResult Estadisticas2(){
+        return View("Estadisticas");
+    }
+    
+
+
 }

@@ -260,4 +260,32 @@ public static void ActualizarProgresoActividad(int idUsuario, int idActividad, i
         }, commandType: CommandType.StoredProcedure);
     }
 }
+public static int TraerTiempoNeto(int idUsuario)
+{
+    
+    string storedProcedure = "TraerTiempoNeto"; 
+    
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        return connection.QueryFirstOrDefault<int>(storedProcedure, new { 
+            pIdUsuario = idUsuario 
+        }, commandType: CommandType.StoredProcedure);
+    }
+}
+
+public static void ActualizarTiempoNeto(int idUsuario, DateTime duracion)
+{
+    
+    string storedProcedure = "ActualizarTiempoNeto"; 
+    
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        
+        connection.Execute(storedProcedure, new { 
+            pIdUsuario = idUsuario, 
+            PDuracion = duracion 
+        }, commandType: CommandType.StoredProcedure);
+    }
+}
+
 }
