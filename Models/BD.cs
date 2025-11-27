@@ -316,4 +316,21 @@ public static List<TiempoDiario> TraerTiemposDiarios(int idUsuario)
         }, commandType: CommandType.StoredProcedure).ToList();
     }
 }
+
+
+public static int TraerProgresoActividad(int idUsuario, int idActividad)
+{
+  
+    string storedProcedure = "TeaerProgresoActividad"; 
+  
+
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        
+        return connection.QueryFirstOrDefault<int>(storedProcedure,
+            new { pIdUsuario = idUsuario, pIdActividad = idActividad },
+            commandType: CommandType.StoredProcedure);
+    }
+ 
+}
 }

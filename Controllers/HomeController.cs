@@ -54,10 +54,7 @@ public class HomeController : Controller
     
     return View("Home");
 }
-     public IActionResult IrAEstadisticas()
-    {
-        return View("Estadisticas");
-    }
+ 
     public IActionResult Actividades()
     {
         return View("Actividades");
@@ -371,7 +368,7 @@ public IActionResult FinDeJuego()
         return RedirectToAction("Perfil");
     }
 
-    public IActionResult Estadisticas2(){
+    public IActionResult Estadisticas(){
  string? usuarioJson = HttpContext.Session.GetString("Usuario");
         if (string.IsNullOrEmpty(usuarioJson))
         {
@@ -382,10 +379,8 @@ public IActionResult FinDeJuego()
   
         Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
-
-
-
-
+ViewBag.progreso = BD.TraerProgresoActividad(usuarioActualizado.id, 6);
+ViewBag.TiempoDiario = BD.TraerTiemposDiarios(usuarioActualizado.id);
 
         return View("Estadisticas");
     }

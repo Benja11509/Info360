@@ -1,1 +1,48 @@
-    
+<div class="board">
+    <div class="titulo_grafica">
+        <h3 class="t_grafica">Tiempo en pantalla</h3>
+    </div>
+    <div class="sub_board">
+        
+        @* 1. Corrección principal: Se elimina .Count para iterar sobre la colección. *@
+        @* 2. Se añaden las llaves {} para encerrar el contenido que se repite. *@
+        @foreach(var tiempoDiario in ViewBag.TiempoDiario) 
+        { 
+            <div class="sep_board"></div>
+            <div class="cont_board">
+                <div class="graf_board">
+                    <div class="barra">
+                        <div class="sub_barra b1">
+                            
+                          
+                            <div class="tag_g">
+                                @TimeSpan.FromSeconds(tiempoDiario.Tiempo).ToString(@"hh\:mm\:ss")
+                            </div>
+                            
+                       
+                            <div class="tag_leyenda">
+                                @tiempoDiario.Fecha.ToString("dd/MM")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tag_board">
+                    <div class="sub_tag_board">
+                        <div>100</div>
+                        <div>90</div>
+                        <div>80</div>
+                        <div>70</div>
+                        <div>60</div>
+                        <div>50</div>
+                        <div>40</div>
+                        <div>30</div>
+                        <div>20</div>
+                        <div>10</div>
+                    </div>
+                </div>
+            </div> 
+        }
+        <div class="sep_board"></div> @* Esto puede ir solo una vez al final si no quieres un separador entre la última barra y el borde *@
+    </div>
+</div>
