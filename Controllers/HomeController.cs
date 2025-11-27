@@ -238,11 +238,8 @@ public IActionResult FinDeJuego()
         int puntosActuales = usuarioCompleto.puntos ?? 0;
         puntajeTotalFinal = puntosActuales + puntosGanados;
         BD.ActualizarPuntosUsuario(usuarioCompleto.id, puntajeTotalFinal);
-        
-      
-   
         BD.ActualizarProgresoActividad(usuarioCompleto.id, ID_ACTIVIDAD_PICTOGRAMAS, correctas);
-        BD.ActualizarTiempoNeto(duracion);
+        BD.RegistrarTiempoDiario(usuarioCompleto.id, duracion);
 
     }
 
@@ -281,9 +278,9 @@ public IActionResult FinDeJuego()
     
 
 
-    public IActionResult Perfil(bool verMas = false)
+    public IActionResult Perfil(bool verMas = false) //La varible ver mas representa que 
     {
-        string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
         if (string.IsNullOrEmpty(usuarioJson))
         {
             return RedirectToAction("Index", "Account");
@@ -375,6 +372,21 @@ public IActionResult FinDeJuego()
     }
 
     public IActionResult Estadisticas2(){
+ string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+  
+        Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+
+
+
+
+
         return View("Estadisticas");
     }
     

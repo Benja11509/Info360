@@ -245,47 +245,75 @@ public static List<int> TraerIdsPreguntasActividad(int idActividad)
     {
         return connection.Query<int>(query, new { pIdActividad = idActividad }).ToList();
     }
-}
-
-// 2. Método para actualizar el progreso de la actividad para un usuario
-public static void ActualizarProgresoActividad(int idUsuario, int idActividad, int progreso)
-{
-    string storedProcedure = "ActualizarProgresoActividad";
-    using (SqlConnection connection = new SqlConnection(_connectionString))
-    {
-        connection.Execute(storedProcedure, new { 
-            pIdUsuario = idUsuario, 
-            pIdActividad = idActividad, 
-            pProgreso = progreso 
-        }, commandType: CommandType.StoredProcedure);
     }
-}
-public static int TraerTiempoNeto(int idUsuario)
-{
-    
-    string storedProcedure = "TraerTiempoNeto"; 
-    
-    using (SqlConnection connection = new SqlConnection(_connectionString))
-    {
-        return connection.QueryFirstOrDefault<int>(storedProcedure, new { 
-            pIdUsuario = idUsuario 
-        }, commandType: CommandType.StoredProcedure);
-    }
-}
 
-public static void ActualizarTiempoNeto(int idUsuario, DateTime duracion)
+    // 2. Método para actualizar el progreso de la actividad para un usuario
+    public static void ActualizarProgresoActividad(int idUsuario, int idActividad, int progreso)
+    {
+        string storedProcedure = "ActualizarProgresoActividad";
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            connection.Execute(storedProcedure, new { 
+                pIdUsuario = idUsuario, 
+                pIdActividad = idActividad, 
+                pProgreso = progreso 
+            }, commandType: CommandType.StoredProcedure);
+        }
+    }
+    public static int TraerTiempoNeto(int idUsuario)
+    {
+        
+        string storedProcedure = "TraerTiempoNeto"; 
+        
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            return connection.QueryFirstOrDefault<int>(storedProcedure, new { 
+                pIdUsuario = idUsuario 
+            }, commandType: CommandType.StoredProcedure);
+        }
+    }
+
+    public static void ActualizarTiempoNeto(int idUsuario, TimeSpan duracion)
+    {
+        
+        string storedProcedure = "ActualizarTiempoNeto"; 
+        
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            
+            connection.Execute(storedProcedure, new { 
+                pIdUsuario = idUsuario, 
+                PDuracion = duracion 
+            }, commandType: CommandType.StoredProcedure);
+        }
+    }
+
+    public static void RegistrarTiempoDiario(int idUsuario, TimeSpan duracion)
 {
-    
-    string storedProcedure = "ActualizarTiempoNeto"; 
+   
+    int duracionSegundos = (int)duracion.TotalSeconds;
+
+    string storedProcedure = "RegistrarTiempoDiario"; 
     
     using (SqlConnection connection = new SqlConnection(_connectionString))
     {
         
         connection.Execute(storedProcedure, new { 
             pIdUsuario = idUsuario, 
-            PDuracion = duracion 
+            pDuracionSegundos = duracionSegundos 
         }, commandType: CommandType.StoredProcedure);
     }
 }
-
+public static List<TiempoDiario> TraerTiemposDiarios(int idUsuario)
+{
+    string storedProcedure = "TraerTiemposDiarios"; 
+    
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+       
+        return connection.Query<TiempoDiario>(storedProcedure, new { 
+            pIdUsuario = idUsuario 
+        }, commandType: CommandType.StoredProcedure).ToList();
+    }
+}
 }
