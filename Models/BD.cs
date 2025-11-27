@@ -321,7 +321,7 @@ public static List<TiempoDiario> TraerTiemposDiarios(int idUsuario)
 public static int TraerProgresoActividad(int idUsuario, int idActividad)
 {
   
-    string storedProcedure = "TeaerProgresoActividad"; 
+    string storedProcedure = "TraerProgresoActividad"; 
   
 
     using (SqlConnection connection = new SqlConnection(_connectionString))
