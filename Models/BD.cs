@@ -352,13 +352,13 @@ public static int ActualizarTiempoEnPantallaTotal(int idUsuario, TimeSpan duraci
     return nuevoTotalSegundos;
 }
 
-public static int TraerTiempoEnPantallaTotal(int idUsuario)
+public static DateTime TraerTiempoEnPantallaTotal(int idUsuario)
 {
     string storedProcedure = "TraerTiempoEnPantallaTotal";
     using (SqlConnection connection = new SqlConnection(_connectionString))
     {
         // Llama al SP y trae el valor total acumulado
-        return connection.QueryFirstOrDefault<int>(storedProcedure, new { pIdUsuario = idUsuario }, commandType: CommandType.StoredProcedure);
+        return connection.QueryFirstOrDefault<DateTime>(storedProcedure, new { pIdUsuario = idUsuario }, commandType: CommandType.StoredProcedure);
     }
 }
 

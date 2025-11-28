@@ -4145,3 +4145,163 @@ footer{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.board {
+  background-color: #f8f9fa; 
+  border: 1px solid #dee2e6; 
+  border-radius: 12px; /* Más suave */
+  padding: 20px;
+  margin-bottom: 40px; /* Asegura buena separación vertical */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 95%; /* Ocupa casi todo el ancho */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.titulo_grafica {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.t_grafica {
+  font-size: 1.6rem;
+  color: #007bff; /* Tono de azul de Bootstrap */
+  font-weight: 700;
+}
+
+/* CLAVE: Contenedor para alinear las barras horizontalmente */
+.sub_board {
+  display: flex;
+  flex-direction: row; 
+  align-items: flex-end; /* Alinea todas las barras a la base (eje X) */
+  height: 250px; /* Altura estándar del área del gráfico */
+  width: 100%;
+  overflow-x: auto; 
+  padding-bottom: 25px; 
+  position: relative;
+  border-bottom: 2px solid #adb5bd; /* Dibuja el eje X */
+}
+
+/* ====================================================
+ ESTILOS DE LA BARRA
+ ==================================================== */
+
+/* Separador */
+.sep_board {
+  width: 15px; 
+  flex-shrink: 0; 
+}
+
+/* Contenedor de la barra y el eje Y para que fluyan */
+.cont_board {
+  height: 100%;
+}
+
+/* La barra fija */
+.barra {
+  width: 45px; /* Ancho de la barra */
+  height: 100%; 
+  background-color: transparent; /* El fondo es transparente o el color base si aplica */
+  display: flex;
+  align-items: flex-end; 
+}
+
+/* La barra que se ajusta dinámicamente con style="height: X%;" */
+.sub_barra {
+  width: 100%;
+  min-height: 2px; 
+  transition: height 0.5s ease;
+  position: relative;
+  border-radius: 3px 3px 0 0; /* Bordes redondeados en la parte superior */
+}
+
+/* Colores de las barras */
+.b1 {
+  background-color: #007bff; /* Azul para el Gráfico 1 */
+}
+.b2 {
+  background-color: #28a745; /* Verde para el Gráfico 2 (distinción visual) */
+}
+
+/* ====================================================
+ ESTILOS DE ETIQUETAS
+ ==================================================== */
+
+/* Etiqueta de valor (sobre la barra) */
+.tag_g {
+  position: absolute;
+  top: -20px; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #343a40; 
+  white-space: nowrap;
+}
+
+/* Etiqueta de la fecha (eje X) */
+.tag_leyenda {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: -25px; 
+  font-size: 0.75rem;
+  color: #495057;
+  white-space: nowrap;
+}
+
+/* Escala Y (100, 90, 80...) */
+.tag_board {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100%;
+  width: 40px; 
+  padding-right: 5px;
+  border-right: 1px solid #dee2e6; /* Línea de la escala */
+}
+
+.sub_tag_board {
+  display: flex;
+  flex-direction: column-reverse; 
+  justify-content: space-between;
+  height: 100%;
+  font-size: 0.75rem;
+  color: #6c757d;
+}

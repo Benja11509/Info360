@@ -23,11 +23,11 @@ public class HomeController : Controller
 
 public IActionResult Home()
     {
-        // 1. Obtener el JSON del usuario de la sesión
+        
         string? usuarioJson = HttpContext.Session.GetString("Usuario");
         if (string.IsNullOrEmpty(usuarioJson))
         {
-            // Si no hay usuario en sesión, redirigir al login
+            
             return RedirectToAction("Index", "Account"); 
         }
         
@@ -46,13 +46,20 @@ public IActionResult Home()
 
         if (usuarioCompleto != null)
         {
-            // 4. Usar el ID del usuario para traer SOLO sus actividades pendientes
             actividadesPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id); 
-            
-            // **LÓGICA CLAVE AÑADIDA:** TRAER EL TIEMPO TOTAL ACUMULADO (maestro)
-            int totalSegundosAcumulado = BD.TraerTiempoEnPantallaTotal(usuarioCompleto.id);
-            // Guarda la variable para mostrar el total en la vista Home.cshtml si lo necesitas
-            ViewBag.TiempoEnPantallaTotal = totalSegundosAcumulado; 
+        
+        // ====================================================================
+        // CORRECCIÓN CS0029: Asignamos a DateTime y luego convertimos a segundos.
+        // ====================================================================
+        DateTime tiempoAcumuladoBD = BD.TraerTiempoEnPantallaTotal(usuarioCompleto.id);
+        
+        // Restamos el valor mínimo de SQL (1/1/1900) para obtener la DURACIÓN REAL (TimeSpan)
+        TimeSpan duracionAcumulada = tiempoAcumuladoBD.Subtract(new DateTime(1900, 1, 1));
+        
+        // Ahora sí, convertimos la duración (TimeSpan) a segundos enteros (int)
+        int totalSegundosAcumulado = (int)duracionAcumulada.TotalSeconds;
+
+        ViewBag.TiempoEnPantallaTotal = totalSegundosAcumulado;
         }
         
         ViewBag.ActividadesPendientes = actividadesPendientes; 
@@ -426,15 +433,25 @@ public IActionResult FinDeJuego()
         
         Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
-        ViewBag.progreso = BD.TraerProgresoActividad(usuarioActualizado.id, 6);
-        ViewBag.TiempoDiario = BD.TraerTiemposDiarios(usuarioActualizado.id);
+       
 
-        // **LÓGICA CLAVE AÑADIDA:** TRAER EL TIEMPO TOTAL ACUMULADO (maestro)
-        int totalSegundosAcumulado = BD.TraerTiempoEnPantallaTotal(usuarioActualizado.id);
-        ViewBag.TiempoEnPantallaTotal = totalSegundosAcumulado; 
+    ViewBag.progreso = BD.TraerProgresoActividad(usuarioActualizado.id, 6);
+    ViewBag.TiempoDiario = BD.TraerTiemposDiarios(usuarioActualizado.id);
+
+    // ====================================================================
+    // CORRECCIÓN CS0029: Aplicamos la misma conversión en el método Estadisticas
+    // ====================================================================
+    DateTime tiempoAcumuladoBD = BD.TraerTiempoEnPantallaTotal(usuarioActualizado.id);
+    TimeSpan duracionAcumulada = tiempoAcumuladoBD.Subtract(new DateTime(1900, 1, 1));
+    
+    int totalSegundosAcumulado = (int)duracionAcumulada.TotalSeconds;
+    ViewBag.TiempoEnPantallaTotal = totalSegundosAcumulado; 
+    
+    return View("Estadisticas");
+}
         
-        return View("Estadisticas");
-    }
+    
+    
 
 
 
