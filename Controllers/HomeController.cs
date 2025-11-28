@@ -423,30 +423,57 @@ public IActionResult FinDeJuego()
 
 // ... (El resto de tus métodos siguen aquí) ...
 
-    public IActionResult Estadisticas(){
-        string? usuarioJson = HttpContext.Session.GetString("Usuario");
-        if (string.IsNullOrEmpty(usuarioJson))
-        {
-            return RedirectToAction("Index", "Account");
-        }
-        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+public IActionResult Estadisticas()
+{
+    string? usuarioJson = HttpContext.Session.GetString("Usuario");
+    if (string.IsNullOrEmpty(usuarioJson))
+    {
+        return RedirectToAction("Index", "Account");
+    }
+    Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+    
+    Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+    // 1. DATOS DIARIOS (Lista de todos los días que usó la app y cuánto tiempo hizo en cada día)
+    List<TiempoDiario> tiemposDiarios = BD.TraerTiemposDiarios(usuarioActualizado.id);
+    ViewBag.TiempoDiario = tiemposDiarios;
+
+    // 2. CÁLCULO DEL PROMEDIO DIARIO (NUEVA VARIABLE)
+    if (tiemposDiarios != null && tiemposDiarios.Any())
+    {
+        // Calculamos el total de segundos de todos los días.
+        double totalSegundos = tiemposDiarios.Sum(t => (double)t.Tiempo);
+        int totalDias = tiemposDiarios.Count;
         
-        Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+        // Calculamos el promedio y lo convertimos a TimeSpan para fácil uso en la vista.
+        double promedioSegundos = totalSegundos / totalDias;
+        TimeSpan tiempoPromedio = TimeSpan.FromSeconds(promedioSegundos);
+        
+        // Pasamos el promedio
+        ViewBag.TiempoPromedioDiario = tiempoPromedio;
+        
+        // Opcional: También pasamos el conteo total de días
+        ViewBag.TotalDiasRegistrados = totalDias;
+    }
+    else
+    {
+        // Si no hay datos, inicializamos el promedio y conteo a valores seguros.
+        ViewBag.TiempoPromedioDiario = TimeSpan.Zero;
+        ViewBag.TotalDiasRegistrados = 0;
+    }
 
-       
-
-    ViewBag.progreso = BD.TraerProgresoActividad(usuarioActualizado.id, 6);
-    ViewBag.TiempoDiario = BD.TraerTiemposDiarios(usuarioActualizado.id);
-
-    // ====================================================================
-    // CORRECCIÓN CS0029: Aplicamos la misma conversión en el método Estadisticas
-    // ====================================================================
+    // 3. TIEMPO TOTAL ACUMULADO (Métrica maestra)
     DateTime tiempoAcumuladoBD = BD.TraerTiempoEnPantallaTotal(usuarioActualizado.id);
     TimeSpan duracionAcumulada = tiempoAcumuladoBD.Subtract(new DateTime(1900, 1, 1));
     
-    int totalSegundosAcumulado = (int)duracionAcumulada.TotalSeconds;
-    ViewBag.TiempoEnPantallaTotal = totalSegundosAcumulado; 
+    // Pasamos el TimeSpan directamente (es más limpio que pasar los segundos y re-convertir).
+    ViewBag.TiempoTotalAppAcumulado = duracionAcumulada; 
     
+    // Otros ViewBags
+    ViewBag.progreso = BD.TraerProgresoActividad(usuarioActualizado.id, 6);
+    
+    // Eliminamos el ViewBag.TiempoEnPantallaTotal (int) ya que usamos TiempoTotalAppAcumulado (TimeSpan).
+
     return View("Estadisticas");
 }
         
