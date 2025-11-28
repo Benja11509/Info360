@@ -1,0 +1,106 @@
+
+
+
+   <h4>Elija a su perteneciente</h4>
+                <form method="post" asp-action="PreviewEstadisticas" class="vinculo-form">
+    {
+                    <div>
+                        <label for="buscadorPerteneciente">Buscar usuario:</label>
+                        <input type="text" id="buscadorPerteneciente" class="form-control" placeholder="Escribe un nombre o usuario..." autocomplete="off">
+                        
+                        <div id="listaResultados" class="search-results"></div>
+                    </div>
+
+                    <input type="hidden" id="selectedPertenecienteId" name="idPerteneciente" value="">
+                
+                    <button type="submit" class="btn btn-primary mt-2">Ir a Estadisticas</button>
+                </form>
+            </section>
+        }
+        
+     
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. OBTENER DATOS (Corregido)
+            // Leemos la lista de C# (ViewBag) y la convertimos a un array de JavaScript
+            const usuariosDisponibles = @Html.Raw(Json.Serialize(ViewBag.UsuariosDisponibles ?? new List<Usuario>()));
+
+            // 2. OBTENER ELEMENTOS DOM (Corregido)
+            // Usamos los IDs de TU HTML
+            const input = document.getElementById('buscadorPerteneciente');
+            const lista = document.getElementById('listaResultados');
+            const hiddenInput = document.getElementById('selectedPertenecienteId');
+
+            // Si el input no existe (porque el usuario no es 'responsable'), detenemos el script
+            if (!input) return; 
+
+            // 3. RENDERIZAR (Corregido)
+            function renderList(items) {
+                lista.innerHTML = ''; 
+                
+                if (input.value === '') { // Oculta si el input está vacío
+                    lista.style.display = 'none';
+                    return;
+                }
+                lista.style.display = 'block'; 
+                
+                items.forEach(usuario => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    
+                    // Usamos las propiedades de TU 'Usuario.cs'
+                    div.innerHTML = `<strong>${usuario.nombre ?? ''} ${usuario.apellido ?? ''}</strong> (${usuario.nombreUsuario})`;
+                    
+                    div.dataset.id = usuario.id;
+                    div.dataset.name = `${usuario.nombre ?? ''} ${usuario.apellido ?? ''} (${usuario.nombreUsuario})`;
+
+                    // 4. LÓGICA DE CLIC (Corregido)
+                    div.addEventListener('click', () => {
+                        // Ponemos el ID en el input oculto (name="idPerteneciente")
+                        hiddenInput.value = div.dataset.id;
+                        
+                        // Mostramos la selección en el input
+                        input.value = div.dataset.name;
+                        
+                        // Ocultamos la lista
+                        lista.innerHTML = '';
+                        lista.style.display = 'none';
+                    });
+                    
+                    lista.appendChild(div);
+                });
+            }
+
+            // 5. FILTRAR (Corregido)
+            input.addEventListener('input', () => {
+                const texto = input.value.trim().toLowerCase();
+                
+                hiddenInput.value = ""; // Resetea el ID si el usuario escribe de nuevo
+
+                if (texto === '') {
+                    renderList([]);
+                } else {
+                    // Filtramos por las propiedades de TU 'Usuario.cs'
+                    const filtrados = usuariosDisponibles.filter(u => 
+                        (u.nombre && u.nombre.toLowerCase().includes(texto)) ||
+                        (u.apellido && u.apellido.toLowerCase().includes(texto)) ||
+                        u.nombreUsuario.toLowerCase().includes(texto)
+                    );
+                    renderList(filtrados);
+                }
+            });
+
+            // Evitar que "Enter" en el buscador envíe el formulario
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+}
+

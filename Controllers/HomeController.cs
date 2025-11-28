@@ -41,7 +41,7 @@ public IActionResult Home()
         Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
         
         Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
+ViewBag.usuario = usuarioCompleto;
         List<Actividades> actividadesPendientes = new List<Actividades>();
 
         if (usuarioCompleto != null)
@@ -421,9 +421,18 @@ public IActionResult FinDeJuego()
         return Json(new { success = false });
     }
 
-// ... (El resto de tus métodos siguen aquí) ...
+public IActionResult IrAPreviewEstadisticas()
+{
 
-public IActionResult Estadisticas()
+     return View("PreviewEstadisticas");
+}
+
+public IActionResult PreviewEstadisticas(int idPerteneciente)
+{
+
+     return RedirectToAction("Estadisticas", new {idPerteneciente = idPerteneciente});
+}
+public IActionResult Estadisticas(int IdPerteneciente)
 {
     string? usuarioJson = HttpContext.Session.GetString("Usuario");
     if (string.IsNullOrEmpty(usuarioJson))
@@ -434,8 +443,16 @@ public IActionResult Estadisticas()
     
     Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
+ List<Usuario> ListaVinculos = BD.ListaVinculos(usuarioActualizado);
+
+if(IdPerteneciente >0)
+{
+  IdPerteneciente = ListaVinculos[0].id;
+ }
     // 1. DATOS DIARIOS (Lista de todos los días que usó la app y cuánto tiempo hizo en cada día)
-    List<TiempoDiario> tiemposDiarios = BD.TraerTiemposDiarios(usuarioActualizado.id);
+    List<TiempoDiario> tiemposDiarios = BD.TraerTiemposDiarios(IdPerteneciente);
+
+    
     ViewBag.TiempoDiario = tiemposDiarios;
 
     // 2. CÁLCULO DEL PROMEDIO DIARIO (NUEVA VARIABLE)
@@ -463,7 +480,7 @@ public IActionResult Estadisticas()
     }
 
     // 3. TIEMPO TOTAL ACUMULADO (Métrica maestra)
-    DateTime tiempoAcumuladoBD = BD.TraerTiempoEnPantallaTotal(usuarioActualizado.id);
+    DateTime tiempoAcumuladoBD = BD.TraerTiempoEnPantallaTotal(IdPerteneciente);
     TimeSpan duracionAcumulada = tiempoAcumuladoBD.Subtract(new DateTime(1900, 1, 1));
     
     // Pasamos el TimeSpan directamente (es más limpio que pasar los segundos y re-convertir).

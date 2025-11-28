@@ -19364,6 +19364,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\49006634\\Info360\\Views\\Home\\PreviewEstadisticas.cshtml",
+      "TargetPath": "Views\\Home\\PreviewEstadisticas.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\49006634\\Info360\\Views\\Home\\previewJuego.cshtml",
       "TargetPath": "Views\\Home\\previewJuego.cshtml",
       "FileKind": "mvc"
