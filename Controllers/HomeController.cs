@@ -30,22 +30,25 @@ public class HomeController : Controller
         // Si no hay usuario en sesión, redirigir al login
         return RedirectToAction("Index", "Account"); 
     }
-    
-    // 2. Convertir el JSON a objeto Usuario para obtener nombreUsuario/contraseña
+    // INICIO: LÓGICA AÑADIDA PARA EL TIEMPO EN PANTALLA
+    if (HttpContext.Session.GetString("TiempoInicioActividad") == null) 
+    {
+        HttpContext.Session.SetString("TiempoInicioActividad", DateTime.UtcNow.ToString("o"));
+    }
+  
     Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
     
-    // 3. Traer el usuario completo de la BD (se necesita el Id)
+   
     Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
     List<Actividades> actividadesPendientes = new List<Actividades>();
 
     if (usuarioCompleto != null)
     {
-        // 4. Usar el ID del usuario para traer SOLO sus actividades pendientes
+     
         actividadesPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id); 
     }
     
-    // 5. Pasar la lista REAL de actividades pendientes a la vista
     ViewBag.ActividadesPendientes = actividadesPendientes; 
 
 
@@ -387,4 +390,48 @@ ViewBag.TiempoDiario = BD.TraerTiemposDiarios(usuarioActualizado.id);
     
 
 
+
+
+
+
+
+
+
+    
+
+[HttpPost]
+public JsonResult RegistrarTiempoSesion(long tiempoFinMs)
+{
+    string? usuarioJson = HttpContext.Session.GetString("Usuario");
+    string? tiempoInicioStr = HttpContext.Session.GetString("TiempoInicioActividad");
+    
+    if (string.IsNullOrEmpty(usuarioJson) || string.IsNullOrEmpty(tiempoInicioStr))
+    {
+        return Json(new { success = false });
+    }
+
+    // Convertimos milisegundos a ticks para crear el DateTime
+    DateTime tiempoFin = new DateTime(tiempoFinMs * 10000, DateTimeKind.Utc); 
+    
+    if (DateTime.TryParse(tiempoInicioStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime tiempoInicio))
+    {
+        TimeSpan duracion = tiempoFin - tiempoInicio;
+
+        if (duracion.TotalSeconds > 1) 
+        {
+            Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+            Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+            if (usuarioCompleto != null)
+            {
+                BD.RegistrarTiempoDiario(usuarioCompleto.id, duracion);
+            }
+        }
+
+        HttpContext.Session.Remove("TiempoInicioActividad");
+        return Json(new { success = true });
+    }
+    
+    return Json(new { success = false });
+}
 }

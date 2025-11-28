@@ -1,6 +1,29 @@
+@using Info360.Models 
+
+@{
+    ViewData["Title"] = "Estadísticas";
+    
+    // --- 1. CONFIGURACIÓN ÚNICA PARA AMBOS GRÁFICOS ---
+    
+    // Definición de las variables en el alcance principal del archivo
+    List<TiempoDiario> tiemposRegistrados = ViewBag.TiempoDiario as List<TiempoDiario>; 
+    
+    // Inicializar el tiempo máximo a 1 para evitar división por cero.
+    int maxTiempoSegundos = 1; 
+    
+    // Cálculo del tiempo máximo para escalar las barras (necesario para ambos gráficos)
+    if (tiemposRegistrados != null && tiemposRegistrados.Any())
+    {
+        maxTiempoSegundos = tiemposRegistrados.Max(t => t.Tiempo);
+    }
+
+    // Aquí pueden ir otras variables de configuración si las necesitas (ej. progresoActividad = ViewBag.progreso ?? 0;)
+}
+
+
 <div class="board">
     <div class="titulo_grafica">
-        <h3 class="t_grafica">Tiempo en pantalla</h3>
+        <h3 class="t_grafica">Tiempo completando actividades</h3>
     </div>
     <div class="sub_board">
         
@@ -43,6 +66,87 @@
                 </div>
             </div> 
         }
-        <div class="sep_board"></div> @* Esto puede ir solo una vez al final si no quieres un separador entre la última barra y el borde *@
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="board">
+    <div class="titulo_grafica">
+        <h3 class="t_grafica">Tiempo en Pantalla Registrado ⏱️</h3>
+    </div>
+    
+    @if (tiemposRegistrados != null && tiemposRegistrados.Any())
+    {
+        <div class="sub_board" style="display: flex; flex-direction: row; align-items: flex-end;">
+            
+            @* Bucle ÚNICO para dibujar todas las barras del gráfico. *@
+            @foreach(var tiempoDiario in tiemposRegistrados.OrderBy(t => t.Fecha)) 
+            { 
+                // La variable 'maxTiempoSegundos' y 'tiemposRegistrados' ya existen gracias al bloque de arriba.
+                double porcentajeAltura = (double)tiempoDiario.Tiempo / maxTiempoSegundos * 100;
+                
+                <div class="sep_board"></div>
+                
+                <div class="cont_board">
+                    <div class="graf_board">
+                        <div class="barra">
+                            <div class="sub_barra b1" style="height: @(porcentajeAltura.ToString("F0"))%;">
+                                
+                                <div class="tag_g">
+                                    @tiempoDiario.TiempoNeto.ToString(@"hh\:mm\:ss")
+                                </div>
+                                
+                                <div class="tag_leyenda">
+                                    @tiempoDiario.Fecha.ToString("dd/MM")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tag_board">
+                        <div class="sub_tag_board">
+                            <div>100</div>
+                            <div>90</div>
+                            <div>80</div>
+                            <div>70</div>
+                            <div>60</div>
+                            <div>50</div>
+                            <div>40</div>
+                            <div>30</div>
+                            <div>20</div>
+                            <div>10</div>
+                        </div>
+                    </div>
+                </div> 
+            }
+            <div class="sep_board"></div>
+        </div>
+    }
+    else
+    {
+        <div class="sub_board">
+            <div class="alert alert-warning mt-4 text-center" style="width: 100%;">
+                Aún no hay registros de tiempo en pantalla.
+            </div>
+        </div>
+    }
+</div>
+        
     </div>
 </div>
