@@ -1,154 +1,164 @@
 @using Info360.Models 
+@using System.Linq
 
 @{
     ViewData["Title"] = "Estadísticas";
     
-    // --- 1. CONFIGURACIÓN ÚNICA PARA AMBOS GRÁFICOS ---
-    List<TiempoDiario> tiemposRegistrados = ViewBag.TiempoDiario as List<TiempoDiario>; 
-    int maxTiempoSegundos = 1; 
+    // ===============================================
+    // CÁLCULOS: DATOS DE ACTIVIDADES (tiemposActividades)
+    // ===============================================
+    List<TiempoDiario> tiemposActividades = ViewBag.TiempoDiario as List<TiempoDiario>; 
     
-    if (tiemposRegistrados != null && tiemposRegistrados.Any())
+    TimeSpan tiempoActividadesPromedioNeto = TimeSpan.Zero;
+    TimeSpan tiempoActividadesMaximoNeto = TimeSpan.Zero;
+    int totalDiasActividades = 0;
+    
+    if (tiemposActividades != null && tiemposActividades.Any())
     {
-        maxTiempoSegundos = tiemposRegistrados.Max(t => t.Tiempo);
+        totalDiasActividades = tiemposActividades.Count;
+        double promedioSegundosAct = tiemposActividades.Average(t => (double)t.Tiempo);
+        tiempoActividadesPromedioNeto = TimeSpan.FromSeconds(promedioSegundosAct);
+        tiempoActividadesMaximoNeto = tiemposActividades.Max(t => t.TiempoNeto); 
     }
+    
+    // ===============================================
+    // CÁLCULOS: DATOS DE TIEMPO TOTAL EN LA APP (tiemposAppRegistrados)
+    // ===============================================
+    // Usamos el nuevo ViewBag del Controller.
+    List<TiempoDiario> tiemposAppRegistrados = ViewBag.TiemposAppDiarios as List<TiempoDiario>;
+    
+    TimeSpan tiempoAppPromedioNeto = TimeSpan.Zero;
+    TimeSpan tiempoAppMaximoNeto = TimeSpan.Zero;
+    int totalDiasApp = 0;
+
+    if (tiemposAppRegistrados != null && tiemposAppRegistrados.Any())
+    {
+        totalDiasApp = tiemposAppRegistrados.Count;
+        double promedioSegundosApp = tiemposAppRegistrados.Average(t => (double)t.Tiempo);
+        tiempoAppPromedioNeto = TimeSpan.FromSeconds(promedioSegundosApp);
+        tiempoAppMaximoNeto = tiemposAppRegistrados.Max(t => t.TiempoNeto);
+    }
+    
+    // ===============================================
+    // CÁLCULO: TIEMPO ACUMULADO TOTAL (Métrica Única)
+    // ===============================================
+    TimeSpan tiempoTotalAppAcumulado = ViewBag.TiempoTotalAppAcumulado ?? TimeSpan.Zero;
 }
 
 <div class="container my-5">
     
+    
+    
+    
     @* ============================================== *@
-    @* GRÁFICO 1: TIEMPO COMPLETANDO ACTIVIDADES (Estructura Corregida) *@
+    @* SECCIÓN 1: TIEMPO EN ACTIVIDADES (Max/Avg/Detalle) *@
     @* ============================================== *@
-    <div class="board">
-        <div class="titulo_grafica">
-            <h3 class="t_grafica">Tiempo completando actividades</h3>
-        </div>
+    <div class="seccion-dashboard">
+        <h3 class="col-12 text-primary titulo-seccion">Métricas de Tiempo en Actividades 🧠</h3>
         
-        @if (tiemposRegistrados != null && tiemposRegistrados.Any())
+        @if (tiemposActividades != null && tiemposActividades.Any())
         {
-            @* CLAVE: Aplicamos FLEX para la alineación horizontal de las barras *@
-            <div class="sub_board" style="display: flex; flex-direction: row; align-items: flex-end;">
-                
-                @* El bucle debe envolver TODOS los elementos que se repiten por barra (sep_board y cont_board) *@
-                @foreach(var tiempoDiario in tiemposRegistrados.OrderBy(t => t.Fecha)) 
-                { 
-                    double porcentajeAltura = (double)tiempoDiario.Tiempo / maxTiempoSegundos * 100;
-                    
-                    <div class="sep_board"></div>
-                    <div class="cont_board">
-                        <div class="graf_board">
-                            <div class="barra">
-                                @* APLICAMOS ALTURA DINÁMICA y contenemos las etiquetas *@
-                                <div class="sub_barra b1" style="height: @(porcentajeAltura.ToString("F0"))%;">
-                                    
-                                    <div class="tag_g">
-                                        @tiempoDiario.TiempoNeto.ToString(@"hh\:mm\:ss")
-                                    </div>
-                                    
-                                    <div class="tag_leyenda">
-                                        @tiempoDiario.Fecha.ToString("dd/MM")
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-resumen border-primary">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Días con Actividad 📅</h5>
+                            <p class="card-text display-4">@totalDiasActividades</p>
                         </div>
-                        
-                        @* Eje Y (solo si tu CSS espera que se repita con cada barra) *@
-                        <div class="tag_board">
-                             <div class="sub_tag_board">
-                                <div>100</div><div>90</div><div>80</div><div>70</div><div>60</div><div>50</div><div>40</div><div>30</div><div>20</div><div>10</div>
-                            </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card card-resumen border-success">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">Máximo Tiempo Actividad ⏱️</h5>
+                            <p class="card-text display-4">@tiempoActividadesMaximoNeto.ToString(@"hh\:mm\:ss")</p>
                         </div>
-                    </div> 
-                }
-                <div class="sep_board"></div> @* Separador al final de la última barra *@
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card card-resumen border-warning">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning">Promedio Diario Actividad ⏳</h5>
+                            <p class="card-text display-4">@tiempoActividadesPromedioNeto.ToString(@"hh\:mm\:ss")</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        } else {
-            <div class="sub_board"><div class="alert alert-info text-center" style="width: 100%;">No hay datos de tiempo para Actividades.</div></div>
-        }
-    </div> @* Cierra board 1 *@
-    
-    <hr class="my-5">
-        
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="board">
-    <div class="titulo_grafica">
-        <h3 class="t_grafica">Tiempo en Pantalla Registrado ⏱️</h3>
-    </div>
-    
-    @if (tiemposRegistrados != null && tiemposRegistrados.Any())
-    {
-        <div class="sub_board" style="display: flex; flex-direction: row; align-items: flex-end;">
             
-            @* Bucle ÚNICO para dibujar todas las barras del gráfico. *@
-            @foreach(var tiempoDiario in tiemposRegistrados.OrderBy(t => t.Fecha)) 
-            { 
-                // La variable 'maxTiempoSegundos' y 'tiemposRegistrados' ya existen gracias al bloque de arriba.
-                double porcentajeAltura = (double)tiempoDiario.Tiempo / maxTiempoSegundos * 100;
-                
-                <div class="sep_board"></div>
-                
-                <div class="cont_board">
-                    <div class="graf_board">
-                        <div class="barra">
-                            <div class="sub_barra b1" style="height: @(porcentajeAltura.ToString("F0"))%;">
-                                
-                                <div class="tag_g">
-                                    @tiempoDiario.TiempoNeto.ToString(@"hh\:mm\:ss")
-                                </div>
-                                
-                                <div class="tag_leyenda">
-                                    @tiempoDiario.Fecha.ToString("dd/MM")
-                                </div>
-                            </div>
+            <h4 class="text-secondary mb-3 t_listado">Detalle de Actividades por Día</h4>
+
+            <ul class="list-group list-group-flush mb-5">
+                @foreach(var tiempoDiario in tiemposActividades.OrderByDescending(t => t.Fecha))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-light">
+                        <span class="font-weight-bold fecha-detalle">@tiempoDiario.Fecha.ToString("dd/MM/yyyy")</span>
+                        <span class="badge badge-pill badge-primary badge-tiempo">Tiempo: @tiempoDiario.TiempoNeto.ToString(@"hh\:mm\:ss")</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <div class="alert alert-info mt-4 text-center">No hay registros de tiempo en Actividades.</div>
+        }
+    </div>
+
+
+    <hr class="my-5">
+
+
+    @* ============================================== *@
+    @* SECCIÓN 2: TIEMPO TOTAL EN LA APP (Max/Avg/Detalle) *@
+    @* ============================================== *@
+    <div class="seccion-dashboard">
+        <h3 class="col-12 text-info titulo-seccion">Métricas de Uso de la Aplicación (Diario) 💻</h3>
+
+      
+      
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-resumen border-info">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">Días de Uso Registrados 🗓️</h5>
+                            <p class="card-text display-4">@totalDiasApp</p>
                         </div>
                     </div>
-                    
-                    <div class="tag_board">
-                        <div class="sub_tag_board">
-                            <div>100</div>
-                            <div>90</div>
-                            <div>80</div>
-                            <div>70</div>
-                            <div>60</div>
-                            <div>50</div>
-                            <div>40</div>
-                            <div>30</div>
-                            <div>20</div>
-                            <div>10</div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card card-resumen border-danger">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">Máximo Tiempo Diario ⏰</h5>
+                            <p class="card-text display-4">@tiempoAppMaximoNeto.ToString(@"hh\:mm\:ss")</p>
                         </div>
                     </div>
-                </div> 
-            }
-            <div class="sep_board"></div>
-        </div>
-    }
-    else
-    {
-        <div class="sub_board">
-            <div class="alert alert-warning mt-4 text-center" style="width: 100%;">
-                Aún no hay registros de tiempo en pantalla.
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card card-resumen border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title text-secondary">Promedio Diario de Uso ⏱️</h5>
+                            <p class="card-text display-4">@tiempoAppPromedioNeto.ToString(@"hh\:mm\:ss")</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    }
-</div>
+
+            <h4 class="text-secondary mb-3 t_listado">Detalle de Uso Total por Día</h4>
+
+            <ul class="list-group list-group-flush">
+                @foreach(var tiempoDiario in tiemposAppRegistrados.OrderByDescending(t => t.Fecha))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-light">
+                        <span class="font-weight-bold fecha-detalle">@tiempoDiario.Fecha.ToString("dd/MM/yyyy")</span>
+                        <span class="badge badge-pill badge-info badge-tiempo">Tiempo: @tiempoDiario.TiempoNeto.ToString(@"hh\:mm\:ss")</span>
+                    </li>
+                }
+            </ul>
         
+
+       
     </div>
 </div>
