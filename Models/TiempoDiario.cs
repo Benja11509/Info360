@@ -12,6 +12,7 @@ public class TiempoDiario
     [JsonProperty]
 public DateTime Fecha { get; private set; }
 
+public DateTime TiempoEnPantallaTotal { get; set; }
 
 public TiempoDiario ()
 {

@@ -21,42 +21,45 @@ public class HomeController : Controller
          return View("Index");
     }
 
-  public IActionResult Home()
-{
-    // 1. Obtener el JSON del usuario de la sesión
-    string? usuarioJson = HttpContext.Session.GetString("Usuario");
-    if (string.IsNullOrEmpty(usuarioJson))
+public IActionResult Home()
     {
-        // Si no hay usuario en sesión, redirigir al login
-        return RedirectToAction("Index", "Account"); 
+        // 1. Obtener el JSON del usuario de la sesión
+        string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            // Si no hay usuario en sesión, redirigir al login
+            return RedirectToAction("Index", "Account"); 
+        }
+        
+        // INICIO: LÓGICA AÑADIDA PARA EL TIEMPO EN PANTALLA (INICIO)
+        if (HttpContext.Session.GetString("TiempoInicioActividad") == null) 
+        {
+            HttpContext.Session.SetString("TiempoInicioActividad", DateTime.UtcNow.ToString("o"));
+        }
+        // FIN: LÓGICA AÑADIDA
+
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        List<Actividades> actividadesPendientes = new List<Actividades>();
+
+        if (usuarioCompleto != null)
+        {
+            // 4. Usar el ID del usuario para traer SOLO sus actividades pendientes
+            actividadesPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id); 
+            
+            // **LÓGICA CLAVE AÑADIDA:** TRAER EL TIEMPO TOTAL ACUMULADO (maestro)
+            int totalSegundosAcumulado = BD.TraerTiempoEnPantallaTotal(usuarioCompleto.id);
+            // Guarda la variable para mostrar el total en la vista Home.cshtml si lo necesitas
+            ViewBag.TiempoEnPantallaTotal = totalSegundosAcumulado; 
+        }
+        
+        ViewBag.ActividadesPendientes = actividadesPendientes; 
+        ViewBag.TareasPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id);
+        
+        return View("Home");
     }
-    // INICIO: LÓGICA AÑADIDA PARA EL TIEMPO EN PANTALLA
-    if (HttpContext.Session.GetString("TiempoInicioActividad") == null) 
-    {
-        HttpContext.Session.SetString("TiempoInicioActividad", DateTime.UtcNow.ToString("o"));
-    }
-  
-    Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-    
-   
-    Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
-    List<Actividades> actividadesPendientes = new List<Actividades>();
-
-    if (usuarioCompleto != null)
-    {
-     
-        actividadesPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id); 
-    }
-    
-    ViewBag.ActividadesPendientes = actividadesPendientes; 
-
-
-
-    ViewBag.TareasPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id);
-    
-    return View("Home");
-}
  
     public IActionResult Actividades()
     {
@@ -370,68 +373,71 @@ public IActionResult FinDeJuego()
 
         return RedirectToAction("Perfil");
     }
+[HttpPost]
+    public JsonResult RegistrarTiempoSesion(long tiempoFinMs)
+    {
+        string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        string? tiempoInicioStr = HttpContext.Session.GetString("TiempoInicioActividad");
+        
+        if (string.IsNullOrEmpty(usuarioJson) || string.IsNullOrEmpty(tiempoInicioStr))
+        {
+            return Json(new { success = false });
+        }
+
+        // Convertimos milisegundos a ticks para crear el DateTime
+        DateTime tiempoFin = new DateTime(tiempoFinMs * 10000, DateTimeKind.Utc); 
+        
+        if (DateTime.TryParse(tiempoInicioStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime tiempoInicio))
+        {
+            TimeSpan duracion = tiempoFin - tiempoInicio;
+
+            if (duracion.TotalSeconds > 1) 
+            {
+                Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+                Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+                if (usuarioCompleto != null)
+                {
+                    // 1. REGISTRA EL TIEMPO DIARIO (para el gráfico de barras)
+                    BD.RegistrarTiempoDiario(usuarioCompleto.id, duracion);
+
+                    // 2. LÓGICA CLAVE: ACTUALIZA EL TIEMPO TOTAL ACUMULADO (campo maestro)
+                    // **NOTA: Debes implementar este método en BD.cs y el SP en SQL**
+                    BD.ActualizarTiempoEnPantallaTotal(usuarioCompleto.id, duracion);
+                }
+            }
+
+            HttpContext.Session.Remove("TiempoInicioActividad");
+            return Json(new { success = true });
+        }
+        
+        return Json(new { success = false });
+    }
+
+// ... (El resto de tus métodos siguen aquí) ...
 
     public IActionResult Estadisticas(){
- string? usuarioJson = HttpContext.Session.GetString("Usuario");
+        string? usuarioJson = HttpContext.Session.GetString("Usuario");
         if (string.IsNullOrEmpty(usuarioJson))
         {
             return RedirectToAction("Index", "Account");
         }
         Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
         
-  
         Usuario usuarioActualizado = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
-ViewBag.progreso = BD.TraerProgresoActividad(usuarioActualizado.id, 6);
-ViewBag.TiempoDiario = BD.TraerTiemposDiarios(usuarioActualizado.id);
+        ViewBag.progreso = BD.TraerProgresoActividad(usuarioActualizado.id, 6);
+        ViewBag.TiempoDiario = BD.TraerTiemposDiarios(usuarioActualizado.id);
 
+        // **LÓGICA CLAVE AÑADIDA:** TRAER EL TIEMPO TOTAL ACUMULADO (maestro)
+        int totalSegundosAcumulado = BD.TraerTiempoEnPantallaTotal(usuarioActualizado.id);
+        ViewBag.TiempoEnPantallaTotal = totalSegundosAcumulado; 
+        
         return View("Estadisticas");
     }
-    
-
-
-
-
-
 
 
 
 
     
-
-[HttpPost]
-public JsonResult RegistrarTiempoSesion(long tiempoFinMs)
-{
-    string? usuarioJson = HttpContext.Session.GetString("Usuario");
-    string? tiempoInicioStr = HttpContext.Session.GetString("TiempoInicioActividad");
-    
-    if (string.IsNullOrEmpty(usuarioJson) || string.IsNullOrEmpty(tiempoInicioStr))
-    {
-        return Json(new { success = false });
-    }
-
-    // Convertimos milisegundos a ticks para crear el DateTime
-    DateTime tiempoFin = new DateTime(tiempoFinMs * 10000, DateTimeKind.Utc); 
-    
-    if (DateTime.TryParse(tiempoInicioStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime tiempoInicio))
-    {
-        TimeSpan duracion = tiempoFin - tiempoInicio;
-
-        if (duracion.TotalSeconds > 1) 
-        {
-            Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
-            Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
-            if (usuarioCompleto != null)
-            {
-                BD.RegistrarTiempoDiario(usuarioCompleto.id, duracion);
-            }
-        }
-
-        HttpContext.Session.Remove("TiempoInicioActividad");
-        return Json(new { success = true });
-    }
-    
-    return Json(new { success = false });
-}
 }

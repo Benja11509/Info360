@@ -333,4 +333,38 @@ public static int TraerProgresoActividad(int idUsuario, int idActividad)
     }
  
 }
+
+public static int ActualizarTiempoEnPantallaTotal(int idUsuario, TimeSpan duracion)
+{
+    // Convertimos TimeSpan a segundos enteros para SQL
+    int duracionSegundos = (int)duracion.TotalSeconds;
+    int nuevoTotalSegundos = 0;
+    string storedProcedure = "ActualizarTiempoEnPantallaTotal"; 
+    
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        // Llama al SP y captura el nuevo total devuelto
+        nuevoTotalSegundos = connection.ExecuteScalar<int>(storedProcedure, new { 
+            pIdUsuario = idUsuario, 
+            pDuracionSegundos = duracionSegundos 
+        }, commandType: CommandType.StoredProcedure);
+    }
+    return nuevoTotalSegundos;
+}
+
+public static int TraerTiempoEnPantallaTotal(int idUsuario)
+{
+    string storedProcedure = "TraerTiempoEnPantallaTotal";
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        // Llama al SP y trae el valor total acumulado
+        return connection.QueryFirstOrDefault<int>(storedProcedure, new { pIdUsuario = idUsuario }, commandType: CommandType.StoredProcedure);
+    }
+}
+
+
+
+
+
+
 }
