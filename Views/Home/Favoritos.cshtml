@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Juegos";
+    ViewData["Title"] = "Favoritos";
     if(ViewBag.usuario.tipoUsuario == "perteneciente"){
     ViewData["mostrarHeaderLanding"] = false;
     ViewData["mostrarHeaderTutor"] = false;
@@ -10,9 +10,4 @@
     ViewData["mostrarHeaderPerteneciente"] = false;
     }
 }
-
-<h1>@ViewBag.topico</h1> <!--ej: Adivina la accion-->
-
-<img src="@ViewBag.usuario.fotoPerfil" alt="Foto de perfil" class="profile-picture" />
-
-<!--aca habria que meter un carrouserl de cards donde los botones te mandan a la preview de un juego especifico-->
+<h1> no tienes favoritos aun </h1>

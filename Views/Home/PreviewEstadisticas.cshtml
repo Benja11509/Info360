@@ -1,25 +1,28 @@
-
+@{
+    if(ViewBag.usuario.tipoUsuario == "perteneciente"){
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = false;
+    ViewData["mostrarHeaderPerteneciente"] = true;
+    } else{
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = true;
+    ViewData["mostrarHeaderPerteneciente"] = false;
+    }
+}
 
 
    <h4>Elija a su perteneciente</h4>
-                <form method="post" asp-action="PreviewEstadisticas" class="vinculo-form">
-    {
-                    <div>
-                        <label for="buscadorPerteneciente">Buscar usuario:</label>
-                        <input type="text" id="buscadorPerteneciente" class="form-control" placeholder="Escribe un nombre o usuario..." autocomplete="off">
+        @foreach (Usuario perteneciente in ViewBag.Vinculos)
+                {
+                    <div class="vinculo-card">
+                        <p><strong>Nombre:</strong> @perteneciente.nombre @perteneciente.apellido </p>
+                        <p><strong>Email:</strong> @perteneciente.mail</p>
+                        <p><strong>Teléfono:</strong> @perteneciente.telefono</p>
                         
-                        <div id="listaResultados" class="search-results"></div>
+            <a href='@Url.Action("PreviewEstadisticas", "Home", new {idPerteneciente = @perteneciente.id})' class="nav-btn">ESTADISTICAS</a>
                     </div>
+                }
 
-                    <input type="hidden" id="selectedPertenecienteId" name="idPerteneciente" value="">
-                
-                    <button type="submit" class="btn btn-primary mt-2">Ir a Estadisticas</button>
-                </form>
-            </section>
-        }
-        
-     
-</div>
 
 @section Scripts {
     <script>

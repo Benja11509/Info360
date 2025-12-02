@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bAqlYTYjVQ+DwWA7STRbFIEmDvell3qOxmtueGjnUCg=",
+  "Hash": "eNaDNossi00AoKzPPtcsBDnU3pV1rH9ZVBmI6JlkNSQ=",
   "Source": "Info360",
   "BasePath": "_content/Info360",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\AdvimgPictograma.png",
+      "SourceId": "Info360",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\49006634\\Info360\\wwwroot\\",
+      "BasePath": "_content/Info360",
+      "RelativePath": "Imagenes/AdvimgPictograma.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagenes\\AdvimgPictograma.png"
     },
     {
       "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\Campanita.png",
@@ -454,6 +473,25 @@
       "OriginalItemSpec": "wwwroot\\Imagenes\\ImgPicto5.png"
     },
     {
+      "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\ImgPicto6.png",
+      "SourceId": "Info360",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\49006634\\Info360\\wwwroot\\",
+      "BasePath": "_content/Info360",
+      "RelativePath": "Imagenes/ImgPicto6.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagenes\\ImgPicto6.png"
+    },
+    {
       "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\ImgPicto7.png",
       "SourceId": "Info360",
       "SourceType": "Discovered",
@@ -490,6 +528,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Imagenes\\ImgPicto8.png"
+    },
+    {
+      "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\ImgPicto9.png",
+      "SourceId": "Info360",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\49006634\\Info360\\wwwroot\\",
+      "BasePath": "_content/Info360",
+      "RelativePath": "Imagenes/ImgPicto9.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagenes\\ImgPicto9.png"
     },
     {
       "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\Logo.png",
@@ -680,6 +737,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Imagenes\\OrdenaLaSec.png"
+    },
+    {
+      "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\QueMuestraElPictograma.png",
+      "SourceId": "Info360",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\49006634\\Info360\\wwwroot\\",
+      "BasePath": "_content/Info360",
+      "RelativePath": "Imagenes/QueMuestraElPictograma.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Imagenes\\QueMuestraElPictograma.png"
     },
     {
       "Identity": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\Thumbs.db",

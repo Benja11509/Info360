@@ -26,6 +26,11 @@
     // CÁLCULO: TIEMPO ACUMULADO TOTAL (Métrica Maestra)
     // ===============================================
     TimeSpan tiempoTotalAppAcumulado = ViewBag.TiempoTotalAppAcumulado ?? TimeSpan.Zero;
+    
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = true;
+    ViewData["mostrarHeaderPerteneciente"] = false;
+    
 }
 
 <div class="container my-5">

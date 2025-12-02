@@ -1,5 +1,14 @@
 @{
     ViewData["Title"] = "Fin del Juego";
+    if(ViewBag.usuario.tipoUsuario == "perteneciente"){
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = false;
+    ViewData["mostrarHeaderPerteneciente"] = true;
+    } else{
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = true;
+    ViewData["mostrarHeaderPerteneciente"] = false;
+    }
 }
 
 <div style="text-align: center; margin-top: 50px;">

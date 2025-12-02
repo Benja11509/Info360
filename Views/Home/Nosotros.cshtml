@@ -5,10 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiénes Somos | Tándem</title>
   <link rel="stylesheet" href="quienes_somos.css">
-</head>
-<body>
+  @{
+  if(ViewBag.usuario.tipoUsuario == "perteneciente"){
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = false;
+    ViewData["mostrarHeaderPerteneciente"] = true;
+    } else{
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = true;
+    ViewData["mostrarHeaderPerteneciente"] = false;
+    }
+}
 
- 
+</head>
+<body> 
 
 <section class="about-section">
   <div class="about-container">

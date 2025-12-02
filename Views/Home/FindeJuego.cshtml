@@ -7,7 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
+@{
+    if(ViewBag.usuario.tipoUsuario == "perteneciente"){
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = false;
+    ViewData["mostrarHeaderPerteneciente"] = true;
+    } else{
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = true;
+    ViewData["mostrarHeaderPerteneciente"] = false;
+    }
+}
 <body>
  <main class="main-content">
         <div class="completion-container">

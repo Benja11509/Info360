@@ -102,13 +102,12 @@
 
     <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
-            @for (int i = 0; i < ViewBag.TareasPendientes.Count; i++)
+          @foreach(Actividades act in ViewBag.TareasPendientes )
             {
-                var actividad = ViewBag.TareasPendientes[i];
-                <div class="carousel-item @(i == 0 ? "active" : "")">
-                    <img src="@actividad.imagen" class="d-block w-100" alt="FotoActividad">
-                    <a href='@Url.Action("JuegoOrdenarPictogramas", "Home")' class="botonComenzarAct">Ir Ahora</a>
-                </div>
+              <img src= "~/Imagenes/@(act.imagen).png" >
+              @act.nombre;
+              <a href='@Url.Action("JuegoOrdenarPictogramas", "Home", new {index = @act.progreso, continuar = true})' class="nav-btn">Jugar</a>
+            
             }
         </div>
 

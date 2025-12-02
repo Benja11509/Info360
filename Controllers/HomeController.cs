@@ -63,24 +63,105 @@ ViewBag.usuario = usuarioCompleto;
         }
         
         ViewBag.ActividadesPendientes = actividadesPendientes; 
+       
+       
+       
+       
+       
+       
+       
         ViewBag.TareasPendientes = BD.TraerActividadesPendientes(usuarioCompleto.id);
         
+
+
+
+
+
+
+
+
+
+
         return View("Home");
     }
  
     public IActionResult Actividades()
     {
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
         return View("Actividades");
     }
 
     public IActionResult Juegos()
     {
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
         return View("Juegos");
     }
     public IActionResult VerJuegos(){
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
         return View("Juegos");
     }
+
+
+
+    
     public IActionResult JuegoPictogramas(){
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
         return View("previewJuego");
     }
  
@@ -90,6 +171,21 @@ ViewBag.usuario = usuarioCompleto;
 
 public IActionResult JuegoOrdenarPictogramas(int? index, bool? continuar)
 {
+    string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
     int indiceActual;
     const int ID_ACTIVIDAD_PICTOGRAMAS = 6; 
     if (continuar == false)
@@ -174,6 +270,7 @@ indiceActual = correctas;
     }
  ViewBag.BarraProgreso = indiceActual *10;
 
+
     return View("JuegoOrdenarPictogramas");
 }
 
@@ -217,6 +314,7 @@ public IActionResult VerificarRespuesta(string opcion)
 
 public IActionResult FinDeJuego()
 {
+    
     DateTime tiempoFin = DateTime.Now;
     string tiempoInicioStr = HttpContext.Session.GetString("JuegoTiempoInicio");
     TimeSpan duracion = TimeSpan.Zero;
@@ -241,7 +339,7 @@ public IActionResult FinDeJuego()
     }
     Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
     Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
-
+     ViewBag.usuario = usuarioCompleto;
     int puntajeTotalFinal = 0;
     if (usuarioCompleto != null)
     {
@@ -280,13 +378,60 @@ public IActionResult FinDeJuego()
         return View("Index");
     }
      public IActionResult Nosotros(){
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
         return View("Nosotros");
     }
        public IActionResult Ayuda(){
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
         return View("Ayuda");
     }
     
+    public IActionResult Favoritos(){
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
+        return View("Favoritos");
+    }
 
     public IActionResult Perfil(bool verMas = false) //La varible ver mas representa que 
     {
@@ -321,6 +466,21 @@ public IActionResult FinDeJuego()
     
     public IActionResult VerMasPerfil()
     {
+        string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
+
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
         return RedirectToAction("Perfil", new { verMas = true });
     }
     
@@ -421,17 +581,60 @@ public IActionResult FinDeJuego()
         return Json(new { success = false });
     }
 
+
+
+
+
 public IActionResult IrAPreviewEstadisticas()
 {
+    string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
+        ViewBag.Vinculos = BD.ListaVinculos(usuarioCompleto);
+
+        
      return View("PreviewEstadisticas");
 }
 
+
+
+
 public IActionResult PreviewEstadisticas(int idPerteneciente)
 {
+    string? usuarioJson = HttpContext.Session.GetString("Usuario"); // Crear el usuario session
+        if (string.IsNullOrEmpty(usuarioJson))
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        Usuario userDeSesion = Objeto.StringToObject<Usuario>(usuarioJson);
+        
+      
+        Usuario usuarioCompleto = BD.TraerUNUsuario(userDeSesion.nombreUsuario, userDeSesion.contraseña);
 
+        if (usuarioCompleto == null)
+        {
+            return RedirectToAction("CerrarSesion", "Account");
+        }
+        ViewBag.usuario = usuarioCompleto;
      return RedirectToAction("Estadisticas", new {idPerteneciente = idPerteneciente});
 }
+
+
+
+
+
 public IActionResult Estadisticas(int IdPerteneciente)
 {
     string? usuarioJson = HttpContext.Session.GetString("Usuario");
@@ -445,7 +648,7 @@ public IActionResult Estadisticas(int IdPerteneciente)
 
  List<Usuario> ListaVinculos = BD.ListaVinculos(usuarioActualizado);
 
-if(IdPerteneciente >0)
+if(IdPerteneciente <= 0)
 {
   IdPerteneciente = ListaVinculos[0].id;
  }

@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\AdvimgPictograma.png",
+      "PackagePath": "staticwebassets\\Imagenes\\AdvimgPictograma.png"
+    },
+    {
       "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\Campanita.png",
       "PackagePath": "staticwebassets\\Imagenes\\Campanita.png"
     },
@@ -69,12 +73,20 @@
       "PackagePath": "staticwebassets\\Imagenes\\ImgPicto5.png"
     },
     {
+      "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\ImgPicto6.png",
+      "PackagePath": "staticwebassets\\Imagenes\\ImgPicto6.png"
+    },
+    {
       "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\ImgPicto7.png",
       "PackagePath": "staticwebassets\\Imagenes\\ImgPicto7.png"
     },
     {
       "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\ImgPicto8.png",
       "PackagePath": "staticwebassets\\Imagenes\\ImgPicto8.png"
+    },
+    {
+      "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\ImgPicto9.png",
+      "PackagePath": "staticwebassets\\Imagenes\\ImgPicto9.png"
     },
     {
       "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\LOGO2.jpg",
@@ -107,6 +119,10 @@
     {
       "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\OrdenaLaSec.png",
       "PackagePath": "staticwebassets\\Imagenes\\OrdenaLaSec.png"
+    },
+    {
+      "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\QueMuestraElPictograma.png",
+      "PackagePath": "staticwebassets\\Imagenes\\QueMuestraElPictograma.png"
     },
     {
       "Id": "C:\\Users\\49006634\\Info360\\wwwroot\\Imagenes\\Thumbs.db",

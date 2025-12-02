@@ -1,5 +1,14 @@
 @{
     ViewData["Title"] = "Perfil";
+    if(ViewBag.usuario.tipoUsuario == "perteneciente"){
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = false;
+    ViewData["mostrarHeaderPerteneciente"] = true;
+    } else{
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = true;
+    ViewData["mostrarHeaderPerteneciente"] = false;
+    }
 }
 
 <link rel="stylesheet" href="~/css/perfil.css" asp-append-version="true" />

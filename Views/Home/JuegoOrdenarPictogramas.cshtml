@@ -1,3 +1,14 @@
+@{
+    if(ViewBag.usuario.tipoUsuario == "perteneciente"){
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = false;
+    ViewData["mostrarHeaderPerteneciente"] = true;
+    } else{
+    ViewData["mostrarHeaderLanding"] = false;
+    ViewData["mostrarHeaderTutor"] = true;
+    ViewData["mostrarHeaderPerteneciente"] = false;
+    }
+}
 @if (ViewBag.Mensaje != null)
 {
     <h3 style="color: red;">@ViewBag.Mensaje</h3>
@@ -22,7 +33,7 @@
             <h2>¿Qué es?</h2>
 
             <img class="juego-img"
-                 src="~/Imagenes/(@ViewBag.Pregunta.ImagenPictograma).png" alt="Pregunta" />
+                 src="~/Imagenes/@(ViewBag.Pregunta.ImagenPictograma).png" alt="Pregunta" /><!--NO TOQUEN, gracias :)-->
 
             <div class="opciones">
                 @foreach (string palabraOpcion in ViewBag.opciones)
