@@ -1,4 +1,6 @@
-
+main{
+  margin-top: 5%;
+}
 .juego-container {
   max-width: 900px;
   margin: 60px auto;
@@ -3044,6 +3046,7 @@ font-size: 150%;
 /*ACA LOGIN*/
 
 .login-background {
+  margin-top: -6%;
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -3261,6 +3264,7 @@ font-size: 150%;
 /*ACA REGISTRARSE*/
 
 .registro-background {
+  margin-top: -6%;
   position: relative;
   min-height: 100vh;
   display: flex;

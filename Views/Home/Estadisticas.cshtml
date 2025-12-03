@@ -13,13 +13,15 @@
     TimeSpan tiempoActividadesPromedioNeto = TimeSpan.Zero;
     TimeSpan tiempoActividadesMaximoNeto = TimeSpan.Zero;
     int totalDiasActividades = 0;
+    TimeSpan tiempoTotalActividades = TimeSpan.Zero;
     
     if (tiemposActividades != null && tiemposActividades.Any())
     {
         totalDiasActividades = tiemposActividades.Count;
         double promedioSegundosAct = tiemposActividades.Average(t => (double)t.Tiempo);
         tiempoActividadesPromedioNeto = TimeSpan.FromSeconds(promedioSegundosAct);
-        tiempoActividadesMaximoNeto = tiemposActividades.Max(t => t.TiempoNeto); 
+       double totalSegundosReales = tiemposActividades.Sum(t => (double)t.Tiempo);
+ tiempoTotalActividades = TimeSpan.FromSeconds(totalSegundosReales);
     }
     
     // ===============================================
@@ -60,7 +62,7 @@
                     <div class="card card-resumen border-success">
                         <div class="card-body">
                             <h5 class="card-title text-success">Máximo Tiempo Actividad ⏱️</h5>
-                            <p class="card-text display-4">@tiempoActividadesMaximoNeto.ToString(@"hh\:mm\:ss")</p>
+                            <p class="card-text display-4">@tiempoTotalActividades.ToString(@"hh\:mm\:ss")</p>
                         </div>
                     </div>
                 </div>
