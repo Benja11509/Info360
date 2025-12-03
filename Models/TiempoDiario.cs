@@ -8,9 +8,9 @@ public class TiempoDiario
     [JsonProperty]
     public int idUsuario { get; set; }
     [JsonProperty]
-    public int Tiempo { get; private set; }
+    public int Tiempo { get; set; }
     [JsonProperty]
-public DateTime Fecha { get; private set; }
+public DateTime Fecha { get;  set; }
 
 public DateTime TiempoEnPantallaTotal { get; set; }
 

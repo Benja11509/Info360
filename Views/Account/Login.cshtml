@@ -21,7 +21,10 @@
 
         <div class="login-box">
             <h1>Iniciar Sesión</h1>
-
+             @if( ViewBag.MensajeLogin  != null)
+              {
+                <p>  @ViewBag.MensajeLogin  </p>
+              }
 
             <form method="post" action='@Url.Action("LogIn2", "Account")'>
                 <div class="input-group">
