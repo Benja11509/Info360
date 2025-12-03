@@ -1,54 +1,4 @@
 
-.faq-container-wrapper {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #f4f4f4; 
-}
-
-/* Este es el contenedor blanco centrado */
-.faq-container {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Estilos para el título y las preguntas */
-.faq-container h2 {
-  text-align: center;
-  padding: 20px;
-  border-bottom: 1px solid #eee;
-}
-
-details {
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
-}
-
-details:last-child {
-  border-bottom: none;
-}
-
-summary {
-  font-weight: bold;
-  cursor: pointer;
-  list-style: none; /* Oculta el marcador triangular */
-}
-
-summary::-webkit-details-marker { /* Oculta el marcador en Chrome/Safari */
-  display: none;
-}
-
-details[open] summary {
-  color: #007bff; /* Color de la pregunta cuando está abierta */
-}
-
-details p {
-  margin-top: 10px;
-  line-height: 1.5;
-  color: #333;
-}
 .juego-container {
   max-width: 900px;
   margin: 60px auto;
@@ -1684,12 +1634,63 @@ header {
 }
 
 .card img {
-  width: 140px;
-  height: 140px;
+  width: 400px;
+  height: 250px;
   object-fit: contain;
   border-radius: 15px;
 }
+.actividades-pendientes {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
 
+/* CARD */
+.actividad-card {
+  width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* IMAGEN */
+.actividad-img {
+  width: 80%;
+  max-width: 320px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  object-fit: contain;
+}
+
+/* NOMBRE */
+.actividad-nombre {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* BOTÓN */
+.actividad-btn {
+  display: inline-block;
+  background-color: #6d5dfc;
+  color: white !important;
+  padding: 10px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  transition: 0.2s ease-in-out;
+}
+
+.actividad-btn:hover {
+  background-color: #5748e5;
+  transform: scale(1.05);
+}
 .card h3 {
   margin: 10px 0;
   font-size: 1rem;
@@ -2064,20 +2065,46 @@ body {
 }
 
 .profile-card {
-  background-color: #fff;
+  max-width: 800px;
+  margin: 80px auto;
+  background: #fff;
+  padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-  padding: 40px 30px;
-  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   position: relative;
-  overflow: hidden;
-  margin: 40px auto; 
 }
 
 .profile-header {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;   /* ← los pone uno debajo del otro */
+  align-items: center;      /* ← centra todo */
+  gap: 15px;    
+}
+
+.profile-picture-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.edit-profile-btn {
+  background: #5f9df7;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+  background: #4a8be6;
 }
 
 * {
@@ -2723,18 +2750,20 @@ font-size: 150%;
   gap: 60px;
   flex-wrap: wrap;
 }
-
+.tarjeta-pictogramas{
+  margin: top 40px; ;
+}
 
 .tarjeta {
-  width: 160px;
-  height: 120px;
+  width: 500px;
+  height: 500px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  font-weight: 600;
+  font-size: larger;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   position: relative;
   transition: transform 0.2s ease;
@@ -2756,8 +2785,8 @@ font-size: 150%;
 
 
 .boton-play {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   background-color: white;
   border-radius: 50%;
   display: flex;
@@ -3568,7 +3597,85 @@ font-size: 150%;
 .social-icon:hover {
     transform: scale(1.1);
 }
+.container {
+  max-width: 900px;
+}
 
+.titulo-seccion {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+/* ================================
+ TARJETAS DEL DASHBOARD (Máx / Promedio / Días)
+================================ */
+.card-resumen {
+  border-radius: 18px;
+  padding: 15px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+  transition: 0.2s ease-in-out;
+}
+
+.card-resumen:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.card-resumen .card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-resumen .card-text {
+  font-size: 40px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* ================================
+ LISTADO DETALLADO POR DÍA
+================================ */
+.t_listado {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.list-group-item {
+  padding: 18px 22px;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #6c63ff;
+  transition: 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: #f3f2ff;
+}
+
+.fecha-detalle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.badge-tiempo {
+  font-size: 16px;
+  padding: 10px 16px;
+  background-color: #6c63ff!important;
+}
+
+/* ================================
+ SEPARADOR
+================================ */
+hr {
+  border: none;
+  height: 2px;
+  background: #dcdcdc;
+  margin: 40px 0;
+}
 .navbar-custom {
     width: 100%;
     background-color: #ffffff;

@@ -1,129 +1,159 @@
-@{
-    ViewData["Title"] = "Home";
-    if(ViewBag.usuario.tipoUsuario == "perteneciente"){
-    ViewData["mostrarHeaderLanding"] = false;
-    ViewData["mostrarHeaderTutor"] = false;
-    ViewData["mostrarHeaderPerteneciente"] = true;
-    } else{
-    ViewData["mostrarHeaderLanding"] = false;
-    ViewData["mostrarHeaderTutor"] = true;
-    ViewData["mostrarHeaderPerteneciente"] = false;
-    }
-}
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-<section class="imgTandem">
-    <img src="IMG/Tandem.png" alt="Tandem">
-</section>
-
-<section class="carousel-infinito">
-    <div class="carousel-track">
-        <img src="~/Imagenes/Carrusel1.png" alt="">
-        <img src="~/Imagenes/Carrusel2.png" alt="">
-        <img src="~/Imagenes/Carrusel3.png" alt="">
-        <img src="~/Imagenes/Carrusel4.png" alt="">
-        <!-- duplicamos para que parezca continuo -->
-        <img src="~/Imagenes/Carrusel1.png" alt="">
-        <img src="~/Imagenes/Carrusel2.png" alt="">
-        <img src="~/Imagenes/Carrusel3.png" alt="">
-        <img src="~/Imagenes/Carrusel4.png" alt="">
-    </div>
-</section>
-
-<div class="comenzarActividades">
-    <h2>Hola! bienvenido a Tándem, </h2>
-    <h2>¿Listo para descubrir una nueva actividad hoy?</h2>
-    <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Comenzar Actividad</a>
-</div>
-
-<div class="carousel-container">
-    <button class="carousel-btn prev">&#10094;</button>
-
-    <div class="carousel">
-        <div class="card">
-            <img src="~/Imagenes/descubre_El_Lugar.png" alt="Descubre el lugar">
-            <h3>DESCUBRE EL LUGAR</h3>
-            <a href="#" class="btn-continuar">Continuar</a>
-        </div>
-        <div class="card">
-            <img src="~/imagenes/opuesto.png" alt="Elige el opuesto">
-            <h3>ELIGE EL OPUESTO</h3>
-            <a href="#" class="btn-continuar">Continuar</a>
-        </div>
-        <div class="card">
-            <img src="~/imagenes/escucha.png" alt="Escucha y elige">
-            <h3>ESCUCHA Y ELIGE</h3>
-            <a href="#" class="btn-continuar">Continuar</a>
-        </div>
-    </div>
-
-    <button class="carousel-btn next">&#10095;</button>
-
-    <div class="carousel-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-</div>
-
-<script>
-    const carousel = document.querySelector('.carousel');
-    const dots = document.querySelectorAll('.dot');
-    const prev = document.querySelector('.prev');
-    const next = document.querySelector('.next');
-    let index = 0;
-
-    function updateCarousel() {
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[index].classList.add('active');
+    @{
+        ViewData["Title"] = "Home";
+        if(ViewBag.usuario.tipoUsuario == "perteneciente"){
+        ViewData["mostrarHeaderLanding"] = false;
+        ViewData["mostrarHeaderTutor"] = false;
+        ViewData["mostrarHeaderPerteneciente"] = true;
+        } else{
+        ViewData["mostrarHeaderLanding"] = false;
+        ViewData["mostrarHeaderTutor"] = true;
+        ViewData["mostrarHeaderPerteneciente"] = false;
+        }
     }
 
-    next.addEventListener('click', () => {
-        index = (index + 1) % dots.length;
-        updateCarousel();
-    });
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    prev.addEventListener('click', () => {
-        index = (index - 1 + dots.length) % dots.length;
-        updateCarousel();
-    });
-</script>
+    <section class="imgTandem">
+        <img src="IMG/Tandem.png" alt="Tandem">
+    </section>
 
-<div class="ir a Chats">
-    <h2>¿Ya hablaste con alguien hoy?</h2>
-    <img src="~/Content/Images/fotoChats.png" alt="Logo Tandem" class="nav-logo">
-    <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Habla Ahora</a>
-</div>
+    <section class="carousel-infinito">
+        <div class="carousel-track">
+            <img src="~/Imagenes/Carrusel1.png" alt="">
+            <img src="~/Imagenes/Carrusel2.png" alt="">
+            <img src="~/Imagenes/Carrusel3.png" alt="">
+            <img src="~/Imagenes/Carrusel4.png" alt="">
+            <!-- duplicamos para que parezca continuo -->
+            <img src="~/Imagenes/Carrusel1.png" alt="">
+            <img src="~/Imagenes/Carrusel2.png" alt="">
+            <img src="~/Imagenes/Carrusel3.png" alt="">
+            <img src="~/Imagenes/Carrusel4.png" alt="">
+        </div>
+    </section>
+    @if(ViewBag.tipoUsuario == "perteneciente")
+    {
 
-<div class="ActividadesPendientes">
-    <h2>Tareas Pendientes: </h2>
 
-    <div id="carouselExample" class="carousel slide">
-        <div class="carousel-inner">
-          @foreach(Actividades act in ViewBag.TareasPendientes )
-            {
-              <img src= "~/Imagenes/@(act.imagen).png" >
-              @act.nombre;
-              <a href='@Url.Action("JuegoOrdenarPictogramas", "Home", new {index = @act.progreso, continuar = true})' class="nav-btn">Jugar</a>
-            
+        <div class="comenzarActividades">
+            <h2>Hola! bienvenido a Tándem, </h2>
+            <h2>¿Listo para descubrir una nueva actividad hoy?</h2>
+            <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Comenzar Actividad</a>
+        </div>
+
+        <div class="carousel-container">
+            <button class="carousel-btn prev">&#10094;</button>
+
+            <div class="carousel">
+                <div class="card">
+                    <img src="~/Imagenes/descubre_El_Lugar.png" alt="Descubre el lugar">
+                    <h3>DESCUBRE EL LUGAR</h3>
+                    <a href="#" class="btn-continuar">Continuar</a>
+                </div>
+                <div class="card">
+                    <img src="~/imagenes/opuesto.png" alt="Elige el opuesto">
+                    <h3>ELIGE EL OPUESTO</h3>
+                    <a href="#" class="btn-continuar">Continuar</a>
+                </div>
+                <div class="card">
+                    <img src="~/imagenes/escucha.png" alt="Escucha y elige">
+                    <h3>ESCUCHA Y ELIGE</h3>
+                    <a href="#" class="btn-continuar">Continuar</a>
+                </div>
+            </div>
+
+            <button class="carousel-btn next">&#10095;</button>
+
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    }
+        <script>
+            const carousel = document.querySelector('.carousel');
+            const dots = document.querySelectorAll('.dot');
+            const prev = document.querySelector('.prev');
+            const next = document.querySelector('.next');
+            let index = 0;
+
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
             }
+
+            next.addEventListener('click', () => {
+                index = (index + 1) % dots.length;
+                updateCarousel();
+            });
+
+            prev.addEventListener('click', () => {
+                index = (index - 1 + dots.length) % dots.length;
+                updateCarousel();
+            });
+        </script>
+    @if(ViewBag.tipoUsuario == "perteneciente")
+    {
+        <div class="ir a Chats">
+            <h2>¿Ya hablaste con alguien hoy?</h2>
+            <img src="~/Content/Images/fotoChats.png" alt="Logo Tandem" class="nav-logo">
+            <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Habla Ahora</a>
         </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
+        <div class="actividades-pendientes">
+            <h2>Tareas Pendientes:</h2>
 
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                @if(ViewBag.TareasPendientes > 0)
+                {
+
+            
+                    @foreach (Actividades act in ViewBag.TareasPendientes)
+                    {
+                        <div class="carousel-item active">
+                            <div class="actividad-card">
+                                <img class="actividad-img" src="~/Imagenes/@(act.imagen).png" alt="imagen actividad">
+
+                                <div class="actividad-content">
+                                    <h3 class="actividad-nombre">@act.nombre</h3>
+
+                                    <a href='@Url.Action("JuegoOrdenarPictogramas", "Home", new { index = act.progreso, continuar = true })'
+                                    class="actividad-btn">
+                                        Jugar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                } else {<h2>No tienes actividades pendientes</h2>}
+                </div>
+            </div>
+        </div>
+    }
+        <div>
+            <div>
+       
+
+                    
+                    
+                    
+              
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+    <div class="Contactanos">
+        <h2>¿Estamos para ayudarte!!! </h2>
+        <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Contactanos</a>
     </div>
-</div>
-
-<div class="Contactanos">
-    <h2>¿Estamos para ayudarte!!! </h2>
-    <a href='@Url.Action("Actividades", "Home")' class="botonComenzarAct">Contactanos</a>
-</div>

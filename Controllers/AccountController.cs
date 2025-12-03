@@ -45,6 +45,7 @@ public class AccountController : Controller
         {
             string usuarioJson = Objeto.ObjectToString(UsuarioLogin);
             HttpContext.Session.SetString("Usuario", usuarioJson);
+            ViewBag.tipoUsuario = UsuarioLogin.tipoUsuario;
             return RedirectToAction("Home", "Home"); 
         }
 
@@ -70,6 +71,7 @@ public class AccountController : Controller
             {
                 string usuarioJson = Objeto.ObjectToString(user);
                 HttpContext.Session.SetString("Usuario", usuarioJson);
+                 ViewBag.tipoUsuario = user.tipoUsuario;
                 return RedirectToAction("Home", "Home"); 
             }
             else
