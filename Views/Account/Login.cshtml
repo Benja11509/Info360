@@ -23,7 +23,7 @@
             <h1>Iniciar Sesión</h1>
              @if( ViewBag.MensajeLogin  != null)
               {
-                <p>  @ViewBag.MensajeLogin  </p>
+                <p style="color: red;">  @ViewBag.MensajeLogin  </p>
               }
 
             <form method="post" action='@Url.Action("LogIn2", "Account")'>

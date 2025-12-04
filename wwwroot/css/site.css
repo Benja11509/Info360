@@ -3702,6 +3702,7 @@ hr {
 
 .nav-logo {
     height: 40px;
+    margin-right: 2%;
     width: auto;
 }
 
@@ -4092,6 +4093,7 @@ textarea {
 .nav-link:hover {
   color: #4077d6;
 }
+
 
 
 .bubble {
@@ -4958,14 +4960,14 @@ header {
 
 .t_grafica {
   font-size: 2rem;
-  color: #007bff; /* Color principal de acento */
+  color: #C9A7EB; /* Color principal de acento */
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
 
 .t_listado {
   font-size: 1.5rem;
-  color: #6c757d; /* Color secundario para el detalle */
+  color: #C9A7EB; /* Color secundario para el detalle */
 }
 
 /* 1. Estilos para las Tarjetas de Resumen (Métricas Clave) */
@@ -5008,7 +5010,7 @@ header {
 }
 
 .fecha-detalle {
-  color: #343a40;
+  color: #C9A7EB;
   font-size: 1.2rem;
 }
 
@@ -5051,7 +5053,7 @@ header {
 .listado-detalle-tiempo .list-group-item {
   font-size: 1.05rem;
   padding: 15px 20px;
-  border-color: #e9ecef !important; /* Separación sutil entre días */
+  border-color: #C9A7EB !important; /* Separación sutil entre días */
 }
 
 .fecha-detalle {
